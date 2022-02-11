@@ -282,6 +282,14 @@ class LandingPage extends React.Component {
             <LandingPageResponsiveWrapper>
                 <ThemeConstantsWrapper>
                     <LandingWidget className="whole-page">
+                            
+                        {/* Title Text & Background */}
+                        <LandingWidgetFirstPortion className="landing-widget-first-portion">
+                            <div className="landing-widget-first-portion-intro-text-block">
+                                <h1 id="landing-page-main-text">Frisco Hospitals</h1>
+                                <h2 id="landing-page-secondary-text">Find Ways You Can Contribute!</h2>
+                            </div>
+                        </LandingWidgetFirstPortion>
 
                         {/* Navigation Bar */}
                         <LandingWidgetNav className="landing-widget-nav">
@@ -294,14 +302,6 @@ class LandingPage extends React.Component {
                             <a>Sign In</a>
                             <LandingWidgetNavSpacer/>
                         </LandingWidgetNav>
-                            
-                        {/* Title Text & Background */}
-                        <LandingWidgetFirstPortion className="landing-widget-first-portion">
-                            <div className="landing-widget-first-portion-intro-text-block">
-                                <h1 id="landing-page-main-text">Frisco Hospitals</h1>
-                                <h2 id="landing-page-secondary-text">Find Ways You Can Contribute!</h2>
-                            </div>
-                        </LandingWidgetFirstPortion>
 
                         {/* Our Mission Container */}
                         <LandingWidgetOurMissionPortion>
