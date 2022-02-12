@@ -10,6 +10,7 @@ import OurMissionTile from "../widgets/OurMissionTile";
 import ProjectSection from "../widgets/ProjectSection";
 
 import '../css/LandingPage.css';
+import { NavLink } from "react-router-dom";
 
 /*
     LandingPage.js File Contents:
@@ -299,7 +300,11 @@ class LandingPage extends React.Component {
                             <LandingWidgetNavSpacer/>
                             <a>Give</a>
                             <LandingWidgetNavSpacer/>
-                            <a>Sign In</a>
+                            <NavLink
+                                to={'/test_page'}
+                            >
+                                Sign In
+                            </NavLink>
                             <LandingWidgetNavSpacer/>
                         </LandingWidgetNav>
 
