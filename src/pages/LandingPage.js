@@ -9,8 +9,12 @@ import { AspectConstants, ResponsiveConstants } from "../global/ResponsiveConsta
 import OurMissionTile from "../widgets/OurMissionTile";
 import ProjectSection from "../widgets/ProjectSection";
 
+// firebase handler import
+import handleUserSignIn from "../firebase/FireBaseInstance";
+
+
 import '../css/LandingPage.css';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 /*
     LandingPage.js File Contents:
@@ -272,10 +276,32 @@ const FooterLandingPagePortion = styled.div`
 
 
 
+// This acts as a navigation wrapper to pass into LandingPageMain, the actual page
+// TODO: maybe find out a way to make this into a provider?
+function LandingPage() {
+    let navigate = useNavigate();
 
-class LandingPage extends React.Component {
+    function navigateToSignIn() {
+        navigate('/sign_in');
+    }
+
+    return <LandingPageMain navigate={navigate}/>;
+}
+
+
+class LandingPageMain extends React.Component {
     constructor(props) {
         super(props);
+
+        this.navigate = props.navigate;
+
+        console.log(this.navigate);
+
+        this.handleSignIn = this.handleSignIn.bind(this);
+    }
+
+    handleSignIn() {
+        this.navigate('/sign_in');
     }
 
     render() {
@@ -300,11 +326,7 @@ class LandingPage extends React.Component {
                             <LandingWidgetNavSpacer/>
                             <a>Give</a>
                             <LandingWidgetNavSpacer/>
-                            <NavLink
-                                to={'/test_page'}
-                            >
-                                Sign In
-                            </NavLink>
+                            <a onClick={this.handleSignIn}>Sign In</a>
                             <LandingWidgetNavSpacer/>
                         </LandingWidgetNav>
 

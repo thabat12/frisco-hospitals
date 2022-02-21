@@ -1,7 +1,7 @@
 import {initializeApp} from 'firebase/app';
 import {getAnalytics} from 'firebase/analytics';
-import {doc, collection, addDoc, getDocs, getFirestore} from 'firebase/firestore';
-import {getAuth, signInWithPopup, GoogleAuthProvider, signInWithRedirect, getRedirectResult} from 'firebase/auth';
+import {doc, collection, setDoc, getDocs, getFirestore, Timestamp} from 'firebase/firestore';
+import {getAuth, signInWithPopup, GoogleAuthProvider, signInWithRedirect, getRedirectResult, onAuthStateChanged} from 'firebase/auth';
 
 const firebaseConfig = {
     apiKey: "AIzaSyDTGOsZ4zjQGDLwJtRvPloDTcAAtKL5MZ8",
@@ -16,70 +16,43 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore();
-
 const provider = new GoogleAuthProvider();
+var auth = getAuth();
 
-
-function something() {
-
+export default async function handleUserSignIn() {
+    if (isUserSignedIn()) {
+        console.log('user is signed in');
+    } else {
+        // we will push the user into a new page specifically meant for signing in 
+        console.log('user is not signed in');
+        signInRedirect();
+    }
 }
 
-export default async function signInGooglePopup() {
-    let something = doc(db, 'users/test');
-
-    const provider = new GoogleAuthProvider();
-    const auth = getAuth();
-    auth.languageCode = 'it';
-
-    let user = signInWithPopup(auth, provider)
-        .then(
-            (result) => {
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
-
-                const user = result.user;
-
-                return user;
+export function isUserSignedIn() {
+    // this is a listener that will trigger when login redirection finishes
+    onAuthStateChanged(
+        auth, (user) => {
+            if (user) {
+                return true;
+            } else {
+                return false;
             }
-        ). catch(
-            (error) => {
-                console.log('error occured');
-                const errCode = error.code;
-                const errMessage = error.message;
-                const email = error.email;
-                const credential = GoogleAuthProvider.credentialFromError(error);
-
-                return '';
-            }
-        );
-
-    await user;
-    console.log('this is user');
+        }
+    )
 }
 
-export function signInGoogleRedirect() {
-    const provider = new GoogleAuthProvider();
-    const auth = getAuth();
-    signInWithRedirect(auth, provider);
+export function signInRedirect() {
 
-    getRedirectResult(auth)
+    signInWithRedirect(auth, provider)
         .then(
-            (result) => {
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
-
-                const user = result.user;
+            (user) => {
+                console.log(user);
             }
         ).catch(
             (error) => {
-                const errCode = error.code;
-                const errMessage = error.message;
-                const email = error.email;
-                const credential = GoogleAuthProvider.credentialFromResult(error);
+                console.log(error);
             }
         )
-}
 
-export function saySomething() {
-    console.log('i am gonna say something');
 }
