@@ -10,7 +10,7 @@ import OurMissionTile from "../widgets/OurMissionTile";
 import ProjectSection from "../widgets/ProjectSection";
 
 // firebase handler import
-import handleUserSignIn from "../firebase/FireBaseInstance";
+import { getUser } from "../firebase/FireBaseInstance";
 
 
 import '../css/LandingPage.css';
@@ -292,16 +292,19 @@ function LandingPage() {
 class LandingPageMain extends React.Component {
     constructor(props) {
         super(props);
-
         this.navigate = props.navigate;
-
-        console.log(this.navigate);
-
         this.handleSignIn = this.handleSignIn.bind(this);
     }
 
     handleSignIn() {
-        this.navigate('/sign_in');
+
+        let curUser = getUser();
+
+        if (curUser) {
+            this.navigate('/dashboard/uid=' + curUser.uid);
+        } else {
+            this.navigate('/sign_in');
+        }
     }
 
     render() {

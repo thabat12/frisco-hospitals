@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import { AspectConstants } from "../global/ResponsiveConstants";
 
-import handleUserSignIn from "../firebase/FireBaseInstance";
+import handleUserSignIn, { getUser } from "../firebase/FireBaseInstance";
 
 
 const SignInPageResponsiveWrapper = styled.div`
@@ -130,11 +130,19 @@ class SignInPage extends React.Component {
         super(props);
 
         this.handleUserSignInWithRedirect = this.handleUserSignInWithRedirect.bind(this);
+        this.doSomething = this.doSomething.bind(this);
     }
 
     handleUserSignInWithRedirect() {
         handleUserSignIn();
     }
+
+    doSomething() {
+        console.log('clicked me');
+        getUser();
+    }
+
+
 
 
     render() {
@@ -143,6 +151,7 @@ class SignInPage extends React.Component {
                 <WholePage className="whole-page">
                     <WelcomeBanner>
                         <h1>Welcome to FHN!</h1>
+                        <a>{this.userSignedIn}</a>
                         <h3>very basic sign in screen, this is where we will prompt the user to sign in</h3>
                     </WelcomeBanner>
 
@@ -152,7 +161,7 @@ class SignInPage extends React.Component {
                             <a>Sign in with Google</a>
                         </SignInTile>
 
-                        <SignInTile className="sign-in-tile">
+                        <SignInTile className="sign-in-tile" onClick={this.doSomething}>
                             <a>Sign in as Guest</a>
                         </SignInTile>
                     </SignInOptionsContainer>
