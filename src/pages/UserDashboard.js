@@ -4,6 +4,13 @@ import { AspectConstants } from "../global/ResponsiveConstants";
 
 import { signOutUser } from "../firebase/FireBaseInstance";
 import ThemeConstants from "../global/ThemeConstants";
+import DashboardTab from "../tabs/DashboardTab";
+import VolunteerTab from "../tabs/VonunteerTab";
+import CommunityTab from "../tabs/CommunityTab";
+import GiveTab from "../tabs/GiveTab";
+
+// PAGE CONSTANTS
+const sidebarWidthPercentage = 35;
 
 
 
@@ -70,6 +77,27 @@ const UserDashboardResponsiveWrapper = styled.div`
     }
 `;
 
+/*
+
+    UI/UX Idea: there are "navigation tabs"
+        on the left side of the screen, and the 
+        user will be able to go through different
+        tabs and options by clicking through
+
+        (for responsiveness on mobile, it will be
+            a side drawer thing but also there will be
+            option tiles on the main dashboard)
+
+    There are a couple important classes for handling
+    app states/ animations:
+
+        ".collpse-sidebar"
+                full screen layout vs not
+
+          
+    (idk what im doing)
+*/
+
 const WholePage = styled.div`
     position: relative;
     display: flex;
@@ -78,11 +106,13 @@ const WholePage = styled.div`
     height: 100vh;
 
     /* Animation keyframes will be here (for now) */
-
+    
+    // Entire sidebar
     @keyframes collapse-sidebar-anim {
-        0% {width: 30%}
+        0% {width: ${sidebarWidthPercentage}%}
         100% {width: 0%}
     }
+    
 
     .collapse-sidebar {
         animation-name: collapse-sidebar-anim;
@@ -90,6 +120,22 @@ const WholePage = styled.div`
 
         width: 0px;
     }
+
+
+    // Sidebar contents
+    @keyframes select-tab-anim {
+        0% {margin-left: 0}
+        100% {margin-left:100px}
+    }
+
+    .select-tab {
+        animation-name: select-tab-anim;
+        animation-duration: 1s;
+        margin-left: 100px;
+    }
+
+
+
 `;
 
 const toggleSidebarAnimation = keyframes`
@@ -99,13 +145,16 @@ const toggleSidebarAnimation = keyframes`
 
 const SideBar = styled.div`
     position: relative;
-    width: 30%;
+    width: ${sidebarWidthPercentage}%;
     background-color: ${ThemeConstants.primaryAccentRed};
     transition: 1s;
     display: flex;
     flex-direction: column;
+    padding-left: 2%;
+    padding-right: 25px;
 `;
 
+// contains h3 and a
 const SideBarContents = styled.div`
     position: relative;
     display: flex;
@@ -113,6 +162,18 @@ const SideBarContents = styled.div`
     flex-direction: column;
     align-items: center;
     color: white;
+
+    .action-btn {
+        font-size: 1em;
+        cursor: default;
+        position: relative;
+        transition: 0.2s linear;
+        left: 0px;
+    }
+
+    .action-btn:hover {
+        left: 20px;
+    }
 `;
 
 const LogoSnack = styled.div`
@@ -132,6 +193,37 @@ const SideBarBody = styled.div`
     width: 100%;
     font-size: 30px;
     font-weight: bold;
+    align-items: center;
+
+`;
+
+/*
+    container holds a list of a-links that are going to be the tabs
+    each tab will have this format:
+        #<tab name>-tab
+*/
+
+const TabOptionsContainer = styled.div`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 35%;
+    width: 100%;
+
+    #dashboard-tab {
+        position: relative;
+        transition: 0.2s linear;
+        left: 0px;
+    }
+
+    #dashboard-tab:hover {
+        left: 20px;
+    }
+`;
+
+const OptionRelativeContainer = styled.div`
+    position: relative;
 `;
 
 const MainDashboard = styled.div`
@@ -139,12 +231,7 @@ const MainDashboard = styled.div`
     display: flex;
     flex-direction: column;
     padding: 15px;
-`;
-
-const GreetingsCookie = styled.div`
-    position: relative;
-    display: flex;
-    flex-direction: column;
+    width: 100%;
 `;
 
 
@@ -164,14 +251,84 @@ class UserDashboard extends React.Component {
     constructor(props) {
         super(props);
 
+        this.selected = [
+            1, // Dashboard
+            0, // Community
+            0, // Volunteer
+            0  // Give
+        ];
+
+        // collpse and expand the sidebar
+        this.sideBarRef = React.createRef();
+
         this.signOutUserInDashboard = this.signOutUserInDashboard.bind(this);
+        this.navigateToCommunity = this.navigateToCommunity.bind(this);
+        this.navigateToVolunteer = this.navigateToVolunteer.bind(this);
+        this.navigateToDashboard = this.navigateToDashboard.bind(this);
+        this.navigateToGive = this.navigateToGive.bind(this);
     }
 
     signOutUserInDashboard() {
         signOutUser();
     }
 
+    // State cycles
+    shouldComponentUpdate() {
+        console.log('passing through "should component update"');
+    }
+
+
+
+    // Dashboard navigation to all the other tabs
+    navigateToDashboard() {
+        this.selected.fill(0);
+        this.selected[0] = 1;
+
+        // using force update because i am not really keeping
+        // track of any state variables or anything
+        this.forceUpdate();
+    }
+
+    navigateToCommunity() {
+        this.selected.fill(0);
+        this.selected[1] = 1;
+        this.forceUpdate();
+    }
+
+    navigateToVolunteer() {
+        this.selected.fill(0);
+        this.selected[2] = 1;
+        this.forceUpdate();
+    }
+
+    navigateToGive() {
+        this.selected.fill(0);
+        this.selected[3] = 1;
+        this.forceUpdate();
+    }
+
     render() {
+
+        let CurTab = <a>this is nothing for now</a>
+
+        let curTabIndex = this.selected.indexOf(1);
+        console.log(curTabIndex);
+        switch (curTabIndex) {
+            case 0:
+                CurTab = <DashboardTab/>;
+                break;
+            case 1: 
+                CurTab = <CommunityTab/>;
+                break;
+            case 2:
+                CurTab = <VolunteerTab/>;
+                break;
+            case 3: 
+                CurTab = <GiveTab/>;
+                break;
+        }
+
+
         return (
             <UserDashboardResponsiveWrapper>
                 <WholePage className="whole-page">
@@ -179,13 +336,17 @@ class UserDashboard extends React.Component {
                     <SideBar>
                         <SideBarContents>
                             <LogoSnack>
-                                <h3>The Frisco Hospital Network</h3>
+                                <h3>FHN</h3>
                             </LogoSnack>
                             <SideBarBody>
-                                <a>Dashboard</a>
-                                <a>Community</a>
-                                <a>Volunteer</a>
-                                <a>Give</a>
+
+                                <TabOptionsContainer>
+                                    <a id="dashboard-tab" className="action-btn" onClick={this.navigateToDashboard}>Dashboard</a>
+                                    <a id="community-tab" className="action-btn" onClick={this.navigateToCommunity}>Community</a>
+                                    <a id="volunteer-tab" className="action-btn" onClick={this.navigateToVolunteer}>Volunteer</a>
+                                    <a id="give-tab" className="action-btn" onClick={this.navigateToGive}>Give</a>
+                                </TabOptionsContainer>
+
                             </SideBarBody>
                             
                             <a>Profile</a>
@@ -193,11 +354,8 @@ class UserDashboard extends React.Component {
                     </SideBar>
 
                     <MainDashboard>
-                        <GreetingsCookie>
-                            <h2>Hello [Name]!</h2>
-                            <h3>Here are some of the ways you can help your community.</h3>
-                        </GreetingsCookie>
 
+                        {CurTab}
                         
                         
                     </MainDashboard>
