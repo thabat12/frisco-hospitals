@@ -10,7 +10,7 @@ import OurMissionTile from "../widgets/OurMissionTile";
 import ProjectSection from "../widgets/ProjectSection";
 
 // firebase handler import
-import { getUser } from "../firebase/FireBaseInstance";
+import { getUser, isUserLoggedIn } from "../firebase/FireBaseInstance";
 
 
 import '../css/LandingPage.css';
@@ -298,6 +298,7 @@ class LandingPageMain extends React.Component {
 
     handleSignIn() {
 
+        
         let curUser = getUser();
 
         if (curUser) {

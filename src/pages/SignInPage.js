@@ -2,9 +2,13 @@ import React from "react";
 
 import styled from "styled-components";
 
+import { getRedirectResult, onAuthStateChanged } from "firebase/auth";
+import { giveMeAuth, isUserLoggedIn } from "../firebase/FireBaseInstance";
+
 import { AspectConstants } from "../global/ResponsiveConstants";
 
 import handleUserSignIn, { getUser } from "../firebase/FireBaseInstance";
+import { useNavigate } from "react-router-dom";
 
 
 const SignInPageResponsiveWrapper = styled.div`
@@ -123,18 +127,44 @@ const SignInTile = styled.div`
 `;
 
 
+function SignInPage() {
+    const navigation = useNavigate();
 
+    return <SignInPageMain navigate= {navigation}/>;
+}
 
-class SignInPage extends React.Component {
+class SignInPageMain extends React.Component {
     constructor(props) {
         super(props);
-
+        this.navigate = props.navigate;
         this.handleUserSignInWithRedirect = this.handleUserSignInWithRedirect.bind(this);
         this.doSomething = this.doSomething.bind(this);
     }
 
+    componentDidMount() {
+
+        // i have no idea how to do this properly but for now this works
+        let checkUser = setInterval(
+            () => {
+                let user = getUser();
+                console.log(user);
+
+
+                if (user === null) {
+                    console.log('there is no user here');
+                    clearInterval(checkUser);
+                } else {
+                    this.navigate('/dashboard/uid=' + user.uid);
+                    clearInterval(checkUser);
+                }
+            }, 1000
+        );
+    }
+
     handleUserSignInWithRedirect() {
         handleUserSignIn();
+
+        let auth = giveMeAuth();
     }
 
     doSomething() {
@@ -143,9 +173,19 @@ class SignInPage extends React.Component {
     }
 
 
+/*
+    So firebase is deciding to be annoying so i am going to do this
+    my own way and taking advantage of the page behaviors so ya here
+    we go
 
+*/
 
     render() {
+
+        
+
+
+
         return (
             <SignInPageResponsiveWrapper>
                 <WholePage className="whole-page">
@@ -162,7 +202,7 @@ class SignInPage extends React.Component {
                         </SignInTile>
 
                         <SignInTile className="sign-in-tile" onClick={this.doSomething}>
-                            <a>Sign in as Guest</a>
+                            <a>Sign in as Guest{this.user}</a>
                         </SignInTile>
                     </SignInOptionsContainer>
 

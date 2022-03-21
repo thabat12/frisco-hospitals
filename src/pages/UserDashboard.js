@@ -2,7 +2,7 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { AspectConstants } from "../global/ResponsiveConstants";
 
-import { signOutUser } from "../firebase/FireBaseInstance";
+import { getUser, signOutUser } from "../firebase/FireBaseInstance";
 import ThemeConstants from "../global/ThemeConstants";
 import DashboardTab from "../tabs/DashboardTab";
 import VolunteerTab from "../tabs/VonunteerTab";
@@ -164,15 +164,15 @@ const SideBarContents = styled.div`
     color: white;
 
     .action-btn {
-        font-size: 1em;
+        font-size: 0.9em;
         cursor: default;
         position: relative;
         transition: 0.2s linear;
-        left: 0px;
+        padding-left: 0px;
     }
 
     .action-btn:hover {
-        left: 20px;
+        padding-left: 15px;
     }
 `;
 
@@ -210,16 +210,6 @@ const TabOptionsContainer = styled.div`
     justify-content: space-evenly;
     height: 35%;
     width: 100%;
-
-    #dashboard-tab {
-        position: relative;
-        transition: 0.2s linear;
-        left: 0px;
-    }
-
-    #dashboard-tab:hover {
-        left: 20px;
-    }
 `;
 
 const OptionRelativeContainer = styled.div`
@@ -258,6 +248,8 @@ class UserDashboard extends React.Component {
             0  // Give
         ];
 
+        this.curUser = getUser();
+
         // collpse and expand the sidebar
         this.sideBarRef = React.createRef();
 
@@ -270,6 +262,7 @@ class UserDashboard extends React.Component {
 
     signOutUserInDashboard() {
         signOutUser();
+        window.location = '/';
     }
 
     // State cycles
@@ -315,7 +308,7 @@ class UserDashboard extends React.Component {
         console.log(curTabIndex);
         switch (curTabIndex) {
             case 0:
-                CurTab = <DashboardTab/>;
+                CurTab = <DashboardTab curUser={this.curUser}/>;
                 break;
             case 1: 
                 CurTab = <CommunityTab/>;
@@ -349,7 +342,7 @@ class UserDashboard extends React.Component {
 
                             </SideBarBody>
                             
-                            <a>Profile</a>
+                            <a onClick={this.signOutUserInDashboard}>Profile</a>
                         </SideBarContents>
                     </SideBar>
 

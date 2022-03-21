@@ -1,7 +1,8 @@
 import {initializeApp} from 'firebase/app';
 import {getAnalytics} from 'firebase/analytics';
-import {doc, collection, setDoc, getDocs, getFirestore, Timestamp} from 'firebase/firestore';
+import {doc, collection, setDoc, getDocs, getFirestore, Timestamp, DocumentReference, addDoc, CollectionReference} from 'firebase/firestore';
 import {getAuth, setPersistence, signInWithPopup, GoogleAuthProvider, signInWithRedirect, getRedirectResult, onAuthStateChanged, inMemoryPersistence, signOut} from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 const firebaseConfig = {
     apiKey: "AIzaSyDTGOsZ4zjQGDLwJtRvPloDTcAAtKL5MZ8",
@@ -15,10 +16,9 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const db = getFirestore();
+const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 var auth = getAuth();
-
 
 
 // this function is going to be accessed by all other methods in the project
@@ -26,10 +26,25 @@ export function getUser() {
     return auth.currentUser;
 }
 
+export async function isUserLoggedIn() {
+    onAuthStateChanged(user => {
+        if (user) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+}
+
+export function giveMeAuth() {
+    return auth;
+}
+
 export default async function handleUserSignIn() {
+    console.log('why am i executing');
     // just check if there is a current user on, and if there is then do nothing
     if (auth.currentUser) {
-        console.log('user is signed in');
+        console.log('user is already signed in');
     } else {
         // we will push the user into a new page specifically meant for signing in 
         signInWithAuthStatePersistence();
@@ -56,7 +71,7 @@ export function signInWithAuthStatePersistence() {
     setPersistence(auth, inMemoryPersistence)
         .then(
             () => {
-                return signInRedirect();
+                signInRedirect();
             }
         ).catch(
             (err) => {
@@ -66,17 +81,14 @@ export function signInWithAuthStatePersistence() {
 }
 
 
-
-export function signInRedirect() {
-
-    signInWithRedirect(auth, provider)
+export async function signInRedirect() {
+    // provider sign in flow back into the app
+    signInWithRedirect(auth, provider);
+    // redirect the result with this
+    getRedirectResult(auth)
         .then(
-            (user) => {
-                console.log(user);
-            }
-        ).catch(
-            (error) => {
-                console.log(error);
+            result => {
+                console.log('so now what')
             }
         )
 }
@@ -89,5 +101,18 @@ export async function signOutUser() {
     })
 }
 
+export async function writeUserCommitmentData() {
 
+    // let something = new DocumentReference("users/test");
+    let otherthing = new CollectionReference('users');
+    // let hi = doc(otherthing, 'test');
+    console.log(db);
 
+    let h = collection(db, 'users');
+
+    const docRef = await addDoc(
+        collection(db, 'users'), {
+            hi: 'hi'
+        }
+    );
+}
