@@ -133,9 +133,6 @@ const WholePage = styled.div`
         animation-duration: 1s;
         margin-left: 100px;
     }
-
-
-
 `;
 
 const toggleSidebarAnimation = keyframes`
@@ -174,6 +171,25 @@ const SideBarContents = styled.div`
     .action-btn:hover {
         padding-left: 15px;
     }
+
+    .sidebar-footer {
+        transition: 0.2s linear;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        padding: 10px;
+        border: 1px;
+        border-color: white;
+        border-style: solid;
+        border-radius: 5px;
+    }
+
+
+    .sidebar-footer:hover {
+        transition: 0.5s linear;
+        box-shadow: rgba(100, 100, 111, 0.5) 0px 7px 29px 0px;
+        transform: scale(1.03);
+        backface-visibility: hidden;
+        cursor: pointer;
+    }
 `;
 
 const LogoSnack = styled.div`
@@ -194,7 +210,17 @@ const SideBarBody = styled.div`
     font-size: 30px;
     font-weight: bold;
     align-items: center;
+    padding-bottom: 15px;
 
+`;
+
+const SideBarFooter = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10%;
+
+    font-size: 20px;
 `;
 
 /*
@@ -220,8 +246,11 @@ const MainDashboard = styled.div`
     position: relative;
     display: flex;
     flex-direction: column;
-    padding: 15px;
     width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    
 `;
 
 
@@ -300,6 +329,10 @@ class UserDashboard extends React.Component {
         this.forceUpdate();
     }
 
+    navigateToProfile() {
+        console.log('navigating to profile');
+    }
+
     render() {
 
         let CurTab = <a>this is nothing for now</a>
@@ -342,7 +375,10 @@ class UserDashboard extends React.Component {
 
                             </SideBarBody>
                             
-                            <a onClick={this.signOutUserInDashboard}>Profile</a>
+
+                            <SideBarFooter className="sidebar-footer">
+                                <a onClick={this.navigateToProfile}>Profile</a>
+                            </SideBarFooter>
                         </SideBarContents>
                     </SideBar>
 

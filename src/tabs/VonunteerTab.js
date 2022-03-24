@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { CurrentOpportunitiesTileReplacement, MoreUpdatesTileReplacement } from "../widgets/dashboard/VolunteerWidgets";
 
 const MainContentWrapper = styled.div`
     display: relative;
-    background-color: white;
     height: 100%;
     width: 100%;
 `;
@@ -12,6 +12,23 @@ const GreetingsCookie = styled.div`
     position: relative;
     display: flex;
     flex-direction: column;
+`;
+
+const DashboardContainer = styled.div`
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+`;
+
+const DashboardContainerContents = styled.div`
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
 `;
 
 
@@ -36,6 +53,18 @@ class VolunteerTab extends React.Component {
                 <div>
                     <p>this is the volunteer tab</p>
                 </div>
+
+                <DashboardContainer>
+
+                    <DashboardContainerContents>
+                        <CurrentOpportunitiesTileReplacement/>
+                    </DashboardContainerContents>
+
+                    <DashboardContainerContents>
+                        <MoreUpdatesTileReplacement/>
+                    </DashboardContainerContents>
+
+                </DashboardContainer>
             </MainContentWrapper>
 
         );

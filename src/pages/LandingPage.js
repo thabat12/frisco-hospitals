@@ -318,7 +318,7 @@ class LandingPageMain extends React.Component {
                         <LandingWidgetFirstPortion className="landing-widget-first-portion">
                             <div className="landing-widget-first-portion-intro-text-block">
                                 <h1 id="landing-page-main-text">Frisco Hospitals</h1>
-                                <h2 id="landing-page-secondary-text">Find Ways You Can Contribute!</h2>
+                                <h2 id="landing-page-secondary-text">A Farzaan Abhinav</h2>
                             </div>
                         </LandingWidgetFirstPortion>
 

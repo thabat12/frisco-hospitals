@@ -1,7 +1,9 @@
 import {initializeApp} from 'firebase/app';
 import {getAnalytics} from 'firebase/analytics';
-import {doc, collection, setDoc, getDocs, getFirestore, Timestamp, DocumentReference, addDoc, CollectionReference} from 'firebase/firestore';
-import {getAuth, setPersistence, signInWithPopup, GoogleAuthProvider, signInWithRedirect, getRedirectResult, onAuthStateChanged, inMemoryPersistence, signOut} from 'firebase/auth';
+import {doc, collection, setDoc, getDocs, getFirestore, Timestamp, DocumentReference, 
+    addDoc, CollectionReference, collectionGroup, query, where, getDoc, updateDoc} from 'firebase/firestore';
+import {getAuth, setPersistence, signInWithPopup, GoogleAuthProvider, signInWithRedirect, 
+    getRedirectResult, onAuthStateChanged, inMemoryPersistence, signOut} from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
 const firebaseConfig = {
@@ -84,11 +86,19 @@ export function signInWithAuthStatePersistence() {
 export async function signInRedirect() {
     // provider sign in flow back into the app
     signInWithRedirect(auth, provider);
-    // redirect the result with this
+    /*
+        All the doc refs will be defined here and initiated with collections
+    */
     getRedirectResult(auth)
         .then(
             result => {
-                console.log('so now what')
+                if (auth.currentUser.metadata.creationTime === auth.currentUser.metadata.lastSignInTime) {
+                    writeNewDocument('user/'+auth.currentUser.uid+'/activity', {'joined': auth.currentUser.metadata.creationTime});
+                }
+
+                window.location = '/'
+                overwriteDocumentData('users/' + auth.currentUser.uid + '/activity/joined', {date: auth.currentUser.metadata.creationTime})
+                console.log('this happened')
             }
         )
 }
@@ -108,11 +118,86 @@ export async function writeUserCommitmentData() {
     // let hi = doc(otherthing, 'test');
     console.log(db);
 
-    let h = collection(db, 'users');
+    console.log(auth.currentUser.metadata.lastSignInTime == auth.currentUser.metadata.creationTime);
 
-    const docRef = await addDoc(
-        collection(db, 'users'), {
-            hi: 'hi'
+    const docRef = await setDoc(
+        doc(db, 'users', auth.currentUser.uid), {
+            newlogin: 'pneis'
         }
     );
+}
+
+// reading all the suggested items for the dashboard menu
+export async function readSuggestedData(path) {
+
+    const suggestedRef = collection(db, 'dashboard/suggested/suggested')
+
+    
+
+    const suggestedData = query(suggestedRef);
+    const suggestedSnapshot = await getDocs(suggestedData);
+
+
+    let result = []
+
+
+    suggestedSnapshot.forEach(
+        (doc) => {
+
+            const file = doc.data();
+
+            result.push(file);
+        }
+    );
+
+    console.log('reading all the data');
+
+    return result;
+}
+
+/*
+    these are the main functions for manipulating the document data using firebase
+*/
+
+export async function readCommitmentData() {
+    const commitmentRef = collection(db, `users/${auth.currentUser.uid}/commitments`);
+
+}
+
+export async function writeNewDocument(path, data) {
+
+    const docRef = await setDoc(
+        doc(db, 'users', auth.currentUser.uid, 'commitments', 'one'), data
+    );
+
+    return docRef;
+}
+
+// this is for a single document
+export async function readDocumentData(path) {
+    const documentRef = doc(db, path);
+    const docSnap = await getDoc(documentRef);
+    console.log(path);
+
+    if (docSnap.exists()) {
+        console.log(docSnap.data());
+        return docSnap.data();
+
+    } else {
+        console.log('document does not exist and something went wrong');
+        return null;
+    }
+}
+
+export async function overwriteDocumentData(path, data) {
+    const documentRef = doc(db, path);
+
+    const docSnap = await updateDoc(documentRef, data);
+
+    if (docSnap.exists()) {
+        return docSnap;
+    } else {
+        console.log('overwriting error has occured');
+        return null;
+    }
 }

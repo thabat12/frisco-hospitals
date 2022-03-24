@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { DonateQueryReplacement, DonationPagesReplacement, RequestedItemListReplacement } from "../widgets/dashboard/GiveWidgets";
 
 const MainContentWrapper = styled.div`
     display: relative;
@@ -14,6 +15,22 @@ const GreetingsCookie = styled.div`
     flex-direction: column;
 `;
 
+const DashboardContainer = styled.div`
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+`;
+
+const DashboardContainerContents = styled.div`
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+`;
 
 /*
     Dashboard Tab: exists to show reccomendations, things that you could do
@@ -36,6 +53,17 @@ class GiveTab extends React.Component {
                 <div>
                     <p>this is the give tab</p>
                 </div>
+
+                <DashboardContainer>
+                    <DashboardContainerContents>
+                        <RequestedItemListReplacement/>
+                    </DashboardContainerContents>
+
+                    <DashboardContainerContents>
+                        <DonationPagesReplacement/>
+                        <DonateQueryReplacement/>
+                    </DashboardContainerContents>
+                </DashboardContainer>
             </MainContentWrapper>
 
         );

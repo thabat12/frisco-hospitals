@@ -161,8 +161,14 @@ class SignInPageMain extends React.Component {
         );
     }
 
-    handleUserSignInWithRedirect() {
-        handleUserSignIn();
+    async handleUserSignInWithRedirect() {
+        handleUserSignIn().then(
+            () => {
+                const user = getUser();
+                console.log('yes this is going to check asynchronously now');
+                this.navigate('/dashboard/uid=' + user.uid);
+            }
+        )
 
         let auth = giveMeAuth();
     }

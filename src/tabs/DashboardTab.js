@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-import {writeUserCommitmentData} from '../firebase/FireBaseInstance.js';
+import {readSuggestedData, writeUserCommitmentData} from '../firebase/FireBaseInstance.js';
+
+import { ActivityTileReplacement, ContactUsTileReplacement, MyCommitementsTileReplacement, Suggested, SuggestedTileReplacement } from "../widgets/dashboard/DashboardWidgets.js";
 
 const MainContentWrapper = styled.div`
     display: relative;
-    background-color: white;
     height: 100%;
     width: 100%;
 `;
@@ -14,6 +15,8 @@ const GreetingsCookie = styled.div`
     position: relative;
     display: flex;
     flex-direction: column;
+
+    margin-bottom: 20px;
     
     #dashboard-welcome {
         padding-left: 2%;
@@ -33,10 +36,23 @@ const MainContent = styled.div`
 
 `;
 
-const MyProfile = styled.div`
+const DashboardContainer = styled.div`
+    height: 100vh;
+    overflow: auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
 
-    
+`;
 
+const DashboardContainerContents = styled.div`
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `;
 
 
@@ -56,11 +72,26 @@ class DashboardTab extends React.Component {
         this.currentUser = props.curUser;
 
         this.writeUserData = this.writeUserData.bind(this);
+        this.constructValues = this.constructValues.bind(this);
     }
 
     writeUserData() {
         console.log('writing some data');
         writeUserCommitmentData();
+    }
+
+    constructValues() {
+        this.readUserData().then(
+            (result) => {
+                console.log(result);
+            }
+        )
+    }
+
+
+    async readUserData() {
+        let res = await readSuggestedData();
+        return res;
     }
 
     render() {
@@ -70,9 +101,33 @@ class DashboardTab extends React.Component {
                 <MainContent>
                     <GreetingsCookie>
                         <h3 id="dashboard-welcome">Hello, {this.currentUser.displayName}</h3>
-                        <p className="subtitle">Welcome to FHN. Find some ways you can get involved with your community!</p>
-                        <a onClick={this.writeUserData}>write some data here</a>
+                        <p className="subtitle">Welcome to FHN. Find some ways you can get involved with your community. Explore through the pages and participate in our projects!</p>
                     </GreetingsCookie>
+
+                    {/* 
+                        Dashboard tab contains div box that can be vertical or horizontal, and inside that div
+                        there is going to be another div that is always vertical and inside of that is whatever 
+                        you would need to update/ display
+                    
+                    */}
+
+                    <DashboardContainer>
+
+                        <DashboardContainerContents className="dashboard-container-contents">
+
+                            <SuggestedTileReplacement/>
+                            <MyCommitementsTileReplacement/>
+
+                        </DashboardContainerContents>
+
+                        <DashboardContainerContents>
+
+                            <ActivityTileReplacement/>
+                            <ContactUsTileReplacement/>
+                            
+                        </DashboardContainerContents>
+
+                    </DashboardContainer>
 
 
 

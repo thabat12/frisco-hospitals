@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { GalleryTile, GalleryTileItem, GalleryTileReplacement, LocalCommunityUpdatesReplacement, ReadStoriesReplacement, WriteALetterReplacement } from "../widgets/dashboard/CommunityWidgets";
 
 const MainContentWrapper = styled.div`
     display: relative;
-    background-color: white;
     height: 100%;
     width: 100%;
 `;
@@ -13,6 +13,24 @@ const GreetingsCookie = styled.div`
     display: flex;
     flex-direction: column;
 `;
+
+const DashboardContainer = styled.div`
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+`;
+
+const DashboardContainerContents = styled.div`
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+`;
+
 
 
 /*
@@ -36,6 +54,20 @@ class CommunityTab extends React.Component {
                 <div>
                     <p>this is the community tab</p>
                 </div>
+
+                <DashboardContainer>
+
+                    <DashboardContainerContents>
+                        <GalleryTileReplacement/>
+                        <WriteALetterReplacement/>
+                    </DashboardContainerContents>
+
+                    <DashboardContainerContents>
+                        <LocalCommunityUpdatesReplacement/>
+                        <ReadStoriesReplacement/>
+                    </DashboardContainerContents>
+
+                </DashboardContainer>
             </MainContentWrapper>
 
         );
