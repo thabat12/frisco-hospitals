@@ -51,7 +51,8 @@ class VolunteerTab extends React.Component {
         return (
             <MainContentWrapper>
                 <div>
-                    <p>this is the volunteer tab</p>
+                    <h2>Volunteer</h2>
+                    <h3>Find ways to contribute with virtual/ in-person volunteering events.</h3>
                 </div>
 
                 <DashboardContainer>

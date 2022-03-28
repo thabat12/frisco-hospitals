@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { GalleryTile, GalleryTileItem, GalleryTileReplacement, LocalCommunityUpdatesReplacement, ReadStoriesReplacement, WriteALetterReplacement } from "../widgets/dashboard/CommunityWidgets";
+import { writeNewDocument } from "../firebase/FireBaseInstance";
 
 const MainContentWrapper = styled.div`
     display: relative;
@@ -46,13 +47,25 @@ const DashboardContainerContents = styled.div`
 class CommunityTab extends React.Component {
     constructor(props) {
         super(props);
+
+        this.doSomething = this.doSomething.bind(this);
+    }
+
+    doSomething() {
+        console.log('do something');
+        writeNewDocument('commitments/one', {bye: 'ppface'}).then(
+            (result) => {
+                console.log('result is ' + result);
+            }
+        )
     }
 
     render() {
         return (
             <MainContentWrapper>
                 <div>
-                    <p>this is the community tab</p>
+                    <h2>Community</h2>
+                    <h3>Use this page to find new ways to get involved with the community</h3>
                 </div>
 
                 <DashboardContainer>
@@ -64,7 +77,6 @@ class CommunityTab extends React.Component {
 
                     <DashboardContainerContents>
                         <LocalCommunityUpdatesReplacement/>
-                        <ReadStoriesReplacement/>
                     </DashboardContainerContents>
 
                 </DashboardContainer>

@@ -5,7 +5,7 @@ import styled from "styled-components";
 /*
     stuff that i am writing to the database
 */
-import {writeUserCommitmentData, readSuggestedData, writeNewDocument, readDocumentData, getUser} from '../../firebase/FireBaseInstance.js';
+import {writeUserCommitmentData, readSuggestedData, writeNewDocument, readDocumentData, getUser, readCommitmentData, readActivityData} from '../../firebase/FireBaseInstance.js';
 
 const BaseTile = styled.div`
 
@@ -102,8 +102,6 @@ export function SuggestedTileReplacement() {
     if (data.length == 0) {
         getSuggestedList().then(
             (result) => {
-                console.log('seeing if there is somethinig lol');
-                console.log(result);
                 let something = [];
 
 
@@ -118,9 +116,7 @@ export function SuggestedTileReplacement() {
                             </SuggestedTileItem>
                         )
                     }
-                )
-
-                console.log('hi there');
+                );
     
                 setData(something);
             }
@@ -160,41 +156,67 @@ function writeDocument(path, data) {
 
 export function MyCommitementsTileReplacement() {
 
-    let commitementTiles = [];
+    const [data, setData] = useState([]);
 
-    readDocumentData('users/' + getUser().uid + '/commitments/one').then(
-        (result) => {
-            console.log('reading the document data hahahaha');
-        }
-    )
+    readCommitmentData()
+        .then(
+            (result) => {
+                if (result.length === 0) {
+                    return [<a>No current commitments. Find activities in by navigating to the other tabs!</a>];
+                }
+                let something = [];
+                result.forEach(
+                    (doc) => {
+                        something.push(
+                            <SuggestedTileItem className="suggested-tile-item">
+                                <h2>{doc.title}</h2>
+                            </SuggestedTileItem>
+                        );
+                    }
+                );
 
-
-
+                setData(something);
+            }
+        );
 
     return (
         <SuggestedTile>
 
             <h2 className="tile-title">My Commitments</h2>
             <div className="align-center">
-                <SuggestedTileItem className="suggested-tile-item">
-                    <h2>Activity 1</h2>
-                    <h3>This is some text to replace whatever is in activity 1 and if there is more to say then truncate with (...)</h3>
-                </SuggestedTileItem>
+                {data.length ? data : 'No current commitments. Find activities in by navigating to the other tabs!'}
             </div>
         </SuggestedTile> 
     );
 }
 
 export function ActivityTileReplacement() {
+
+    const [data, setData] = useState([]);
+
+    readActivityData()
+        .then(
+            (result) => {
+                let repData = [];
+                result.forEach(
+                    (doc) => {
+                        repData.push(
+                            <SuggestedTileItem>
+                                <h1>{doc.title}</h1>
+                            </SuggestedTileItem>
+                        )
+                    }
+                );
+            }
+        );
+
+
     return (
         <SuggestedTile>
 
             <h2 className="tile-title">My Activity</h2>
             <div className="align-center">
-                <SuggestedTileItem className="suggested-tile-item">
-                    <h2>Get Started</h2>
-                    <h3>Learn about your community by reading stories, writing letters, and learning about our Frisco clinics!</h3>
-                </SuggestedTileItem>
+                {data.length ? data : 'nothing'}
             </div>
         </SuggestedTile> 
     )

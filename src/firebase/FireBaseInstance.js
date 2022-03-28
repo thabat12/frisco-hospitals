@@ -1,7 +1,7 @@
 import {initializeApp} from 'firebase/app';
 import {getAnalytics} from 'firebase/analytics';
 import {doc, collection, setDoc, getDocs, getFirestore, Timestamp, DocumentReference, 
-    addDoc, CollectionReference, collectionGroup, query, where, getDoc, updateDoc} from 'firebase/firestore';
+    addDoc, CollectionReference, collectionGroup, query, where, getDoc, updateDoc, enableIndexedDbPersistence, onSnapshot} from 'firebase/firestore';
 import {getAuth, setPersistence, signInWithPopup, GoogleAuthProvider, signInWithRedirect, 
     getRedirectResult, onAuthStateChanged, inMemoryPersistence, signOut} from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
@@ -21,6 +21,17 @@ const analytics = getAnalytics(app);
 const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 var auth = getAuth();
+
+enableIndexedDbPersistence(db)
+    .catch(
+        (err) => {
+            if (err.code == 'failed-precondition') {
+                console.log('multiple tabs are open at once');
+            } else if (err.code == 'unimplemented') {
+                console.log('the browser does not support this');
+            }
+        }
+    )
 
 
 // this function is going to be accessed by all other methods in the project
@@ -131,16 +142,24 @@ export async function writeUserCommitmentData() {
 export async function readSuggestedData(path) {
 
     const suggestedRef = collection(db, 'dashboard/suggested/suggested')
-
-    
-
     const suggestedData = query(suggestedRef);
+
+    let ss = onSnapshot(suggestedData, (snapshot) => {
+        if (snapshot) {
+            let result = [];
+
+            snapshot.forEach(
+                (doc) => {
+                    result.push(doc.data());
+                }
+            );
+
+            return result;
+        }
+    });
+
     const suggestedSnapshot = await getDocs(suggestedData);
-
-
     let result = []
-
-
     suggestedSnapshot.forEach(
         (doc) => {
 
@@ -149,8 +168,6 @@ export async function readSuggestedData(path) {
             result.push(file);
         }
     );
-
-    console.log('reading all the data');
 
     return result;
 }
@@ -161,21 +178,81 @@ export async function readSuggestedData(path) {
 
 export async function readCommitmentData() {
     const commitmentRef = collection(db, `users/${auth.currentUser.uid}/commitments`);
+    const commitmentData = query(commitmentRef);
 
+    onSnapshot(commitmentData, (snapshot) => {
+        if (snapshot) {
+            let result = [];
+
+            snapshot.forEach(
+                (doc) => {
+                    result.push(doc.data());
+                }
+            );
+        }
+    }); 
+
+    let snapshot = await getDocs(commitmentData);
+    let result = [];
+
+    snapshot.forEach(
+        (doc) => {
+            result.push(doc.data());
+        }
+    );
+
+    return result;
 }
 
+export async function readActivityData() {
+    const activityRef = collection(db, `users/${auth.currentUser.uid}/activity`);
+    const activityQuery = query(activityRef);
+
+    onSnapshot(activityQuery, (snapshot) => {
+        if (snapshot) {
+            let result = [];
+            snapshot.forEach(
+                (doc) => {
+                    result.push(doc.data());
+                }
+            );
+
+            return result;
+        }
+    });
+
+    let snapshot = await getDocs(activityQuery);
+    let result = [];
+
+    snapshot.forEach(
+        (doc) => {
+            result.push(doc.data());
+        }
+    );
+
+    return result;
+}
+
+/*
+    Volunteering tab stuff
+        
+
+*/
+
+
+// this will automatically point to user either way so that is good
 export async function writeNewDocument(path, data) {
 
     const docRef = await setDoc(
-        doc(db, 'users', auth.currentUser.uid, 'commitments', 'one'), data
+        doc(db, `users/${auth.currentUser.uid}/${path}`), data
     );
 
     return docRef;
 }
 
-// this is for a single document
+// this is for a single document, pointer at the current user as well
 export async function readDocumentData(path) {
-    const documentRef = doc(db, path);
+    const documentRef = doc(db, `users/${auth.currentUser.uid}/${path}`);
     const docSnap = await getDoc(documentRef);
     console.log(path);
 
@@ -184,7 +261,6 @@ export async function readDocumentData(path) {
         return docSnap.data();
 
     } else {
-        console.log('document does not exist and something went wrong');
         return null;
     }
 }
@@ -197,7 +273,6 @@ export async function overwriteDocumentData(path, data) {
     if (docSnap.exists()) {
         return docSnap;
     } else {
-        console.log('overwriting error has occured');
         return null;
     }
 }

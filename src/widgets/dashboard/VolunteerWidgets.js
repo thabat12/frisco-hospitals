@@ -81,6 +81,12 @@ const VolunteerTileItem = styled.div`
 `;
 
 export function CurrentOpportunitiesTileReplacement() {
+
+    
+
+
+
+
     return (
         <BaseTileVariantTwoWrapper>
             <h2>Current Opportunitites</h2>

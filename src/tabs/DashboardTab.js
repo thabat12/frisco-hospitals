@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import {readSuggestedData, writeUserCommitmentData} from '../firebase/FireBaseInstance.js';
+import {readSuggestedData, writeUserCommitmentData, getUser} from '../firebase/FireBaseInstance.js';
 
 import { ActivityTileReplacement, ContactUsTileReplacement, MyCommitementsTileReplacement, Suggested, SuggestedTileReplacement } from "../widgets/dashboard/DashboardWidgets.js";
 
@@ -76,7 +76,6 @@ class DashboardTab extends React.Component {
     }
 
     writeUserData() {
-        console.log('writing some data');
         writeUserCommitmentData();
     }
 
@@ -86,6 +85,18 @@ class DashboardTab extends React.Component {
                 console.log(result);
             }
         )
+    }
+
+    getDisplayNameFormat() {
+        getUser().reload();
+
+        let result = getUser().displayName;
+
+        if (! result) {
+            return 'err';
+        } else {
+            return result;
+        }
     }
 
 
@@ -100,7 +111,7 @@ class DashboardTab extends React.Component {
 
                 <MainContent>
                     <GreetingsCookie>
-                        <h3 id="dashboard-welcome">Hello, {this.currentUser.displayName}</h3>
+                        <h3 id="dashboard-welcome">Hello, {getUser().displayName}</h3>
                         <p className="subtitle">Welcome to FHN. Find some ways you can get involved with your community. Explore through the pages and participate in our projects!</p>
                     </GreetingsCookie>
 

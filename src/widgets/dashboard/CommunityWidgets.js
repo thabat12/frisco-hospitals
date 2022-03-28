@@ -74,6 +74,53 @@ const GalleryTileItem = styled.div`
     border-radius: 5px;
 `;
 
+const SubmitToGalleryCookie = styled(GalleryTileItem)`
+    position: relative;
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    padding-left: 1.3em;
+    padding-right: 1.3em;
+
+    #submit-gallery-title {
+        font-size: 2em;
+    }
+
+    .left-right-aligns {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: 100%;
+    }
+
+    .left-align {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .right-align {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+    }
+
+    .text-inside-aligns {
+        position: relative;
+        display: flex;
+        height: 100%;
+        flex-grow: 1;
+        width: 20%;
+        align-items: center;
+    }
+
+    .div-inside-aligns {
+        position: relative;
+        display: flex;
+        flex-grow: 2;
+    }
+
+`;
 
 
 
@@ -83,10 +130,25 @@ export function GalleryTileReplacement() {
         <GalleryTile>
             <h2 id="tile-title">Submit to our Gallery!</h2>
             <div className="align-center">
-                <GalleryTileItem className="suggested-tile-item">
-                    <h2>Get Started</h2>
-                    <h3>Learn about your community by reading stories, writing letters, and learning about our Frisco clinics!</h3>
-                </GalleryTileItem>
+                <SubmitToGalleryCookie className='suggested-tile-item'>
+                    <h4 id='submit-gallery-title'>How it works</h4>
+                    <div className='left-right-aligns'>
+                        <div className='left-align'>
+                            <h4 className='text-inside-aligns'>Submission: Simply submit your artwork to the Gallery by pressing on this tile</h4>
+                            <div className='div-inside-aligns'/>
+                        </div>
+
+                        <div className='left-align'>
+                            <h4 className='text-inside-aligns'>Review: We will review your submission and make sure it is ready to be presented</h4>
+                            <div className='div-inside-aligns'/>
+                        </div>
+
+                        <div className='left-align'>
+                            <h4 className='text-inside-aligns'>Notification: Look out for an email for more details! You can either present to your local hospital or opt to submit to our community gallery.</h4>
+                            <div className='div-inside-aligns'/>
+                        </div>
+                    </div>
+                </SubmitToGalleryCookie>
             </div>
         </GalleryTile> 
     );
@@ -112,8 +174,8 @@ export function LocalCommunityUpdatesReplacement() {
             <h2 id="tile-title">Local Community Updates</h2>
             <div className="align-center">
                 <GalleryTileItem className="suggested-tile-item">
-                    <h2>Get Started</h2>
-                    <h3>Learn about your community by reading stories, writing letters, and learning about our Frisco clinics!</h3>
+                    <h2>Learn about your community</h2>
+                    <h3>Click here to navigate to local community healthcare developments happening in Frisco and beyond.</h3>
                 </GalleryTileItem>
             </div>
         </CommunityUpdatesTile> 
