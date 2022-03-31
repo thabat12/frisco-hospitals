@@ -34,6 +34,8 @@ const BaseTile = styled.div`
 
     .align-center {
         align-items: center;
+        display: flex;
+        flex-direction: column;
     }
 `;
 
@@ -45,7 +47,7 @@ const BaseTileVariantTwoWrapper = styled.div`
 `;
 
 const BaseTileSubTile = styled(BaseTile)`
-
+    margin-bottom: 15px;
 `;
 
 
@@ -81,14 +83,60 @@ const GiveTileItem = styled.div`
 `;
 
 export function RequestedItemListReplacement() {
+
+    const donationItemList = [
+        'new books', 'magazines', 'playing cards', 'puzzles', 'care kits (ex. toothbrush, deodorant, soap, etc.)', 'art supplies', 'blankets/quilts'
+    ];
+
+    let donationItemsListRep = donationItemList.map(
+        item => {
+            return <li>{item}</li>;
+        }
+    );
+
+
     return (
         <BaseTileVariantTwoWrapper>
             <h2>List of Donation Items</h2>
             {/* generate list of items here, will not be too large (hopefully for now) */}
-            <BaseTileSubTile>
+            <BaseTileSubTile className="donation-item-list-container">
+                <h3>Below are the acceptable list of items that we accept</h3>
+                <ul>
+                    {donationItemsListRep} 
+                </ul>
+                <h4>If you wish to donate to us, please follow the steps on the "Donate Now" segment</h4>
             </BaseTileSubTile>
         </BaseTileVariantTwoWrapper>
     );
+}
+
+
+export function DonateQueryReplacement() {
+    return (
+        <GiveTile>
+            <h2 id="tile-title">Donate Now!</h2>
+            <div className="align-center">
+                <a>If you have something to donate, please fill out this form and we will contact you shortly!</a>
+                <button>Go to Form</button>
+            </div>
+        </GiveTile> 
+    );
+}
+
+// some specific stuff for the donation pages 
+
+const DonateLinkTile = styled.div`
+
+
+
+`;
+
+function navigateToLink(link) {
+    window.location = link;
+}
+
+function navigateToScottishRite() {
+    window.location = 'https://scottishriteforchildren.org/get-involved';
 }
 
 export function DonationPagesReplacement() {
@@ -96,18 +144,23 @@ export function DonationPagesReplacement() {
         <GiveTile>
             <h2 id="tile-title">Visit Donation Pages</h2>
             <div className="align-center">
-                <a>[tell them they can place email in some pop-up and thats good]</a>
-            </div>
-        </GiveTile> 
-    );
-}
 
-export function DonateQueryReplacement() {
-    return (
-        <GiveTile>
-            <h2 id="tile-title">Donate Now!</h2>
-            <div className="align-center">
-                <a>[tell them they can place email in some pop-up and thats good]</a>
+                <div className='visit-donation-page-tile' onClick={() => { navigateToLink('https://scottishriteforchildren.org/get-involved') }}>
+                    <h3>Scottish Rite</h3>
+                </div>
+
+                <div className='visit-donation-page-tile' onClick={() => { navigateToLink('https://www.childrens.com/get-involved')}}>
+                    <h3>Children's Hospital</h3>
+                </div>
+
+                <div className='visit-donation-page-tile' onClick={ () => { navigateToLink('https://medicalcityhealthcare.com/locations/medical-city-frisco/patients-visitors/volunteer-services/') } }>
+                    <h3>Medical City Frisco</h3>
+                </div>
+
+                <div className='visit-donation-page-tile' onClick={ () => { navigateToLink('https://friscofamilyservices.org/what_you_can_do/volunteer/volunteer.html') } }>
+                    <h3>Frisco Family Services</h3>
+                </div>
+
             </div>
         </GiveTile> 
     );

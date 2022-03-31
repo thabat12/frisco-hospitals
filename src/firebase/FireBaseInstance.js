@@ -238,6 +238,36 @@ export async function readActivityData() {
         
 
 */
+export async function readVolunteeringOpportunities() {
+    const volunteeringOpportunitiesRef = collection(db, `volunteer`);
+    const volunteeringOpportunitiesQuery = query(volunteeringOpportunitiesRef);
+
+    onSnapshot(volunteeringOpportunitiesQuery, (snapshot) => {
+            if (snapshot) {
+                let result = [];
+                snapshot.forEach(
+                    (doc) => {
+                        result.push(doc.data());
+                    }
+                );
+    
+                return result;
+            }
+        }
+    );
+
+    let snapshot = await getDocs(volunteeringOpportunitiesQuery);
+    let result = [];
+
+    snapshot.forEach(
+        (doc) => {
+            result.push(doc.data());
+            console.log('data getting')
+        }
+    );
+
+    return result;
+}
 
 
 // this will automatically point to user either way so that is good

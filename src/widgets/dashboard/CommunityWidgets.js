@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const BaseTile = styled.div`
 
-    position: relative;
+    position: relative;  
     display: flex;
     border-radius: 5px;
     background-color: white;
@@ -24,6 +24,29 @@ const BaseTile = styled.div`
         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
         transform: scale(1);
         backface-visibility: hidden;
+
+        h2 {
+            font-size: 25px;
+        }
+
+        h3 {
+            font-size: 15px;
+            width: 80%;
+        }
+
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        margin-top: 2em;
+        margin-bottom: 10px;
+        padding: 15px;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        
+
+        border-style: solid;
+        border-width: 2px;
+        border-radius: 5px;
     }
 
     .suggested-tile-item:hover {
@@ -37,7 +60,7 @@ const BaseTile = styled.div`
 `;
 
 const GalleryTile = styled(BaseTile)`
-
+    margin-bottom: 15px;
 `;
 
 const CommunityUpdatesTile = styled(BaseTile)`
@@ -57,7 +80,7 @@ const GalleryTileItem = styled.div`
     h3 {
         font-size: 15px;
         width: 80%;
-    }
+    } 
 
     position: relative;
     display: flex;
@@ -127,7 +150,7 @@ const SubmitToGalleryCookie = styled(GalleryTileItem)`
 
 export function GalleryTileReplacement() {
     return (
-        <GalleryTile>
+        <BaseTile>
             <h2 id="tile-title">Submit to our Gallery!</h2>
             <div className="align-center">
                 <SubmitToGalleryCookie className='suggested-tile-item'>
@@ -150,7 +173,7 @@ export function GalleryTileReplacement() {
                     </div>
                 </SubmitToGalleryCookie>
             </div>
-        </GalleryTile> 
+        </BaseTile> 
     );
 }
 

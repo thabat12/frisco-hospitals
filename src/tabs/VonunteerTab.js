@@ -1,11 +1,25 @@
 import React from "react";
 import styled from "styled-components";
 import { CurrentOpportunitiesTileReplacement, MoreUpdatesTileReplacement } from "../widgets/dashboard/VolunteerWidgets";
+import { getVolunteeringOpportunities } from "../firebase/FireBaseInstance";
 
 const MainContentWrapper = styled.div`
     display: relative;
     height: 100%;
     width: 100%;
+
+    /* placing the tile css here because then it will make sure they are in effect */
+    .base-tile-subtile {
+        transition: 0.5s;
+        transform: scale(1);
+        border: 2;
+        border-color: black;
+        margin-bottom: 15px;
+    }
+
+    .base-tile-subtile:hover {
+        transform: scale(1.02);
+    }
 `;
 
 const GreetingsCookie = styled.div`

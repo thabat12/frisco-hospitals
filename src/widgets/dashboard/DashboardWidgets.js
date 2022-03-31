@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 
+import '../../css/DashboardTabs.css';
+
 
 /*
     stuff that i am writing to the database
@@ -30,6 +32,33 @@ const BaseTile = styled.div`
         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
         transform: scale(1);
         backface-visibility: hidden;
+
+        h2 {
+            font-size: 25px;
+        }
+
+        h3 {
+            font-size: 15px;
+            width: 80%;
+        }
+
+        h5 {
+            margin-bottom: 8px;
+        }
+
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        margin-top: 2em;
+        margin-bottom: 10px;
+        padding: 15px;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        
+
+        border-style: solid;
+        border-width: 2px;
+        border-radius: 5px;
     }
 
     .suggested-tile-item:hover {
@@ -42,11 +71,7 @@ const BaseTile = styled.div`
     }
 `;
 
-const SuggestedTile = styled(BaseTile)`
-    h2 {
-        
-    }
-`;
+const SuggestedTile = styled(BaseTile)``;
 
 const MyCommitmentsTile = styled(SuggestedTile)`
 
@@ -109,7 +134,7 @@ export function SuggestedTileReplacement() {
 
                     (dictItem) => {
                         something.push(
-                            <SuggestedTileItem className="suggested-tile-item">
+                            <SuggestedTileItem className="suggested-tile-item" key={dictItem.title}>
                                 <h2>{dictItem.title}</h2>
                                 <h5>{dictItem.tag} | {dictItem.date}</h5>
                                 <h3>{dictItem.description}</h3>
@@ -124,7 +149,7 @@ export function SuggestedTileReplacement() {
     }
 
     return (
-        <SuggestedTile>
+        <SuggestedTile className="base-tile-override">
             <h2 className="tile-title">Suggested</h2>
             <div className="align-center">
                 {data}
@@ -148,7 +173,7 @@ export function SuggestedTileReplacement() {
 function writeDocument(path, data) {
     writeNewDocument(path, data);
     console.log('written');
-}
+} 
 
 
 

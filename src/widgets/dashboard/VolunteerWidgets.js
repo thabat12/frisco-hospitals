@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import styled from 'styled-components';
+import { readVolunteeringOpportunities } from "../../firebase/FireBaseInstance";
 
 
 const BaseTile = styled.div`
@@ -82,17 +83,38 @@ const VolunteerTileItem = styled.div`
 
 export function CurrentOpportunitiesTileReplacement() {
 
-    
+    const [data, setData] = useState([]);
+
+    console.log('get volunteering opportunities');
+    console.log(readVolunteeringOpportunities)
+    readVolunteeringOpportunities().then(
+        (result) => {
+            console.log('result is');
+            console.log(result);
+            let something = [];
+
+            result.forEach(
+                (dictItem) => {
+                    something.push(
+                        <BaseTileSubTile className="base-tile-subtile">
+                            <h2>{dictItem.title}</h2>
+                            <h5>{dictItem.date}</h5>
+                            <h5>{dictItem.description}</h5>
+                        </BaseTileSubTile>
+                    );
+                }
+            );
 
 
-
+            setData(something);
+        }
+    );
 
     return (
         <BaseTileVariantTwoWrapper>
             <h2>Current Opportunitites</h2>
             {/* generate list of items here, will not be too large (hopefully for now) */}
-            <BaseTileSubTile>
-            </BaseTileSubTile>
+            {data}
         </BaseTileVariantTwoWrapper>
     );
 }

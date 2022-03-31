@@ -4,7 +4,6 @@ import { DonateQueryReplacement, DonationPagesReplacement, RequestedItemListRepl
 
 const MainContentWrapper = styled.div`
     display: relative;
-    background-color: white;
     height: 100%;
     width: 100%;
 `;
@@ -21,6 +20,32 @@ const DashboardContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
+
+    .donation-item-list-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .visit-donation-page-tile {
+        width: 80%;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        border: solid;
+        border-color: black;
+        border-radius: 3px;
+
+        transition: 0.5s;
+        transform: scale(1);
+
+        h3 {
+            margin-left: 5px;
+        }
+
+    }
+
+    .visit-donation-page-tile:hover {
+        transform: scale(1.03);
+    }
 `;
 
 const DashboardContainerContents = styled.div`
@@ -57,11 +82,11 @@ class GiveTab extends React.Component {
                 <DashboardContainer>
                     <DashboardContainerContents>
                         <RequestedItemListReplacement/>
+                        <DonateQueryReplacement/>
                     </DashboardContainerContents>
 
                     <DashboardContainerContents>
                         <DonationPagesReplacement/>
-                        <DonateQueryReplacement/>
                     </DashboardContainerContents>
                 </DashboardContainer>
             </MainContentWrapper>
