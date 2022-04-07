@@ -1,5 +1,17 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# firestore
+/functions
+.github
+.firebaserc
+database.rules.json
+firebase.json
+firestore.indexes.json
+firestore.rules
+remoteconfig.template.json
+storage.rules
+
+
 # dependencies
 /node_modules
 /.pnp
