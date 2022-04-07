@@ -113,7 +113,7 @@ export function RequestedItemListReplacement() {
 
 export function DonateQueryReplacement() {
     return (
-        <GiveTile>
+        <GiveTile className='back-tile'>
             <h2 id="tile-title">Donate Now!</h2>
             <div className="align-center">
                 <a>If you have something to donate, please fill out this form and we will contact you shortly!</a>
@@ -141,7 +141,7 @@ function navigateToScottishRite() {
 
 export function DonationPagesReplacement() {
     return (
-        <GiveTile>
+        <GiveTile className='back-tile'>
             <h2 id="tile-title">Visit Donation Pages</h2>
             <div className="align-center">
 

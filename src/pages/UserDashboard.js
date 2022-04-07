@@ -9,6 +9,8 @@ import VolunteerTab from "../tabs/VonunteerTab";
 import CommunityTab from "../tabs/CommunityTab";
 import GiveTab from "../tabs/GiveTab";
 
+import '../css/Dashboard.css';
+
 // PAGE CONSTANTS
 const sidebarWidthPercentage = 35;
 
@@ -133,6 +135,10 @@ const WholePage = styled.div`
         animation-duration: 1s;
         margin-left: 100px;
     }
+
+    #scrollable {
+        overflow-y: auto;
+    }
 `;
 
 const toggleSidebarAnimation = keyframes`
@@ -247,8 +253,6 @@ const MainDashboard = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding-left: 15px;
-    padding-right: 15px;
 
     
 `;
@@ -287,8 +291,10 @@ class UserDashboard extends React.Component {
         this.navigateToVolunteer = this.navigateToVolunteer.bind(this);
         this.navigateToDashboard = this.navigateToDashboard.bind(this);
         this.navigateToGive = this.navigateToGive.bind(this);
+        this.handleScrolling = this.handleScrolling.bind(this);
     }
 
+    // handling states here (will include the screen overlay stuff too)
     signOutUserInDashboard() {
         signOutUser();
         window.location = '/';
@@ -297,6 +303,16 @@ class UserDashboard extends React.Component {
     // State cycles
     shouldComponentUpdate() {
         console.log('passing through "should component update"');
+    }
+
+    componentDidMount() {
+        const tabScrollableElement = document.getElementById('scrollable');
+        tabScrollableElement.addEventListener('wheel', this.handleScrolling);
+    }
+
+    // Handle scrolling offsets
+    handleScrolling(e) {
+        console.log(e.deltaY);
     }
 
 
@@ -384,7 +400,10 @@ class UserDashboard extends React.Component {
 
                     <MainDashboard>
 
-                        {CurTab}
+                        <div id="scrollable" onScroll={this.handleScrolling}>
+                            {CurTab}
+                        </div>
+                        
                         
                         
                     </MainDashboard>

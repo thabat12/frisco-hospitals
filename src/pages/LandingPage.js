@@ -15,6 +15,10 @@ import { getUser, isUserLoggedIn } from "../firebase/FireBaseInstance";
 
 import '../css/LandingPage.css';
 import { NavLink, useNavigate } from "react-router-dom";
+import GalleryScroll from "../widgets/landing_page/GalleryScroll";
+
+import instaLogo from '../icons/instagram.svg';
+import facebookLogo from '../icons/facebook.svg';
 
 /*
     LandingPage.js File Contents:
@@ -139,6 +143,8 @@ const LandingWidgetFirstPortion = styled.div`
     display: flex;
     position: relative;
 
+    background-color: ${ThemeConstants.secondaryBackgroundColorDarkerBlue};
+
     /* the 2 text chunks are absolute in the context of the relative front page bit */
     .landing-widget-first-portion-intro-text-block {
         position: absolute;
@@ -152,32 +158,50 @@ const LandingWidgetFirstPortion = styled.div`
         top: 30%;
     }
 
+    #landing-page-main-text {
+        font-size: 65px;
+    }
+
     #landing-page-secondary-text {
         text-align: center;
+        font-size: 30px;
     }
 `;
 
 const LandingWidgetOurMissionPortion = styled.div`
     position: relative;
-    height: 40vh;
     width: 100vw;
 
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
+
+    padding-bottom: 35px;
+
+    #explore-projects-container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100vw;
+    }
+
+    #explore-projects {
+        font-size: 25px;
+        margin-bottom: 35px;
+    }
 `;
 
 const OurMissionTextHeaderBox = styled.div`
     position: relative;
-    width: 25vw;
-    height: 100%;
-
+    width: 90vw;
     
     /* had to make this container absolute kind of hard-coding it for now */
     #our-mission-text-header-box {
-        position: absolute;
         width: 100%;
-
-        top: 30%;
+        top: 35px;
+        margin-top: 25px;
+        margin-bottom: 65px;
     }
 
     #our-mission-text-main {
@@ -186,6 +210,10 @@ const OurMissionTextHeaderBox = styled.div`
 
     #our-mission-text-description {
         text-align: center;
+        padding-left: 2%;
+        padding-right: 2%;
+        font-weight: normal;
+        
     }
 `;
 
@@ -194,6 +222,7 @@ const OurMissionTilesContainer = styled.div`
     position: relative;
     height: 100%;
     flex-grow: 1;
+    width: 100%;
 
     display: flex;
     flex-direction: row;
@@ -212,6 +241,12 @@ const OurMissionTilesContainer = styled.div`
 
         border-radius: 10px;
     }
+`;
+
+const OurMissionTilesContainerWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `;
 
 const LandingWidgetNavSpacer = styled.div`
@@ -234,7 +269,7 @@ const AllProjectsLandingPagePortion = styled.div`
 
     .project-section {
         position: relative;
-        height: 60vh;
+        height: 40vh;
 
         margin-bottom: 3em;
     }
@@ -250,6 +285,12 @@ const AllProjectsLandingPagePortion = styled.div`
         width: 40%;
 
         border-radius: 10px;
+
+        background: rgba( 255, 255, 255, 0.8 );
+        box-shadow: 0 8px 32px 0 rgba( 255, 255, 255, 0.37 );
+        backdrop-filter: blur( 10.5px );
+        -webkit-backdrop-filter: blur( 10.5px );
+        border-radius: 10px;
     }
 
     .project-section-side-box-main-text {
@@ -261,6 +302,11 @@ const AllProjectsLandingPagePortion = styled.div`
     }
 `;
 
+
+const GalleryProjectSectionWrapper = styled.div`
+
+`;
+
 /*
     !!!
     This is the end of the project section portion of the landing page
@@ -270,8 +316,91 @@ const AllProjectsLandingPagePortion = styled.div`
 
 const FooterLandingPagePortion = styled.div`
     width: 100vw;
-    height: 50vh;
-    background-color: red;
+    height: 15vh;
+    background-color: ${ThemeConstants.primaryAccentRed};
+    color: white;
+
+    display: flex;
+    flex-direction: row;
+
+    .footer-left-portion {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 10px;
+        text-align: center;
+
+        width: 20%;
+
+        h3 {
+            font-weight: normal;
+        }
+
+        .logo-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            margin-top: 10px;
+
+            height: 50px;
+
+            .connect-logos {
+                width: 50px;
+                height: 50px;
+                margin-left: 15px;
+                margin-right 15px;
+
+                transition: 0.5s transform;
+                transform: scale(1);
+            }
+
+            .connect-logos:hover {
+                transform: scale(1.05);
+            }
+
+            #insta-readjust {
+                width: 40px;
+                height: 40px;
+            }
+
+            
+
+        }
+
+        #copyright-thing {
+            position: absolute;
+            bottom: 0;
+            left: 15;
+
+            margin-bottom: 15px;
+        }
+    }
+
+    .footer-middle-portion {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+
+        flex-direction: column;
+    }
+
+    .footer-last-portion {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+
+        .footer-text {
+            margin-top: 10px;
+            width: 60%;
+            font-weight: bold;
+        }
+    }
 `;
 
 
@@ -317,8 +446,8 @@ class LandingPageMain extends React.Component {
                         {/* Title Text & Background */}
                         <LandingWidgetFirstPortion className="landing-widget-first-portion">
                             <div className="landing-widget-first-portion-intro-text-block">
-                                <h1 id="landing-page-main-text">Frisco Hospitals</h1>
-                                <h2 id="landing-page-secondary-text">A Farzaan Abhinav</h2>
+                                <h1 id="landing-page-main-text">The Frisco Hospital Network</h1>
+                                <h2 id="landing-page-secondary-text">Find ways you can help your community.</h2>
                             </div>
                         </LandingWidgetFirstPortion>
 
@@ -339,27 +468,72 @@ class LandingPageMain extends React.Component {
                             <OurMissionTextHeaderBox>
                                 <div id="our-mission-text-header-box">
                                     <h2 id="our-mission-text-main">Our Mission</h2>
-                                    <h3 id="our-mission-text-description">this is the text that will stand in place of the our mission text</h3>
+                                    <h3 id="our-mission-text-description">Hospitals are home to many inspiring and hard-working people, and we believe it is important to recognize and appreciate these community heroes. By making community engagement easier to access, FHN is an effort to bring the hospital community closer together than it has ever been before. Our goal is to provide a platform that can empower the community, allowing anyone to help each other in any way they can.</h3>
                                 </div>
                             </OurMissionTextHeaderBox>
-   
-                            <OurMissionTilesContainer>
-                                <OurMissionTile name="Gallery" className="our-mission-tile"/>
-                                <OurMissionTile name="Volunteer" className="our-mission-tile"/>
-                                <OurMissionTile name="Donate" className="our-mission-tile"/>
-                            </OurMissionTilesContainer>
+
+
+                            <div id="explore-projects-container">
+                                <h3 id="explore-projects">Explore our current projects</h3>
+                                <OurMissionTilesContainer>
+                                    <OurMissionTile name="Gallery" className="our-mission-tile"/>
+                                    <OurMissionTile name="Volunteer" className="our-mission-tile"/>
+                                    <OurMissionTile name="Donate" className="our-mission-tile"/>
+                                </OurMissionTilesContainer>
+                            </div>
+
                         </LandingWidgetOurMissionPortion>
 
                         {/* All Projects Section */}
                         <AllProjectsLandingPagePortion>
-                            <h2 id="take-a-look-h2">Take A Look At Our Current Projects</h2>
-                            <ProjectSection name="gallery"/>
+                            <h2 id="take-a-look-h2">More About Our Current Projects</h2>
+                            <GalleryProjectSectionWrapper>
+                                {/* <GalleryScroll/> */}
+                                <ProjectSection name="gallery"/>
+                                
+                            </GalleryProjectSectionWrapper>
+                            
                             <ProjectSection name="volunteer"/>
                             <ProjectSection name="donate"/>
                         </AllProjectsLandingPagePortion>
 
                         {/* Footer Section */}
-                        <FooterLandingPagePortion/>
+                        <FooterLandingPagePortion>
+                            <div className="footer-left-portion">
+                                <h3>Connect:</h3>
+                                <div className="logo-container">
+                                    <img src={instaLogo} className = "connect-logos" id="insta-readjust"></img>
+                                    <img src={facebookLogo} className = "connect-logos" id="facebook-readjust"></img>
+                                </div>
+
+                                <div id="copyright-thing">
+                                    &#169; FriscoHospitalNetwork 2022
+                                </div>
+                                
+                            </div>
+                            <div className="footer-middle-portion">
+
+                                <h3>About Us:</h3>
+                                <div>
+                                    <h4>Contact:</h4>
+                                    <h4>contact@friscohospitalnetwork.org</h4>
+
+                                    <h4>Our Story:</h4>
+                                    <a>Who we are</a>
+                                </div>
+                                
+
+                            </div>
+                            <div className="footer-last-portion">
+                                <div className="footer-text">
+                                    Frisco Hospital Network does not represent the City of Frisco and is an independent organization.
+                                </div>
+                                <div className="footer-text">
+                                    If you are interested in our mission please consider <NavLink className='navbar-item' activeClassName='is-active' to='/'>volunteering</NavLink> for us.
+                                </div>
+                                
+                            </div>
+                        </FooterLandingPagePortion>
 
                     </LandingWidget>
                 </ThemeConstantsWrapper>

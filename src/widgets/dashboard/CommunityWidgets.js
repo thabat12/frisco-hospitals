@@ -150,7 +150,7 @@ const SubmitToGalleryCookie = styled(GalleryTileItem)`
 
 export function GalleryTileReplacement() {
     return (
-        <BaseTile>
+        <BaseTile className='back-tile'>
             <h2 id="tile-title">Submit to our Gallery!</h2>
             <div className="align-center">
                 <SubmitToGalleryCookie className='suggested-tile-item'>
@@ -179,7 +179,7 @@ export function GalleryTileReplacement() {
 
 export function WriteALetterReplacement() {
     return (
-        <CommunityUpdatesTile>
+        <CommunityUpdatesTile className='back-tile'>
             <h2 id="tile-title">Write a Letter</h2>
             <div className="align-center">
                 <GalleryTileItem className="suggested-tile-item">
@@ -193,7 +193,7 @@ export function WriteALetterReplacement() {
 
 export function LocalCommunityUpdatesReplacement() {
     return (
-        <CommunityUpdatesTile>
+        <CommunityUpdatesTile className='back-tile'>
             <h2 id="tile-title">Local Community Updates</h2>
             <div className="align-center">
                 <GalleryTileItem className="suggested-tile-item">
@@ -207,7 +207,7 @@ export function LocalCommunityUpdatesReplacement() {
 
 export function ReadStoriesReplacement() {
     return (
-        <CommunityUpdatesTile>
+        <CommunityUpdatesTile className='back-tile'>
             <h2 id="tile-title">Stories</h2>
             <div className="align-center">
                 <GalleryTileItem className="suggested-tile-item">

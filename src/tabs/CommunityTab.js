@@ -7,12 +7,8 @@ const MainContentWrapper = styled.div`
     display: relative;
     height: 100%;
     width: 100%;
-`;
 
-const GreetingsCookie = styled.div`
-    position: relative;
-    display: flex;
-    flex-direction: column;
+    
 `;
 
 const DashboardContainer = styled.div`
@@ -30,6 +26,34 @@ const DashboardContainerContents = styled.div`
     flex-direction: column;
     align-items: center;
 
+    .back-tile {
+        margin-bottom: 7.5px;
+        margin-top: 7.5px;
+    }
+
+`;
+
+const GreetingsCookie = styled.div`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+
+    margin-bottom: 20px;
+    
+    #dashboard-welcome {
+        padding-left: 5%;
+        padding-top: 2%;
+        font-size: 2.5vw;
+    }
+    .subtitle {
+        font-weight: bold;
+        padding-left: 5%;
+        width: 70%;
+        font-size: 17px;
+    }
 `;
 
 
@@ -63,12 +87,12 @@ class CommunityTab extends React.Component {
     render() {
         return (
             <MainContentWrapper>
-                <div>
-                    <h2>Community</h2>
-                    <h3>Use this page to find new ways to get involved with the community</h3>
-                </div>
+                <DashboardContainer className="dashboard-container">
 
-                <DashboardContainer>
+                    <GreetingsCookie>
+                        <h3 id="dashboard-welcome">Community</h3>
+                        <p className="subtitle">Use this page to find different ways to get involved with the community. Here is a list of our current ongoing community projects that you can contribute to today!</p>
+                    </GreetingsCookie>
 
                     <DashboardContainerContents>
                         <GalleryTileReplacement/>

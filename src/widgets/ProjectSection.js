@@ -1,9 +1,115 @@
 import { getDefaultNormalizer } from "@testing-library/react";
 import React from "react";
 
+import styled from 'styled-components';
+
 import LandingPageTextConstants from '../global/LandingPageTextConstants.js';
+import GalleryScroll from "./landing_page/GalleryScroll.js";
 // why? because these projects are going to manage their own state and will make the 
 // LandingPage.js file cluttered if we were to handle all of this stuff in that page
+
+
+/*
+    for reference, here is the overall container's css layout
+
+    #take-a-look-h2 {
+        margin-top: 10vh;
+        text-align: center;
+    }
+
+    .project-section {
+        position: relative;
+        height: 50vh;
+
+        margin-bottom: 3em;
+    }
+
+    .project-section-side-box {
+        position: absolute;
+        background-color: white;
+
+        top: 20%;
+        left: 5%;
+
+        height: 45%;
+        width: 40%;
+
+        border-radius: 10px;
+    }
+
+    .project-section-side-box-main-text {
+        position: absolute;
+        width: 70%;
+
+        top: 30%;
+        left: 5%;
+    }
+
+*/
+
+
+
+const ProjectSectionComponent = styled.div`
+
+    .wrap-project-tile-and-description {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .current-project-box-description {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        align-text: center;
+
+        width: 40%;
+        left: 50%;
+        top: 20%;
+        height: 45%;
+    }
+
+
+    .project-description-snippet {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h3 {
+            margin-bottom: 10px;
+        }
+
+        h4 {
+            font-weight: normal;
+            padding-left: 5px:
+            padding-right: 5px;
+            text-align: center;
+        }
+    }
+
+    .progress-project-box {
+        font-size: 20px;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* positions are all reset in this way */
+    
+
+    .project-section {
+        margin-bottom: 0px;
+    }
+
+    
+    
+`;
+
+const ProjectSectionTile = styled.div`
+    background-color: white;
+    border-radius: 10px;
+`;
+
 
 class ProjectSection extends React.Component {
     constructor(props) {
@@ -34,15 +140,33 @@ class ProjectSection extends React.Component {
     // TODO: have to make these separate for each type of widget
     render() {
         return (
-            <div className="project-section">
-                <div className="project-section-side-box">
-                    <div className="project-section-side-box-main-text">
-                        <h3>{this.template.title}</h3>
-                        <h4>{this.template.description}</h4>
-                        <h4>{this.template.action}</h4>
+            <ProjectSectionComponent className="project-section">
+                <div className="wrap-project-tile-and-description">
+                    <div className="project-section-side-box">
+                        <div className="project-section-side-box-main-text">
+                            <h3>{this.template.title}</h3>
+                            <h4>{this.template.description}</h4>
+                            {/* there is nothing to show for these yet so im leaving them out for now */}
+                            {/* <h4>{this.template.action}</h4> */}
+                        </div>
+                    </div>
+
+                    <div className="current-project-box-description">
+                        <div className="project-description-snippet">
+                            <h3>{this.template.projectbox_title}</h3>
+                            <h4>{this.template.projectbox_description}</h4>
+
+                            <div className="progress-project-box">
+                                <h5>{this.template.projectbox_progress}</h5>
+                                <h5>{this.template.projectbox_progress_description}</h5>
+                            </div>
+                            
+                        </div>
+                        
                     </div>
                 </div>
-            </div>
+                
+            </ProjectSectionComponent>
         )
     }
 }

@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 
-import '../../css/DashboardTabs.css';
-
 
 /*
     stuff that i am writing to the database
@@ -118,7 +116,7 @@ async function getSuggestedList() {
 }
 
 // general idea of suggested tile and the blueprint for me to do the rest of the firebase stuff... for now i need to work on designing
-export function SuggestedTileReplacement() {
+export function SuggestedTileReplacement() { 
 
     const [data, setData] = useState([]);
 
@@ -149,7 +147,7 @@ export function SuggestedTileReplacement() {
     }
 
     return (
-        <SuggestedTile className="base-tile-override">
+        <SuggestedTile  className='back-tile'>
             <h2 className="tile-title">Suggested</h2>
             <div className="align-center">
                 {data}
@@ -205,7 +203,7 @@ export function MyCommitementsTileReplacement() {
         );
 
     return (
-        <SuggestedTile>
+        <SuggestedTile className='back-tile'>
 
             <h2 className="tile-title">My Commitments</h2>
             <div className="align-center">
@@ -237,7 +235,7 @@ export function ActivityTileReplacement() {
 
 
     return (
-        <SuggestedTile>
+        <SuggestedTile className='back-tile'>
 
             <h2 className="tile-title">My Activity</h2>
             <div className="align-center">
@@ -249,7 +247,7 @@ export function ActivityTileReplacement() {
 
 export function ContactUsTileReplacement() {
     return (
-        <SuggestedTile>
+        <SuggestedTile className='back-tile'>
 
             <h2 className="tile-title">Contact Us</h2>
             <div className="align-center">

@@ -9,23 +9,32 @@ const MainContentWrapper = styled.div`
     display: relative;
     height: 100%;
     width: 100%;
+
+    .back-tile {
+        margin-bottom: 15px;
+    }
 `;
 
 const GreetingsCookie = styled.div`
     position: relative;
     display: flex;
     flex-direction: column;
+    padding-top: 15px;
+    padding-bottom: 15px;
+
 
     margin-bottom: 20px;
     
     #dashboard-welcome {
-        padding-left: 2%;
+        padding-left: 5%;
         padding-top: 2%;
+        font-size: 2.5vw;
     }
     .subtitle {
         font-weight: bold;
-        padding-left: 2%;
+        padding-left: 5%;
         width: 70%;
+        font-size: 17px;
     }
 `;
 
@@ -33,12 +42,10 @@ const MainContent = styled.div`
 
     display: flex;
     flex-direction: column;
-
 `;
 
 const DashboardContainer = styled.div`
     height: 100vh;
-    overflow: auto;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -53,6 +60,11 @@ const DashboardContainerContents = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .back-tile {
+        margin-bottom: 7.5px;
+        margin-top: 7.5px;
+    }
 `;
 
 
@@ -73,7 +85,7 @@ class DashboardTab extends React.Component {
 
         this.writeUserData = this.writeUserData.bind(this);
         this.constructValues = this.constructValues.bind(this);
-    }
+    }   
 
     writeUserData() {
         writeUserCommitmentData();
@@ -110,10 +122,6 @@ class DashboardTab extends React.Component {
             <MainContentWrapper>
 
                 <MainContent>
-                    <GreetingsCookie>
-                        <h3 id="dashboard-welcome">Hello, {getUser().displayName}</h3>
-                        <p className="subtitle">Welcome to FHN. Find some ways you can get involved with your community. Explore through the pages and participate in our projects!</p>
-                    </GreetingsCookie>
 
                     {/* 
                         Dashboard tab contains div box that can be vertical or horizontal, and inside that div
@@ -123,6 +131,11 @@ class DashboardTab extends React.Component {
                     */}
 
                     <DashboardContainer>
+
+                        <GreetingsCookie>
+                            <h3 id="dashboard-welcome">Hello, {getUser().displayName}</h3>
+                            <p className="subtitle">Welcome to FHN. Find ways you can contribute by navigating through the tabs and choosing which activities interest you.</p>
+                        </GreetingsCookie>
 
                         <DashboardContainerContents className="dashboard-container-contents">
 

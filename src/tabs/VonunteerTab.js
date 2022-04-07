@@ -26,6 +26,23 @@ const GreetingsCookie = styled.div`
     position: relative;
     display: flex;
     flex-direction: column;
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+
+    margin-bottom: 20px;
+    
+    #dashboard-welcome {
+        padding-left: 5%;
+        padding-top: 2%;
+        font-size: 2.5vw;
+    }
+    .subtitle {
+        font-weight: bold;
+        padding-left: 5%;
+        width: 70%;
+        font-size: 17px;
+    }
 `;
 
 const DashboardContainer = styled.div`
@@ -42,6 +59,11 @@ const DashboardContainerContents = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .back-tile {
+        margin-bottom: 7.5px;
+        margin-top: 7.5px;
+    }
 
 `;
 
@@ -64,10 +86,11 @@ class VolunteerTab extends React.Component {
     render() {
         return (
             <MainContentWrapper>
-                <div>
-                    <h2>Volunteer</h2>
-                    <h3>Find ways to contribute with virtual/ in-person volunteering events.</h3>
-                </div>
+
+                <GreetingsCookie>
+                    <h3 id="dashboard-welcome">Volunteer</h3>
+                    <p className="subtitle">Find ways to contribute with virtual/ in-person volunteering events. This list is updated approximately once every week.</p>
+                </GreetingsCookie>
 
                 <DashboardContainer>
 
