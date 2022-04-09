@@ -3,6 +3,11 @@ import styled from 'styled-components';
 
 import { AspectConstants } from '../global/ResponsiveConstants';
 
+import oneIcon from '../icons/numbers/one.svg';
+import twoIcon from '../icons/numbers/two.svg';
+import threeIcon from '../icons/numbers/three.svg';
+import fourIcon from '../icons/numbers/four.svg';
+
 const GalleryPageResponsiveWrapper = styled.div`
 
     * {
@@ -20,6 +25,47 @@ const GalleryPageResponsiveWrapper = styled.div`
 
     h3 {
         font-size: 25px;
+        font-weight: bold;
+    }
+    h4 {
+        font-weight: normal;
+    }
+
+    .whole-page-contents {
+        width: 90%;
+        margin-top: 10px;
+    }
+
+    .page-type {
+        width: 100%;
+        margin-bottom: 25px;
+    }
+
+    .steps-involved-block {
+        
+    }
+
+    .first-title-section {
+        margin-bottom: 15px;
+    }
+
+    .first-description-section {
+        font-size: 20px;
+        width: 100%;
+    }
+
+    .first-description {
+        margin-top: 8px;
+    }
+
+    .second-title-section {
+        margin-top: 25px;
+        margin-bottom: 10px;
+    }
+
+    .second-description { 
+        margin-bottom: 25px;
+        font-size: 20px;
     }
     
     /* going from larger to smaller values*/
@@ -69,6 +115,55 @@ const GalleryPageResponsiveWrapper = styled.div`
 const GalleryMoreInfoWidget = styled.div`
     width: 100vw;
     height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+`;
+
+const StepWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    width: 100%;
+
+    .step-tile {
+        transition: 0.3s transform linear;
+        transform: scale(1.0);
+    }
+
+    .step-tile:hover {
+        transform: scale(1.05);
+    }
+
+`;
+
+const StepTile = styled.div`
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    justify-content: center;
+    text-align: start;
+
+    background-color: white;
+    width: 50%;
+
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 10px;
+
+    .number-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    h4 {
+        font-size: 20px;
+    }
+
 `;
 
 
@@ -77,7 +172,134 @@ export default function GalleryMoreInfoPage() {
     return (
         <GalleryPageResponsiveWrapper>
             <GalleryMoreInfoWidget className='whole-page'>
-                <div>The Community Gallery</div> 
+                <div className='whole-page-contents'>
+                    <div className='page-type'>The Community Gallery</div> 
+                    <div>
+                        <div className='first-title-section'>
+                            <h3>How It Works</h3>
+                        </div>
+
+                        <div className='first-description-section'>
+                            <div className='first-description'>
+                                <h4>The community gallery is a major part of our goal to raise awareness to hospitals and clinics across the Frisco community. Being able to show appreciation for hospital workers goes a long way in fostering a healthy community atmosphere, and through your contributions of artwork we will be able to show that we care about our healthcare workers!</h4>
+                            </div>
+
+                            <div className='first-description'>
+                                <h4>Establishing a community presence in hopsitals is crucial for everyone, and has been scientifically proven to ease stress, anxiety, and depression among healthcare workers and patients alike*. We are launching our community gallery campaign to address these goals that will ultimately strengthen the community involvement across Frisco.</h4>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div className='steps-involved-block'>
+                                <h3 className='second-title-section'>How can I get started?</h3>
+
+                                <h4 className='second-description'>Our process for submitting artwork is made to be simple and easy! Here are the following ways that you can submit artwork to a hospital display near you:</h4>
+
+                                <StepWrapper>
+                                    <StepTile className='step-tile'>
+                                        <div className='left-tile'>
+                                            <img src={oneIcon} className='number-icon'></img>
+                                        </div>
+
+
+                                        <div className='middle-tile'>
+                                            <div className='tile-title'>
+                                                <h3>Log into the FHN Dashboard</h3>
+                                            </div>
+                                            <div className='tile-description'>
+                                                <h4>You must have a registered account to be able to send any submissions to the FHN. After you create an account, you will be able to find the gallery project under the "Gallery" tab.</h4>
+                                            </div>
+                                        </div>
+
+
+                                        <div className='end-tile'>
+
+                                        </div>
+
+                                        
+                                    </StepTile>
+
+                                    <StepTile className='step-tile'>
+                                        <div className='left-tile'>
+                                            <img src={twoIcon} className='number-icon'></img>
+                                        </div>
+
+
+                                        <div className='middle-tile'>
+                                            <div className='tile-title'>
+                                                <h3>Submit a Picture of Your Artwork</h3>
+                                            </div>
+                                            <div className='tile-description'>
+                                                <h4>In the dashboard, you are able to submit a digital image of your work, which will be sent for review to our team. The status of your submission can be seen on the user dashboard.</h4>
+                                            </div>
+                                        </div>
+
+
+                                        <div className='end-tile'>
+
+                                        </div>
+
+                                        
+                                    </StepTile>
+
+                                    <StepTile className='step-tile'>
+                                        <div className='left-tile'>
+                                            <img src={threeIcon} className='number-icon'></img>
+                                        </div>
+
+
+                                        <div className='middle-tile'>
+                                            <div className='tile-title'>
+                                                <h3>Wait for a Confirmation Email</h3>
+                                            </div>
+                                            <div className='tile-description'>
+                                                <h4>If you receive a confirmation email about the status of your submission, then you are approved! You may choose from a selection of options in the email for further steps and where you want to display your artwork.</h4>
+                                            </div>
+                                        </div>
+
+
+                                        <div className='end-tile'>
+
+                                        </div>
+
+                                        
+                                    </StepTile>
+
+                                    <StepTile className='step-tile'>
+                                        <div className='left-tile'>
+                                            <img src={fourIcon} className='number-icon'></img>
+                                        </div>
+
+
+                                        <div className='middle-tile'>
+                                            <div className='tile-title'>
+                                                <h3>Display Your Work</h3>
+                                            </div>
+                                            <div className='tile-description'>
+                                                <h4>Your can either display your work through the online gallery or in person, whichever choice you decide. When your </h4>
+                                            </div>
+                                        </div>
+
+
+                                        <div className='end-tile'>
+
+                                        </div>
+
+                                        
+                                    </StepTile>
+                                </StepWrapper>
+                                
+                                
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <h5>This page is under construction.</h5>
+                        <h5>We thank you for taking the time to view our website. At this point, we are still in the process of fixing up the website and enhancing FHN UI and backend, so expect to see frequent changes for this page.</h5>
+                    </div>
+                </div>
             </GalleryMoreInfoWidget>
         </GalleryPageResponsiveWrapper>
     );

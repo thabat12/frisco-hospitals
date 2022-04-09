@@ -393,7 +393,7 @@ class UserDashboard extends React.Component {
                             
 
                             <SideBarFooter className="sidebar-footer">
-                                <a onClick={this.navigateToProfile}>Profile</a>
+                                <a onClick={this.signOutUserInDashboard}>Profile</a>
                             </SideBarFooter>
                         </SideBarContents>
                     </SideBar>

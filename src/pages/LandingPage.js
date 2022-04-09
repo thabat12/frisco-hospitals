@@ -423,6 +423,9 @@ class LandingPageMain extends React.Component {
         super(props);
         this.navigate = props.navigate;
         this.handleSignIn = this.handleSignIn.bind(this);
+        this.navigateToEventsMoreInfo = this.navigateToEventsMoreInfo.bind(this);
+        this.navigateToGalleryMoreInfo = this.navigateToGalleryMoreInfo.bind(this);
+        this.navigateToGiveMoreInfo = this.navigateToGiveMoreInfo.bind(this);
     }
 
     handleSignIn() {
@@ -435,6 +438,18 @@ class LandingPageMain extends React.Component {
         } else {
             this.navigate('/sign_in');
         }
+    }
+
+    navigateToEventsMoreInfo() {
+        this.navigate('/events_more_info');
+    }
+
+    navigateToGiveMoreInfo() {
+        this.navigate('/give_more_info');
+    }
+
+    navigateToGalleryMoreInfo() {
+        this.navigate('/gallery_more_info');
     }
 
     render() {
@@ -453,11 +468,11 @@ class LandingPageMain extends React.Component {
 
                         {/* Navigation Bar */}
                         <LandingWidgetNav className="landing-widget-nav">
-                            <a>Community Gallery</a>
+                            <a onClick={this.navigateToGalleryMoreInfo}>Community Gallery</a>
                             <LandingWidgetNavSpacer/>
-                            <a>Local Events</a>
+                            <a onClick={this.navigateToEventsMoreInfo}>Local Events</a>
                             <LandingWidgetNavSpacer/>
-                            <a>Give</a>
+                            <a onClick={this.navigateToGiveMoreInfo}>Give</a>
                             <LandingWidgetNavSpacer/>
                             <a onClick={this.handleSignIn}>Sign In</a>
                             <LandingWidgetNavSpacer/>
