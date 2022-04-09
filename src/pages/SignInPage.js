@@ -2,7 +2,7 @@ import React from "react";
 
 import styled from "styled-components";
 
-import { getRedirectResult, onAuthStateChanged } from "firebase/auth";
+import { getRedirectResult, getAuth, onAuthStateChanged } from "firebase/auth";
 import { giveMeAuth, isUserLoggedIn } from "../firebase/FireBaseInstance";
 
 import { AspectConstants } from "../global/ResponsiveConstants";
@@ -144,33 +144,22 @@ class SignInPageMain extends React.Component {
     componentDidMount() {
 
         // i have no idea how to do this properly but for now this works
-        let checkUser = setInterval(
-            () => {
-                let user = getUser();
-                console.log(user);
+        const auth = getAuth();
 
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                this.navigate('/dashboard/uid=' + user.uid);
+            } else {
 
-                if (user === null) {
-                    console.log('there is no user here');
-                    clearInterval(checkUser);
-                } else {
-                    this.navigate('/dashboard/uid=' + user.uid);
-                    clearInterval(checkUser);
-                }
-            }, 1000
-        );
+            }
+        })
     }
 
     async handleUserSignInWithRedirect() {
-        handleUserSignIn().then(
-            () => {
-                const user = getUser();
-                console.log('yes this is going to check asynchronously now');
-                this.navigate('/dashboard/uid=' + user.uid);
-            }
-        )
+        let result = handleUserSignIn();
+        
 
-        let auth = giveMeAuth();
+        // let auth = giveMeAuth();
     }
 
     doSomething() {

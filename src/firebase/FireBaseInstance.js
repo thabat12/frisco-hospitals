@@ -54,13 +54,12 @@ export function giveMeAuth() {
 }
 
 export default async function handleUserSignIn() {
-    console.log('why am i executing');
     // just check if there is a current user on, and if there is then do nothing
     if (auth.currentUser) {
-        console.log('user is already signed in');
+        return auth.currentUser;
     } else {
         // we will push the user into a new page specifically meant for signing in 
-        signInWithAuthStatePersistence();
+        return signInWithAuthStatePersistence();
     }
 }
 
@@ -80,17 +79,17 @@ export default async function handleUserSignIn() {
 
 */
 
-export function signInWithAuthStatePersistence() {
+export async function signInWithAuthStatePersistence() {
     setPersistence(auth, inMemoryPersistence)
         .then(
             () => {
-                signInRedirect();
+                return signInRedirect();
             }
         ).catch(
             (err) => {
                 console.log(err);
             }
-        )
+        );
 }
 
 
@@ -109,9 +108,24 @@ export async function signInRedirect() {
 
                 window.location = '/'
                 overwriteDocumentData('users/' + auth.currentUser.uid + '/activity/joined', {date: auth.currentUser.metadata.creationTime})
-                console.log('this happened')
+                console.log('this happened');
+
+                console.log(result);
+
+                return auth;
             }
         )
+}
+
+export async function signInUsingPopup() {
+
+    signInWithPopup(auth, provider)
+        .then(
+            (result) => {
+                console.log(`result is ${result}`);
+                return result;
+            }
+        );
 }
 
 export async function signOutUser() {
