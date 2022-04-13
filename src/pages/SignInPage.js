@@ -10,6 +10,10 @@ import { AspectConstants } from "../global/ResponsiveConstants";
 import handleUserSignIn, { getUser } from "../firebase/FireBaseInstance";
 import { useNavigate } from "react-router-dom";
 
+// icons
+import googleIcon from '../icons/google.svg';
+import guestIcon from '../icons/guest.svg';
+
 
 const SignInPageResponsiveWrapper = styled.div`
 
@@ -33,11 +37,48 @@ const SignInPageResponsiveWrapper = styled.div`
     h3 {
         font-size: 25px;
     }
+
+    .whole-page {
+
+    }
+
+    .welcome-banner {
+
+        text-align: center;
+
+        background-color: white;
+
+        h1 {
+
+        }
+
+        h3 {
+            font-size: 3vw;
+        }
+
+        a {
+
+        }
+    }
+
+    .sign-in-options-container {
+        width: 100%;
+    }
+
+    .sign-in-tile {
+    }
+
+    .image-icon {
+        width: 10%;
+        margin-left: 10%;
+    }
     
     /* going from larger to smaller values*/
     @media ${AspectConstants.ultrawide} {
         .whole-page {
             background-color: black;
+
+            flex-direction: row;
         }
     }
 
@@ -45,6 +86,17 @@ const SignInPageResponsiveWrapper = styled.div`
         .whole-page {
             background-color: cadetblue;
         }
+
+        .sign-in-tile {
+            max-width: 80%;
+            height: 30%;
+
+            a {
+                font-size: 5vw;
+                font-weight: normal;
+            }
+        }
+        
     }
 
     @media ${AspectConstants.desktopS} {
@@ -55,7 +107,27 @@ const SignInPageResponsiveWrapper = styled.div`
 
     @media ${AspectConstants.tabletS} {
         .whole-page {
-            background-color: green;
+            background-color: green; 
+        }
+
+        .welcome-banner {
+            height: 25%;
+
+            h1 {
+                font-size: 10vw;
+            }
+
+            h3 {
+                font-size: 4vw;
+            }
+
+            a {
+
+            }
+        }
+
+        .sign-in-tile {
+            height: 20%;
         }
     }
 
@@ -63,11 +135,51 @@ const SignInPageResponsiveWrapper = styled.div`
         .whole-page {
             background-color: purple;
         }
+
+        .welcome-banner {
+            height: 25%;
+
+            h1 {
+                font-size: 10vw;
+            }
+
+            h3 {
+                font-size: 4vw;
+            }
+
+            a {
+
+            }
+        }
+
+        .sign-in-tile {
+            height: 20%;
+        }
     }
 
     @media ${AspectConstants.mobileS} {
         .whole-page {
             background-color: blue;
+        }
+
+        .welcome-banner {
+            height: 25%;
+
+            h1 {
+                font-size: 10vw;
+            }
+
+            h3 {
+                font-size: 4vw;
+            }
+
+            a {
+
+            }
+        }
+
+        .sign-in-tile {
+            height: 20%;
         }
     }
 
@@ -75,9 +187,30 @@ const SignInPageResponsiveWrapper = styled.div`
         .whole-page {
             background-color: yellow;
         }
+
+        .welcome-banner {
+            height: 40%;
+
+            h1 {
+                font-size: 10vw;
+            }
+
+            h3 {
+                font-size: 4vw;
+            }
+
+            a {
+
+            }
+        }
+
+        .sign-in-tile {
+            height: 30%;
+        }
     }
 `;
 
+// there are just the default styles, but i will extend them in the css overriding in the top of this file
 
 const WholePage = styled.div`
     width: 100vw;
@@ -117,8 +250,8 @@ const SignInOptionsContainer = styled.div`
 `;
 
 const SignInTile = styled.div`
-    width: 600px;
-    height: 200px;
+    width: 90%;
+    height: 30%;
     border-radius: 10px;
     background-color: white;
     display: flex;
@@ -184,20 +317,22 @@ class SignInPageMain extends React.Component {
         return (
             <SignInPageResponsiveWrapper>
                 <WholePage className="whole-page">
-                    <WelcomeBanner>
+                    <WelcomeBanner className="welcome-banner">
                         <h1>Welcome to FHN!</h1>
                         <a>{this.userSignedIn}</a>
-                        <h3>very basic sign in screen, this is where we will prompt the user to sign in</h3>
+                        <h3>Please continue with Google or log in as a Guest.</h3>
                     </WelcomeBanner>
 
 
-                    <SignInOptionsContainer>
+                    <SignInOptionsContainer className="sign-in-options-container">
                         <SignInTile className="sign-in-tile" onClick={this.handleUserSignInWithRedirect}>
                             <a>Sign in with Google</a>
+                            <img className="image-icon" src={googleIcon}></img>
                         </SignInTile>
 
                         <SignInTile className="sign-in-tile" onClick={this.doSomething}>
                             <a>Sign in as Guest{this.user}</a>
+                            <img className="image-icon" src={guestIcon}></img>
                         </SignInTile>
                     </SignInOptionsContainer>
 

@@ -60,7 +60,7 @@ const ProjectSectionComponent = styled.div`
         position: absolute;
         display: flex;
         align-items: center;
-        align-text: center;
+        text-align: center;
 
         width: 40%;
         left: 50%;
@@ -68,11 +68,11 @@ const ProjectSectionComponent = styled.div`
         height: 45%;
     }
 
-
     .project-description-snippet {
         display: flex;
         flex-direction: column;
         align-items: center;
+        position: relative;
 
         h3 {
             margin-bottom: 10px;

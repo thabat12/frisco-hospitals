@@ -7,6 +7,7 @@ import oneIcon from '../icons/numbers/one.svg';
 import twoIcon from '../icons/numbers/two.svg';
 import threeIcon from '../icons/numbers/three.svg';
 import fourIcon from '../icons/numbers/four.svg';
+import { useNavigate } from 'react-router-dom';
 
 const GalleryPageResponsiveWrapper = styled.div`
 
@@ -38,7 +39,25 @@ const GalleryPageResponsiveWrapper = styled.div`
 
     .page-type {
         width: 100%;
-        margin-bottom: 25px;
+        padding-bottom: 50px;
+        padding-top: 50px;
+        background-color: white;
+        margin-bottom: 50px;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        .inside-page-type {
+            position: relative;
+            width: 90%;
+
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
     }
 
     .steps-involved-block {
@@ -67,6 +86,32 @@ const GalleryPageResponsiveWrapper = styled.div`
         margin-bottom: 25px;
         font-size: 20px;
     }
+
+    .whole-page {
+        overflow-y: auto;
+        padding-bottom: 50px;
+    }
+
+    .nav-tile {
+        font-weight: bold;
+        font-size: 15px;
+
+        transition: 3s;
+
+        transition: 0.3s linear;
+
+        padding: 0.5em;
+        border-radius: 10px;
+
+        cursor: pointer;
+    }
+
+    .nav-tile:hover {
+        font-weight: bold;
+        font-size: 15px;
+
+        background-color: rgba(0,0,0,0.1);
+    }
     
     /* going from larger to smaller values*/
     @media ${AspectConstants.ultrawide} {
@@ -90,6 +135,10 @@ const GalleryPageResponsiveWrapper = styled.div`
     @media ${AspectConstants.tabletS} {
         .whole-page {
             background-color: green;
+        }
+
+        .step-tile {
+            width: 90%;
         }
     }
 
@@ -147,6 +196,7 @@ const StepTile = styled.div`
     position: relative;
     justify-content: center;
     text-align: start;
+    padding-right: 5%;
 
     background-color: white;
     width: 50%;
@@ -169,11 +219,27 @@ const StepTile = styled.div`
 
 // trying a new strategy of just assigning class names rather than styled components
 export default function GalleryMoreInfoPage() {
+
+    const nav = useNavigate();
+
+    const goBack = () => {
+        nav('/');
+    }
+
+
     return (
         <GalleryPageResponsiveWrapper>
             <GalleryMoreInfoWidget className='whole-page'>
+                
+                <div className='page-type'>
+                    <div className='inside-page-type'>
+                        <h3>The Community Gallery</h3>
+                        <div className='nav-tile' onClick={goBack}>Go Back</div>
+                    </div>
+                </div> 
+
                 <div className='whole-page-contents'>
-                    <div className='page-type'>The Community Gallery</div> 
+
                     <div>
                         <div className='first-title-section'>
                             <h3>How It Works</h3>
@@ -195,7 +261,7 @@ export default function GalleryMoreInfoPage() {
 
                                 <h4 className='second-description'>Our process for submitting artwork is made to be simple and easy! Here are the following ways that you can submit artwork to a hospital display near you:</h4>
 
-                                <StepWrapper>
+                                <StepWrapper className='step-wrapper'>
                                     <StepTile className='step-tile'>
                                         <div className='left-tile'>
                                             <img src={oneIcon} className='number-icon'></img>
@@ -293,11 +359,6 @@ export default function GalleryMoreInfoPage() {
                             </div>
                         </div>
 
-                    </div>
-
-                    <div>
-                        <h5>This page is under construction.</h5>
-                        <h5>We thank you for taking the time to view our website. At this point, we are still in the process of fixing up the website and enhancing FHN UI and backend, so expect to see frequent changes for this page.</h5>
                     </div>
                 </div>
             </GalleryMoreInfoWidget>

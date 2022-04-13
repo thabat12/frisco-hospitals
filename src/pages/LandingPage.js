@@ -32,69 +32,6 @@ import facebookLogo from '../icons/facebook.svg';
         - Firebase DB Handler
 */
 
-const LandingPageResponsiveWrapper = styled.div`
-
-    * {
-        margin: 0;
-    }
-
-    h1 {
-        font-size: 7.3vw;
-        font-weight: bold;
-    }
-
-    h2 {
-        font-size: 3.1vw;
-    }
-
-    h3 {
-        font-size: 25px;
-    }
-    
-    /* going from larger to smaller values*/
-    @media ${AspectConstants.ultrawide} {
-        .whole-page {
-            background-color: black;
-        }
-    }
-
-    @media ${AspectConstants.desktopL} {
-        .whole-page {
-            background-color: cadetblue;
-        }
-    }
-
-    @media ${AspectConstants.desktopS} {
-        .whole-page {
-            background-color: brown;
-        }
-    }
-
-    @media ${AspectConstants.tabletS} {
-        .whole-page {
-            background-color: green;
-        }
-    }
-
-    @media ${AspectConstants.tabletL} {
-        .whole-page {
-            background-color: purple;
-        }
-    }
-
-    @media ${AspectConstants.mobileS} {
-        .whole-page {
-            background-color: blue;
-        }
-    }
-
-    @media ${AspectConstants.mobileL} {
-        .whole-page {
-            background-color: yellow;
-        }
-    }
-`;
-
 
 const LandingWidget = styled.div`
     position: relative;
@@ -183,7 +120,7 @@ const LandingWidgetOurMissionPortion = styled.div`
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 100vw;
+        width: 100%;
     }
 
     #explore-projects {
@@ -194,7 +131,7 @@ const LandingWidgetOurMissionPortion = styled.div`
 
 const OurMissionTextHeaderBox = styled.div`
     position: relative;
-    width: 90vw;
+    width: 90%;
     
     /* had to make this container absolute kind of hard-coding it for now */
     #our-mission-text-header-box {
@@ -299,6 +236,10 @@ const AllProjectsLandingPagePortion = styled.div`
 
         top: 30%;
         left: 5%;
+
+        h4 {
+            font-weight: normal;
+        }
     }
 `;
 
@@ -316,12 +257,15 @@ const GalleryProjectSectionWrapper = styled.div`
 
 const FooterLandingPagePortion = styled.div`
     width: 100vw;
-    height: 15vh;
+    height: auto;
     background-color: ${ThemeConstants.primaryAccentRed};
     color: white;
 
     display: flex;
     flex-direction: row;
+
+    padding-bottom: 8vh;
+    padding-top: 5vh;
 
     .footer-left-portion {
         display: flex;
@@ -403,6 +347,351 @@ const FooterLandingPagePortion = styled.div`
     }
 `;
 
+const LandingPageResponsiveWrapper = styled.div`
+
+    * {
+        margin: 0;
+    }
+
+    h1 {
+        font-size: 7.3vw;
+        font-weight: bold;
+    }
+
+    h2 {
+        font-size: 3.1vw;
+    }
+
+    h3 {
+        font-size: 25px;
+    }
+    
+    /* going from larger to smaller values*/
+    @media ${AspectConstants.ultrawide} {
+        .whole-page {
+            background-color: blue;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .our-mission-tile-component {
+            max-width: 400px;
+            max-height: 400px;
+        }
+
+        #landing-widget-page-section {
+            width: 100vw;
+            max-width: 1500px;
+        }
+
+        #all-projects-page-section {
+            width: 100vw;
+            max-width: 1500px;
+        }
+    }
+
+    @media ${AspectConstants.desktopL} {
+        .whole-page {
+            background-color: cadetblue;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .our-mission-tile-component {
+            max-width: 400px;
+            max-height: 400px;
+        }
+
+        #landing-widget-page-section {
+            width: 100vw;
+            max-width: 1500px;
+        }
+
+        #all-projects-page-section {
+            width: 100vw;
+            max-width: 1500px;
+        }
+    }
+
+    @media ${AspectConstants.desktopS} {
+        .whole-page {
+            background-color: brown;
+        }
+    }
+
+    @media ${AspectConstants.tabletS} {
+        .whole-page {
+            background-color: green;
+        }
+
+        .landing-widget-nav {
+
+            width: 100vw;
+            display: flex;
+
+
+            a {
+                font-size: 2.5vw;
+            }
+        }
+
+        #landing-page-main-text {
+            font-size: 7vw;
+        }
+
+        #landing-page-secondary-text {
+            font-size: 4vw;
+        }
+
+        #our-mission-text-main {
+            font-size: 6vw;
+        }
+
+        #our-mission-text-description {
+            font-size: 3vw;
+        }
+
+        #explore-projects-container {
+            #explore-projects {
+                font-size: 6vw;
+            }
+        }
+
+        .our-mission-tile-component {
+            width: 80vw;
+            height: auto;
+            padding-bottom: 2vh;
+            margin-bottom: 2vh;
+
+            .header-wrapper {
+                margin-bottom: 0px;
+            }
+
+            h3 {
+                font-size: 5vw;
+            }
+
+            h5 {
+                font-size: 2.7vw;
+            }
+        }
+
+        .wrap-project-tile-and-description {
+            display: flex;
+            flex-direction: column;
+            height: auto;
+            padding-top: 0px;
+            align-items: center;
+        }
+
+        .project-section {
+            flex-direction: column;
+            margin-top: 0px;
+            top: 0px;
+            height: auto;
+
+            .project-section-side-box {
+                position: relative;
+                height: 25vh;
+                width: 80vw;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                top: 0%;
+                left: 0%;
+
+                h3 {
+                    font-size: 5vw;
+                }
+
+                h4 {
+                    font-size: 3vw;
+                }
+
+            }
+
+            .project-section-side-box-main-text {
+                position: relative;
+                top: 0%;
+                left: 0%;
+
+                text-align: center;
+                
+            }
+
+            .project-description-snippet {
+
+                position: relative;
+
+                h3 {
+                    margin-bottom: 0px;
+                    font-size: 4vw;
+                }
+
+                h4 {
+                    font-weight: normal;
+                    padding-left: 0px:
+                    padding-right: 0px;
+                    text-align: center;
+                    font-size: 3vw;
+                }
+
+                h5 {
+                    font-size: 3.5vw;
+                }
+            }
+
+            .current-project-box-description {
+                position: relative;
+                top: 0%;
+                left: 0%;
+                padding-top: 25px;
+                width: 70vw;
+                height: auto;
+            }
+        }
+
+        #our-mission-tile-component {
+            width: auto;
+            height: auto;
+        }
+
+        #our-mission-tiles-container {
+            flex-direction: column;
+        }
+
+        #take-a-look-h2 {
+            font-size: 5.5vw;
+            margin-bottom: 40px;
+        }
+
+        /* part of the footer */
+        .footer-bottom {
+            flex-direction: column;
+
+            .footer-left-portion {
+                width: 100vw;
+                margin-bottom: 20px;
+            }
+
+            .footer-middle-portion {
+                margin-bottom: 20px;
+                text-align: center;
+            }
+
+            .footer-last-portion {
+                width: 100vw;
+                margin-bottom: 50px;
+            }
+        }
+
+    }
+
+    @media ${AspectConstants.tabletL} {
+        .whole-page {
+            background-color: purple;
+        }
+    }
+
+    @media ${AspectConstants.mobileS} {
+        .whole-page {
+            background-color: blue;
+        }
+
+        #our-mission-text-description {
+            font-size: 4vw;
+        }
+
+        .our-mission-tile-component {
+            h5 {
+                font-size: 3.5vw;
+            }
+        }
+    }
+
+    @media ${AspectConstants.mobileL} {
+        .whole-page {
+            background-color: yellow;
+        }
+
+        .landing-widget-nav {
+
+            width: 100vw;
+            display: flex;
+
+
+            a {
+                font-size: 3.2vw;
+            }
+        }
+
+        .project-section {
+            position: relative;
+            height: auto;
+
+            .project-section-side-box {
+                position: relative;
+                height: auto;
+                width: 80vw;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                top: 0%;
+                left: 0%;
+
+                padding: 5vw;
+
+            }
+
+            .project-section-side-box-main-text {
+                position: relative;
+                top: 0%;
+                left: 0%;
+
+                text-align: center;
+                
+            }
+
+            .project-description-snippet {
+
+                position: relative;
+                margin-top: 0vh;
+                top: 0%;
+
+                h3 {
+                    margin-bottom: 0px;
+                    font-size: 4.5vw;
+                }
+
+                h4 {
+                    font-weight: normal;
+                    padding-left: 0px:
+                    padding-right: 0px;
+                    text-align: center;
+                    font-size: 3.5vw;
+                }
+            }
+
+            .current-project-box-description {
+                position: relative;
+                top: 0%;
+                left: 0%;
+                padding-top: 25px;
+                width: 70vw;
+                height: auto;
+            }
+        }
+    }
+`;
+
+
+
 
 
 // This acts as a navigation wrapper to pass into LandingPageMain, the actual page
@@ -479,7 +768,7 @@ class LandingPageMain extends React.Component {
                         </LandingWidgetNav>
 
                         {/* Our Mission Container */}
-                        <LandingWidgetOurMissionPortion>
+                        <LandingWidgetOurMissionPortion id="landing-widget-page-section">
                             <OurMissionTextHeaderBox>
                                 <div id="our-mission-text-header-box">
                                     <h2 id="our-mission-text-main">Our Mission</h2>
@@ -490,7 +779,7 @@ class LandingPageMain extends React.Component {
 
                             <div id="explore-projects-container">
                                 <h3 id="explore-projects">Explore our current projects</h3>
-                                <OurMissionTilesContainer>
+                                <OurMissionTilesContainer id="our-mission-tiles-container">
                                     <OurMissionTile name="Gallery" className="our-mission-tile"/>
                                     <OurMissionTile name="Volunteer" className="our-mission-tile"/>
                                     <OurMissionTile name="Donate" className="our-mission-tile"/>
@@ -500,7 +789,7 @@ class LandingPageMain extends React.Component {
                         </LandingWidgetOurMissionPortion>
 
                         {/* All Projects Section */}
-                        <AllProjectsLandingPagePortion>
+                        <AllProjectsLandingPagePortion id="all-projects-page-section">
                             <h2 id="take-a-look-h2">More About Our Current Projects</h2>
                             <GalleryProjectSectionWrapper>
                                 {/* <GalleryScroll/> */}
@@ -513,7 +802,7 @@ class LandingPageMain extends React.Component {
                         </AllProjectsLandingPagePortion>
 
                         {/* Footer Section */}
-                        <FooterLandingPagePortion>
+                        <FooterLandingPagePortion className="footer-bottom">
                             <div className="footer-left-portion">
                                 <h3>Connect:</h3>
                                 <div className="logo-container">
