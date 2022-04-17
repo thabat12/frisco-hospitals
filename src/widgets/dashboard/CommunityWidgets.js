@@ -1,8 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 
+import artworkIcon from '../../icons/artwork.svg';
+import verifyIcon from '../../icons/verify.svg';
+import emailIcon from '../../icons/email.svg';
+
 const BaseTile = styled.div`
 
+    cursor: pointer;
     position: relative;  
     display: flex;
     border-radius: 5px;
@@ -99,7 +104,7 @@ const GalleryTileItem = styled.div`
 
 const SubmitToGalleryCookie = styled(GalleryTileItem)`
     position: relative;
-    height: 40vh;
+    height: 45vh;
     display: flex;
     align-items: center;
     padding-left: 1.3em;
@@ -135,6 +140,8 @@ const SubmitToGalleryCookie = styled(GalleryTileItem)`
         flex-grow: 1;
         width: 20%;
         align-items: center;
+
+        font-size: 80%;
     }
 
     .div-inside-aligns {
@@ -157,18 +164,25 @@ export function GalleryTileReplacement() {
                     <h4 id='submit-gallery-title'>How it works</h4>
                     <div className='left-right-aligns'>
                         <div className='left-align'>
-                            <h4 className='text-inside-aligns'>Submission: Simply submit your artwork to the Gallery by pressing on this tile</h4>
-                            <div className='div-inside-aligns'/>
+                            <h4 className='text-inside-aligns'>1) Submission: Simply submit your artwork to the Gallery by pressing on this tile</h4>
+                            
+                            <div className='div-inside-aligns'>
+                                <img className='gallery-icon' src={artworkIcon}></img>
+                            </div>
                         </div>
 
                         <div className='left-align'>
-                            <h4 className='text-inside-aligns'>Review: We will review your submission and make sure it is ready to be presented</h4>
-                            <div className='div-inside-aligns'/>
+                            <h4 className='text-inside-aligns'>2) Review: We will review your submission and make sure it is ready to be presented</h4>
+                            <div className='div-inside-aligns'>
+                                <img className='gallery-icon' src={verifyIcon}></img>
+                            </div>
                         </div>
 
                         <div className='left-align'>
-                            <h4 className='text-inside-aligns'>Notification: Look out for an email for more details! You can either present to your local hospital or opt to submit to our community gallery.</h4>
-                            <div className='div-inside-aligns'/>
+                            <h4 className='text-inside-aligns'>3) Notification: Look out for an email for your qualification</h4>
+                            <div className='div-inside-aligns'>
+                                <img className='gallery-icon' src={emailIcon}></img>
+                            </div>
                         </div>
                     </div>
                 </SubmitToGalleryCookie>

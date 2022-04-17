@@ -97,7 +97,7 @@ export function RequestedItemListReplacement() {
 
     return (
         <BaseTileVariantTwoWrapper>
-            <h2>List of Donation Items</h2>
+            <h2 className="tile-title">List of Donation Items</h2>
             {/* generate list of items here, will not be too large (hopefully for now) */}
             <BaseTileSubTile className="donation-item-list-container">
                 <h3>Below are the acceptable list of items that we accept</h3>
@@ -114,10 +114,10 @@ export function RequestedItemListReplacement() {
 export function DonateQueryReplacement() {
     return (
         <GiveTile className='back-tile'>
-            <h2 id="tile-title">Donate Now!</h2>
+            <h2 className="tile-title">Donate Now!</h2>
             <div className="align-center">
-                <a>If you have something to donate, please fill out this form and we will contact you shortly!</a>
-                <button>Go to Form</button>
+                <a id="something-to-donate">If you have something to donate, please fill out this form and we will contact you shortly!</a>
+                <button id="btn-go-to-form">Go to Form</button>
             </div>
         </GiveTile> 
     );
@@ -142,7 +142,7 @@ function navigateToScottishRite() {
 export function DonationPagesReplacement() {
     return (
         <GiveTile className='back-tile'>
-            <h2 id="tile-title">Visit Donation Pages</h2>
+            <h2 className="tile-title">Visit Donation Pages</h2>
             <div className="align-center">
 
                 <div className='visit-donation-page-tile' onClick={() => { navigateToLink('https://scottishriteforchildren.org/get-involved') }}>

@@ -3,7 +3,7 @@ import {getAnalytics} from 'firebase/analytics';
 import {doc, collection, setDoc, getDocs, getFirestore, Timestamp, DocumentReference, 
     addDoc, CollectionReference, collectionGroup, query, where, getDoc, updateDoc, enableIndexedDbPersistence, onSnapshot} from 'firebase/firestore';
 import {getAuth, setPersistence, signInWithPopup, GoogleAuthProvider, signInWithRedirect, 
-    getRedirectResult, onAuthStateChanged, inMemoryPersistence, signOut} from 'firebase/auth';
+    getRedirectResult, onAuthStateChanged, inMemoryPersistence, signOut, signInAnonymously} from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
 const firebaseConfig = {
@@ -61,6 +61,21 @@ export default async function handleUserSignIn() {
         // we will push the user into a new page specifically meant for signing in 
         return signInWithAuthStatePersistence();
     }
+}
+
+export async function handleGuestSignIn() {
+
+    signInAnonymously(auth)
+        .then(
+            () => {
+                console.log('guest logged in');
+            }
+        )
+        .catch(
+            (err) => {
+
+            }
+        );
 }
 
 /*

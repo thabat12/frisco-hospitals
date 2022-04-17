@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { CurrentOpportunitiesTileReplacement, MoreUpdatesTileReplacement } from "../widgets/dashboard/VolunteerWidgets";
 import { getVolunteeringOpportunities } from "../firebase/FireBaseInstance";
 import { AspectConstants, ResponsiveConstants } from "../global/ResponsiveConstants";
+import ThemeConstants from "../global/ThemeConstants";
 
 const VolunteerTabResponsiveWrapper = styled.div`
 
@@ -28,8 +29,13 @@ const VolunteerTabResponsiveWrapper = styled.div`
 
     }
 
-    .align-center {
+    .subscribe-items {
+        display: flex;
+        align-items: center;
+    }
 
+    .align-center {
+        align-items: center;
     }
 
     #current-opportunities {
@@ -42,6 +48,18 @@ const VolunteerTabResponsiveWrapper = styled.div`
             font-size: 20px;
             font-weight: bold;
         }
+    }
+
+
+    .image-icon {
+        height: 20px;
+        width: 20px;
+        margin-left: 15px;
+        margin-right: 10px;
+    }
+
+    .volunteering-opportunities {
+        color: ${ThemeConstants.primaryAccentRed};
     }
 
     @media ${AspectConstants.ultrawide} {

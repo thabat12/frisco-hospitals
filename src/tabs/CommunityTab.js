@@ -31,6 +31,22 @@ const CommunityTabResponsiveWrapper = styled.div`
 
     }
 
+    .text-inside-aligns {
+        width: 45%;
+    }
+
+    .div-inside-aligns {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .gallery-icon {
+        height: 40px;
+        width: 40px;
+    }
+
     @media ${AspectConstants.ultrawide} {
 
     }
@@ -63,8 +79,6 @@ const CommunityTabResponsiveWrapper = styled.div`
         
     }
 `;
-
-
 
 const MainContentWrapper = styled.div`
     display: relative;

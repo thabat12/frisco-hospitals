@@ -3,7 +3,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { getRedirectResult, getAuth, onAuthStateChanged } from "firebase/auth";
-import { giveMeAuth, isUserLoggedIn } from "../firebase/FireBaseInstance";
+import { giveMeAuth, isUserLoggedIn, handleGuestSignIn } from "../firebase/FireBaseInstance";
 
 import { AspectConstants } from "../global/ResponsiveConstants";
 
@@ -352,6 +352,7 @@ class SignInPageMain extends React.Component {
         this.navigate = props.navigate;
         this.handleUserSignInWithRedirect = this.handleUserSignInWithRedirect.bind(this);
         this.doSomething = this.doSomething.bind(this);
+        this.handleGuestSignInPage = this.handleGuestSignInPage.bind(this);
     }
 
     componentDidMount() {
@@ -373,6 +374,10 @@ class SignInPageMain extends React.Component {
         
 
         // let auth = giveMeAuth();
+    }
+
+    async handleGuestSignInPage() {
+        handleGuestSignIn();
     }
 
     doSomething() {
@@ -414,7 +419,7 @@ class SignInPageMain extends React.Component {
                             OR
                         </h4>
 
-                        <SignInTile className="sign-in-tile" onClick={this.doSomething}>
+                        <SignInTile className="sign-in-tile" onClick={this.handleGuestSignInPage}>
                             <a>Sign in as Guest{this.user}</a>
                             <img className="image-icon" src={guestIcon}></img>
                         </SignInTile>

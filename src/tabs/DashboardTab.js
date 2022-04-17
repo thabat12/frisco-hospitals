@@ -7,6 +7,8 @@ import { ActivityTileReplacement, ContactUsTileReplacement, MyCommitementsTileRe
 
 import { AspectConstants, ResponsiveConstants } from "../global/ResponsiveConstants";
 
+import {getAuth} from 'firebase/auth';
+
 const DashboardTabResponsiveWrapper = styled.div`
 
     .greetings-cookie {
@@ -178,6 +180,13 @@ class DashboardTab extends React.Component {
     }
 
     render() {
+
+        let displayName = 'Guest'
+
+        if (! (getUser()?.isAnonymous)) {
+            displayName = getUser().displayName;
+        }
+
         return (
             <DashboardTabResponsiveWrapper>
                 <MainContentWrapper>
@@ -194,7 +203,7 @@ class DashboardTab extends React.Component {
                         <DashboardContainer>
 
                             <GreetingsCookie className="greetings-cookie">
-                                <h3 id="dashboard-welcome">Hello, {getUser().displayName}</h3>
+                                <h3 id="dashboard-welcome">Hello, {displayName}</h3>
                                 <p className="subtitle">Welcome to FHN. Find ways you can contribute by navigating through the tabs and choosing which activities interest you.</p>
                             </GreetingsCookie>
 
