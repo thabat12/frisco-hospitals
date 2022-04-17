@@ -45,8 +45,8 @@ const SignInPageResponsiveWrapper = styled.div`
     .welcome-banner {
 
         text-align: center;
-
         background-color: white;
+        flex-grow: 9;
 
         h1 {
 
@@ -54,6 +54,7 @@ const SignInPageResponsiveWrapper = styled.div`
 
         h3 {
             font-size: 3vw;
+            font-weight: normal;
         }
 
         a {
@@ -65,7 +66,14 @@ const SignInPageResponsiveWrapper = styled.div`
         width: 100%;
     }
 
+    h4 {
+        font-weight: bold;
+        font-size: 30px;
+    }
+
     .sign-in-tile {
+        margin-bottom: 20px;
+        margin-top:20px;
     }
 
     .image-icon {
@@ -80,6 +88,40 @@ const SignInPageResponsiveWrapper = styled.div`
 
             flex-direction: row;
         }
+
+        .welcome-banner {
+
+            text-align: center;
+            background-color: white;
+            flex-grow: 9;
+
+            h1 {
+                font-size: 40px;
+            }
+
+            h3 {
+                font-size: 30px;
+                width: 60%;
+            }
+
+            a {
+
+            }
+        }
+
+        .sign-in-tile {
+            width: 400px;
+            height: 80px;
+
+            a {
+                font-size: 25px;
+                font-weight: normal;
+            }
+
+            margin-bottom: 20px;
+        }
+
+
     }
 
     @media ${AspectConstants.desktopL} {
@@ -87,14 +129,36 @@ const SignInPageResponsiveWrapper = styled.div`
             background-color: cadetblue;
         }
 
-        .sign-in-tile {
-            max-width: 80%;
-            height: 30%;
+        .welcome-banner {
+
+            text-align: center;
+            background-color: white;
+            flex-grow: 9;
+
+            h1 {
+                font-size: 40px;
+            }
+
+            h3 {
+                font-size: 30px;
+                width: 60%;
+            }
 
             a {
-                font-size: 5vw;
+
+            }
+        }
+
+        .sign-in-tile {
+            max-width: 400px;
+            height: 80px;
+
+            a {
+                font-size: 25px;
                 font-weight: normal;
             }
+
+            margin-bottom: 20px;
         }
         
     }
@@ -103,6 +167,26 @@ const SignInPageResponsiveWrapper = styled.div`
         .whole-page {
             background-color: brown;
         }
+
+        .welcome-banner {
+
+            text-align: center;
+            background-color: white;
+            flex-grow: 9;
+
+            h1 {
+                font-size: 40px;
+            }
+
+            h3 {
+                font-size: 20px;
+                width: 80%;
+            }
+
+            a {
+
+            }
+        }
     }
 
     @media ${AspectConstants.tabletS} {
@@ -110,24 +194,7 @@ const SignInPageResponsiveWrapper = styled.div`
             background-color: green; 
         }
 
-        .welcome-banner {
-            height: 25%;
-
-            h1 {
-                font-size: 10vw;
-            }
-
-            h3 {
-                font-size: 4vw;
-            }
-
-            a {
-
-            }
-        }
-
         .sign-in-tile {
-            height: 20%;
         }
     }
 
@@ -137,23 +204,27 @@ const SignInPageResponsiveWrapper = styled.div`
         }
 
         .welcome-banner {
-            height: 25%;
+
+            text-align: center;
+            background-color: white;
+            flex-grow: 9;
 
             h1 {
-                font-size: 10vw;
+                font-size: 60px;
             }
 
             h3 {
-                font-size: 4vw;
+                font-size: 40px;
+                width: 60%;
             }
 
             a {
 
             }
-        }
+            }
 
         .sign-in-tile {
-            height: 20%;
+            height: 100px;
         }
     }
 
@@ -163,7 +234,6 @@ const SignInPageResponsiveWrapper = styled.div`
         }
 
         .welcome-banner {
-            height: 25%;
 
             h1 {
                 font-size: 10vw;
@@ -188,15 +258,18 @@ const SignInPageResponsiveWrapper = styled.div`
             background-color: yellow;
         }
 
+        h4 {
+            font-size: 20px;
+        }
+
         .welcome-banner {
-            height: 40%;
 
             h1 {
-                font-size: 10vw;
             }
 
             h3 {
-                font-size: 4vw;
+                font-size: 10px;
+                width: 80%;
             }
 
             a {
@@ -205,7 +278,12 @@ const SignInPageResponsiveWrapper = styled.div`
         }
 
         .sign-in-tile {
-            height: 30%;
+            height: 90px;
+            font-size: 5px;
+
+            a {
+                font-size: 15px;
+            }
         }
     }
 `;
@@ -231,7 +309,7 @@ const WelcomeBanner = styled.div`
 
     width: 100vw;
 
-    flex-grow: 1;
+    flex-grow: 2;
 
     display: flex;
     flex-direction: column;
@@ -243,9 +321,11 @@ const SignInOptionsContainer = styled.div`
     width: 100vw;
     flex-grow: 5;
 
+    align-items: center;
+    justify-content: center;
+
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     align-items: center;
 `;
 
@@ -330,10 +410,15 @@ class SignInPageMain extends React.Component {
                             <img className="image-icon" src={googleIcon}></img>
                         </SignInTile>
 
+                        <h4>
+                            OR
+                        </h4>
+
                         <SignInTile className="sign-in-tile" onClick={this.doSomething}>
                             <a>Sign in as Guest{this.user}</a>
                             <img className="image-icon" src={guestIcon}></img>
                         </SignInTile>
+
                     </SignInOptionsContainer>
 
                 </WholePage>

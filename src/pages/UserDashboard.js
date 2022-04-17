@@ -11,6 +11,8 @@ import GiveTab from "../tabs/GiveTab";
 
 import '../css/Dashboard.css';
 
+import menuIcon from '../icons/menu.svg';
+
 // PAGE CONSTANTS
 const sidebarWidthPercentage = 35;
 
@@ -34,17 +36,107 @@ const UserDashboardResponsiveWrapper = styled.div`
     h3 {
         font-size: 25px;
     }
+
+    .menu-icon {
+        height: 30px;
+    }
+
+    @keyframes expand-mobile-header {
+        0% {height: 80px}
+        100% {height: 100vh}
+    }
+
+    @keyframes collapse-mobile-header {
+        0% {height: 100vh}
+        100% {height: 80px}
+    }
+    
+    .expand-mobile {
+        animation-name: expand-mobile-header;
+        animation-duration: 0.5s;
+
+        height: 100vh;
+    }
+
+    .collapse-mobile {
+        animation-name: collapse-mobile-header;
+        animation-duration: 0.5s;
+
+        height: 80px;
+    }
+
+    .mobile-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow-y: hidden;
+        position: absolute;
+        width: 100vw;
+
+        background-color: ${ThemeConstants.primaryAccentRed};
+
+        color: white;
+
+        .mobile-header-contents {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            width: 100vw;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            height: 80px;
+        }
+
+        h3 {
+            justify-self: center;
+        }
+
+        .mobile-expand-body {
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+
+            .divider {
+                width: 200px;
+                height: 1px;
+                background-color: white;
+            }
+
+            .mobile-expand-contents {
+                margin-top: 30px;
+                margin-bottom: 25px;
+
+                h3 {
+                    margin-top: 15px;
+                    margin-bottom: 15px;
+                }
+            }
+        }
+
+        
+    }
     
     /* going from larger to smaller values*/
     @media ${AspectConstants.ultrawide} {
         .whole-page {
             background-color: white;
         }
+
+        .mobile-header {
+            visibility: hidden;
+        }
     }
 
     @media ${AspectConstants.desktopL} {
         .whole-page {
             background-color: cadetblue;
+        }
+
+        .mobile-header {
+            visibility: hidden;
         }
     }
 
@@ -69,6 +161,18 @@ const UserDashboardResponsiveWrapper = styled.div`
     @media ${AspectConstants.mobileS} {
         .whole-page {
             background-color: blue;
+        }
+
+        .side-bar {
+            display: none;
+        }
+
+        .mobile-header {
+            visibility: visible;
+        }
+
+        .main-dashboard {
+            padding-top: 80px;
         }
     }
 
@@ -201,7 +305,7 @@ const SideBarContents = styled.div`
 const LogoSnack = styled.div`
     position: relative;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     flex-grow: 2;
@@ -228,6 +332,26 @@ const SideBarFooter = styled.div`
 
     font-size: 20px;
 `;
+
+/*
+
+    Addressing the issue of mobile responsiveness:
+        adding a glass morphism style top drawer that 
+        will pull up side options in a neat way, will hopefully
+        look cool enough to look legit
+*/
+
+const MobileNavHeader = styled.div`
+
+    position: absolute;
+    width: 100vw;
+    height: 80px;
+
+    background-color: ${ThemeConstants.primaryAccentRed};
+
+    color: white;
+`;
+
 
 /*
     container holds a list of a-links that are going to be the tabs
@@ -281,10 +405,14 @@ class UserDashboard extends React.Component {
             0  // Give
         ];
 
+        // 0 stands for collapsed, 1 for opened
+        this.navBarState = 0;
+
         this.curUser = getUser();
 
         // collpse and expand the sidebar
         this.sideBarRef = React.createRef();
+        this.mobileHeaderRef = React.createRef();
 
         this.signOutUserInDashboard = this.signOutUserInDashboard.bind(this);
         this.navigateToCommunity = this.navigateToCommunity.bind(this);
@@ -292,6 +420,11 @@ class UserDashboard extends React.Component {
         this.navigateToDashboard = this.navigateToDashboard.bind(this);
         this.navigateToGive = this.navigateToGive.bind(this);
         this.handleScrolling = this.handleScrolling.bind(this);
+        this.handleMobileHeader = this.handleMobileHeader.bind(this);
+        this.mobileNavToDashboard = this.mobileNavToDashboard.bind(this);
+        this.mobileNavToCommunity = this.mobileNavToCommunity.bind(this);
+        this.mobileNavToVolunteer = this.mobileNavToVolunteer.bind(this);
+        this.mobileNavToGive = this.mobileNavToGive.bind(this);
     }
 
     // handling states here (will include the screen overlay stuff too)
@@ -312,7 +445,6 @@ class UserDashboard extends React.Component {
 
     // Handle scrolling offsets
     handleScrolling(e) {
-        console.log(e.deltaY);
     }
 
 
@@ -349,6 +481,61 @@ class UserDashboard extends React.Component {
         console.log('navigating to profile');
     }
 
+    handleMobileHeader() {
+        console.log('sometihng is happening');
+        // this is the case that we have to OPEN nav bar
+        if (this.navBarState === 0) {
+            this.mobileHeaderRef.current.className = 'mobile-header expand-mobile';
+            this.navBarState = 1;
+            
+        } else {
+            this.mobileHeaderRef.current.className = 'mobile-header collapse-mobile';
+            this.navBarState = 0;
+        }
+
+        this.forceUpdate();
+    }
+
+    mobileNavToDashboard() {
+        this.selected.fill(0);
+        this.selected[0] = 1;
+
+        this.mobileHeaderRef.current.className = 'mobile-header collapse-mobile';
+        this.navBarState = 0;
+
+        this.forceUpdate();
+    }
+
+    mobileNavToCommunity() {
+        this.selected.fill(0);
+        this.selected[1] = 1;
+
+        this.mobileHeaderRef.current.className = 'mobile-header collapse-mobile';
+        this.navBarState = 0;
+
+        this.forceUpdate();
+    }
+
+    mobileNavToVolunteer() {
+        this.selected.fill(0);
+        this.selected[2] = 1;
+
+        this.mobileHeaderRef.current.className = 'mobile-header collapse-mobile';
+        this.navBarState = 0;
+
+        this.forceUpdate();
+    }
+
+    mobileNavToGive() {
+        this.selected.fill(0);
+        this.selected[3] = 1;
+
+        this.mobileHeaderRef.current.className = 'mobile-header collapse-mobile';
+        this.navBarState = 0;
+
+        this.forceUpdate();
+    }
+
     render() {
 
         let CurTab = <a>this is nothing for now</a>
@@ -374,12 +561,12 @@ class UserDashboard extends React.Component {
         return (
             <UserDashboardResponsiveWrapper>
                 <WholePage className="whole-page">
-                    
-                    <SideBar>
+                    <SideBar className="side-bar">
                         <SideBarContents>
                             <LogoSnack>
-                                <h3>FHN</h3>
+                                <h3>FHN</h3>                            
                             </LogoSnack>
+
                             <SideBarBody>
 
                                 <TabOptionsContainer>
@@ -398,7 +585,7 @@ class UserDashboard extends React.Component {
                         </SideBarContents>
                     </SideBar>
 
-                    <MainDashboard>
+                    <MainDashboard className="main-dashboard">
 
                         <div id="scrollable" onScroll={this.handleScrolling}>
                             {CurTab}
@@ -407,6 +594,30 @@ class UserDashboard extends React.Component {
                         
                         
                     </MainDashboard>
+
+                    <MobileNavHeader className="mobile-header" ref={this.mobileHeaderRef}>
+                        <div className="mobile-header-contents">
+                            <img src={menuIcon} className='menu-icon' onClick={this.handleMobileHeader}/>
+                            <h3>FHN</h3>
+                        </div>
+
+                        <div className="mobile-expand-body">
+                            <div className="mobile-expand-contents">
+                                <h3 onClick={this.mobileNavToDashboard}>Dashboard</h3>
+                                <div className="divider"/>
+                                <h3 onClick={this.mobileNavToCommunity}>Community</h3>
+                                <div className="divider"/>
+                                <h3 onClick={this.mobileNavToVolunteer}>Volunteer</h3>
+                                <div className="divider"/>
+                                <h3 onClick={this.mobileNavToGive}>Give</h3>
+                                <div className="divider"/>
+                            </div>
+
+                            <div className="mobile-expand-profile">
+                                <h3>Profile</h3>
+                            </div>
+                        </div>
+                    </MobileNavHeader>
                     
                 </WholePage>
             </UserDashboardResponsiveWrapper>

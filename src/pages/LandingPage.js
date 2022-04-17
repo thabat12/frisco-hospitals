@@ -294,7 +294,7 @@ const FooterLandingPagePortion = styled.div`
                 width: 50px;
                 height: 50px;
                 margin-left: 15px;
-                margin-right 15px;
+                margin-right: 15px;
 
                 transition: 0.5s transform;
                 transform: scale(1);
@@ -375,19 +375,106 @@ const LandingPageResponsiveWrapper = styled.div`
             align-items: center;
         }
 
-        .our-mission-tile-component {
-            max-width: 400px;
-            max-height: 400px;
-        }
-
         #landing-widget-page-section {
             width: 100vw;
-            max-width: 1500px;
+            max-width: 1200px;
         }
 
         #all-projects-page-section {
             width: 100vw;
-            max-width: 1500px;
+            max-width: 1200px;
+        }
+
+        #explore-projects-container {
+            #explore-projects {
+                font-size: 40px;
+            }
+        }
+
+        #our-mission-text-main {
+            font-size: 40px;
+        }
+
+        #take-a-look-h2 {
+            font-size: 40px;
+        }
+
+        .our-mission-tile-component {
+            width: 250px;
+            height: 250px;
+        }
+
+        .project-section {
+            flex-direction: column;
+            padding-top: 50px;
+            top: 0px;
+            margin-bottom: 20px;
+
+            .project-section-side-box {
+                position: relative;
+                height: auto;
+                padding-bottom: 10px;
+                padding-top: 10px;
+                width: 600px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                top: 0%;
+                left: 0%;
+
+                h3 {
+                    font-size: 25px;
+                }
+
+                h4 {
+                    font-size: 18px;
+                }
+
+            }
+
+            .project-section-side-box-main-text {
+                position: relative;
+                top: 0%;
+                left: 0%;
+
+                text-align: center;
+                
+            }
+
+            .project-description-snippet {
+
+                position: relative;
+                padding-left: 50px;
+                padding-right: 50px;
+
+                h3 {
+                    margin-bottom: 0px;
+                    font-size: 25px;
+                }
+
+                h4 {
+                    font-weight: normal;
+                    padding-left: 0px;
+                    padding-right: 0px;
+                    text-align: center;
+                    font-size: 15px;
+                }
+
+                h5 {
+                    font-size: 20px;
+                }
+            }
+
+            .current-project-box-description {
+                position: relative;
+                top: 0%;
+                left: 0%;
+                padding-top: 25px;
+                width: 70vw;
+                height: auto;
+            }
         }
     }
 
@@ -399,25 +486,176 @@ const LandingPageResponsiveWrapper = styled.div`
             align-items: center;
         }
 
-        .our-mission-tile-component {
-            max-width: 400px;
-            max-height: 400px;
-        }
-
         #landing-widget-page-section {
             width: 100vw;
-            max-width: 1500px;
+            max-width: 1000px;
         }
 
         #all-projects-page-section {
             width: 100vw;
-            max-width: 1500px;
+            max-width: 1000px;
+        }
+
+        #landing-page-main-text {
+            font-size: 45px;
+        }
+
+        #landing-page-secondary-text {
+            font-size: 25px;
+        }
+
+        #explore-projects-container {
+            #explore-projects {
+                font-size: 30px;
+            }
+        }
+
+        #our-mission-text-main {
+            font-size: 30px;
+        }
+
+        #take-a-look-h2 {
+            font-size: 30px;
+        }
+
+        .our-mission-tile-component {
+            width: 600px;
+            height: auto;
+            padding-bottom: 2vh;
+            margin-bottom: 2vh;
+
+            .header-wrapper {
+                margin-bottom: 0px;
+            }
+
+            h3 {
+                font-size: 25px;
+            }
+
+            h5 {
+                font-size: 15px;
+            }
+        }
+
+        #our-mission-tiles-container {
+            flex-direction: column;
+        }
+
+        .wrap-project-tile-and-description {
+            align-items: center;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        
+
+        .project-section {
+            flex-direction: column;
+            margin-top: 0px;
+            top: 0px;
+            margin-bottom: 20px;
+
+            .project-section-side-box {
+                position: relative;
+                height: auto;
+                padding-bottom: 10px;
+                padding-top: 10px;
+                width: 80vw;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                top: 0%;
+                left: 0%;
+
+                h3 {
+                    font-size: 25px;
+                }
+
+                h4 {
+                    font-size: 18px;
+                }
+
+            }
+
+            .project-section-side-box-main-text {
+                position: relative;
+                top: 0%;
+                left: 0%;
+
+                text-align: center;
+                
+            }
+
+            .project-description-snippet {
+
+                position: relative;
+                padding-left: 10px;
+                padding-right: 10px;
+
+                h3 {
+                    margin-bottom: 0px;
+                    font-size: 25px;
+                }
+
+                h4 {
+                    font-weight: normal;
+                    padding-left: 0px;
+                    padding-right: 0px;
+                    text-align: center;
+                    font-size: 15px;
+                }
+
+                h5 {
+                    font-size: 20px;
+                }
+            }
+
+            .current-project-box-description {
+                position: relative;
+                top: 0%;
+                left: 0%;
+                padding-top: 25px;
+                width: 70vw;
+                height: auto;
+            }
         }
     }
 
     @media ${AspectConstants.desktopS} {
         .whole-page {
             background-color: brown;
+        }
+
+        #landing-page-main-text {
+            font-size: 40px;
+        }
+
+        #landing-page-secondary-text {
+            font-size: 20px;
+        }
+
+        #our-mission-text-description {
+            font-size: 20px;
+        }
+
+        .our-mission-tile-component {
+            width: 400px;
+            height: auto;
+            padding-bottom: 2vh;
+            margin-bottom: 2vh;
+
+            .header-wrapper {
+                margin-bottom: 0px;
+            }
+
+            h3 {
+                font-size: 25px;
+            }
+
+            h5 {
+                font-size: 15px;
+            }
         }
     }
 
@@ -534,7 +772,7 @@ const LandingPageResponsiveWrapper = styled.div`
 
                 h4 {
                     font-weight: normal;
-                    padding-left: 0px:
+                    padding-left: 0px;
                     padding-right: 0px;
                     text-align: center;
                     font-size: 3vw;
@@ -671,7 +909,7 @@ const LandingPageResponsiveWrapper = styled.div`
 
                 h4 {
                     font-weight: normal;
-                    padding-left: 0px:
+                    padding-left: 0px;
                     padding-right: 0px;
                     text-align: center;
                     font-size: 3.5vw;
