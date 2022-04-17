@@ -2,6 +2,80 @@ import React from "react";
 import styled from "styled-components";
 import { CurrentOpportunitiesTileReplacement, MoreUpdatesTileReplacement } from "../widgets/dashboard/VolunteerWidgets";
 import { getVolunteeringOpportunities } from "../firebase/FireBaseInstance";
+import { AspectConstants, ResponsiveConstants } from "../global/ResponsiveConstants";
+
+const VolunteerTabResponsiveWrapper = styled.div`
+
+    .greetings-cookie {
+        margin-top: 15px;
+        left: 0%;
+        display: flex;
+        justify-content: column;
+        align-items: center;
+    }
+
+    #dashboard-welcome {
+        font-size: 25px;
+    }
+
+    .subtitle {
+        font-size: 17px;
+        text-align: center;
+        width: 80%;
+    }
+
+    .tile-title {
+
+    }
+
+    .align-center {
+
+    }
+
+    #current-opportunities {
+       font-size: 25px;
+       margin-bottom: 15px;
+    }
+
+    .base-tile-subtile {
+        h2 {
+            font-size: 20px;
+            font-weight: bold;
+        }
+    }
+
+    @media ${AspectConstants.ultrawide} {
+
+    }
+
+    @media ${AspectConstants.ultrawide} {
+        
+    }
+
+    @media ${AspectConstants.desktopL} {
+        
+    }
+
+    @media ${AspectConstants.desktopS} {
+        
+    }
+
+    @media ${AspectConstants.tabletL} {
+        
+    }
+
+    @media ${AspectConstants.tabletS} {
+        
+    }
+
+    @media ${AspectConstants.mobileL} {
+        
+    }
+
+    @media ${AspectConstants.mobileS} {
+        
+    }
+`;
 
 const MainContentWrapper = styled.div`
     display: relative;
@@ -33,15 +107,9 @@ const GreetingsCookie = styled.div`
     margin-bottom: 20px;
     
     #dashboard-welcome {
-        padding-left: 5%;
-        padding-top: 2%;
-        font-size: 2.5vw;
     }
     .subtitle {
         font-weight: bold;
-        padding-left: 5%;
-        width: 70%;
-        font-size: 17px;
     }
 `;
 
@@ -85,25 +153,28 @@ class VolunteerTab extends React.Component {
 
     render() {
         return (
-            <MainContentWrapper>
+            <VolunteerTabResponsiveWrapper>
 
-                <GreetingsCookie>
-                    <h3 id="dashboard-welcome">Volunteer</h3>
-                    <p className="subtitle">Find ways to contribute with virtual/ in-person volunteering events. This list is updated approximately once every week.</p>
-                </GreetingsCookie>
+                <MainContentWrapper>
 
-                <DashboardContainer>
+                    <GreetingsCookie className="greetings-cookie">
+                        <h3 id="dashboard-welcome">Volunteer</h3>
+                        <p className="subtitle">Find ways to contribute with virtual/ in-person volunteering events. This list is updated approximately once every week.</p>
+                    </GreetingsCookie>
 
-                    <DashboardContainerContents>
-                        <CurrentOpportunitiesTileReplacement/>
-                    </DashboardContainerContents>
+                    <DashboardContainer>
 
-                    <DashboardContainerContents>
-                        <MoreUpdatesTileReplacement/>
-                    </DashboardContainerContents>
+                        <DashboardContainerContents>
+                            <CurrentOpportunitiesTileReplacement/>
+                        </DashboardContainerContents>
 
-                </DashboardContainer>
-            </MainContentWrapper>
+                        <DashboardContainerContents>
+                            <MoreUpdatesTileReplacement/>
+                        </DashboardContainerContents>
+
+                    </DashboardContainer>
+                </MainContentWrapper>
+            </VolunteerTabResponsiveWrapper>
 
         );
     }

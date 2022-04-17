@@ -16,4 +16,3 @@ export const AspectConstants = {
     'desktopL' : `(max-aspect-ratio: ${aspects.desktopL})`,
     'ultrawide': `(min-aspect-ratio: ${aspects.desktopL})`
 }
-

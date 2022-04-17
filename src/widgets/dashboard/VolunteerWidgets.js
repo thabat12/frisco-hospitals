@@ -112,7 +112,7 @@ export function CurrentOpportunitiesTileReplacement() {
 
     return (
         <BaseTileVariantTwoWrapper>
-            <h2>Current Opportunitites</h2>
+            <h2 id='current-opportunities'>Current Opportunitites</h2>
             {/* generate list of items here, will not be too large (hopefully for now) */}
             {data}
         </BaseTileVariantTwoWrapper>

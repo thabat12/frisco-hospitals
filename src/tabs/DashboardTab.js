@@ -5,6 +5,68 @@ import {readSuggestedData, writeUserCommitmentData, getUser} from '../firebase/F
 
 import { ActivityTileReplacement, ContactUsTileReplacement, MyCommitementsTileReplacement, Suggested, SuggestedTileReplacement } from "../widgets/dashboard/DashboardWidgets.js";
 
+import { AspectConstants, ResponsiveConstants } from "../global/ResponsiveConstants";
+
+const DashboardTabResponsiveWrapper = styled.div`
+
+    .greetings-cookie {
+        margin-top: 15px;
+        left: 0%;
+        display: flex;
+        justify-content: column;
+        align-items: center;
+    }
+
+    #dashboard-welcome {
+        font-size: 25px;
+    }
+
+    .subtitle {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .tile-title {
+
+    }
+
+    .align-center {
+
+    }
+
+    @media ${AspectConstants.ultrawide} {
+
+    }
+
+    @media ${AspectConstants.ultrawide} {
+        
+    }
+
+    @media ${AspectConstants.desktopL} {
+        
+    }
+
+    @media ${AspectConstants.desktopS} {
+        
+    }
+
+    @media ${AspectConstants.tabletL} {
+        
+    }
+
+    @media ${AspectConstants.tabletS} {
+        
+    }
+
+    @media ${AspectConstants.mobileL} {
+        
+    }
+
+    @media ${AspectConstants.mobileS} {
+        
+    }
+`;
+
 const MainContentWrapper = styled.div`
     display: relative;
     height: 100%;
@@ -23,16 +85,14 @@ const GreetingsCookie = styled.div`
     padding-bottom: 15px;
 
 
+
     margin-bottom: 20px;
     
     #dashboard-welcome {
-        padding-left: 5%;
-        padding-top: 2%;
-        font-size: 2.5vw;
+
     }
     .subtitle {
         font-weight: bold;
-        padding-left: 5%;
         width: 70%;
         font-size: 17px;
     }
@@ -119,46 +179,47 @@ class DashboardTab extends React.Component {
 
     render() {
         return (
-            <MainContentWrapper>
+            <DashboardTabResponsiveWrapper>
+                <MainContentWrapper>
 
-                <MainContent>
+                    <MainContent>
 
-                    {/* 
-                        Dashboard tab contains div box that can be vertical or horizontal, and inside that div
-                        there is going to be another div that is always vertical and inside of that is whatever 
-                        you would need to update/ display
-                    
-                    */}
+                        {/* 
+                            Dashboard tab contains div box that can be vertical or horizontal, and inside that div
+                            there is going to be another div that is always vertical and inside of that is whatever 
+                            you would need to update/ display
+                        
+                        */}
 
-                    <DashboardContainer>
+                        <DashboardContainer>
 
-                        <GreetingsCookie>
-                            <h3 id="dashboard-welcome">Hello, {getUser().displayName}</h3>
-                            <p className="subtitle">Welcome to FHN. Find ways you can contribute by navigating through the tabs and choosing which activities interest you.</p>
-                        </GreetingsCookie>
+                            <GreetingsCookie className="greetings-cookie">
+                                <h3 id="dashboard-welcome">Hello, {getUser().displayName}</h3>
+                                <p className="subtitle">Welcome to FHN. Find ways you can contribute by navigating through the tabs and choosing which activities interest you.</p>
+                            </GreetingsCookie>
 
-                        <DashboardContainerContents className="dashboard-container-contents">
+                            <DashboardContainerContents className="dashboard-container-contents">
 
-                            <SuggestedTileReplacement/>
-                            <MyCommitementsTileReplacement/>
+                                <SuggestedTileReplacement/>
+                                <MyCommitementsTileReplacement/>
 
-                        </DashboardContainerContents>
+                            </DashboardContainerContents>
 
-                        <DashboardContainerContents>
+                            <DashboardContainerContents>
 
-                            <ActivityTileReplacement/>
-                            <ContactUsTileReplacement/>
-                            
-                        </DashboardContainerContents>
+                                <ActivityTileReplacement/>
+                                <ContactUsTileReplacement/>
+                                
+                            </DashboardContainerContents>
 
-                    </DashboardContainer>
+                        </DashboardContainer>
 
 
 
-                </MainContent>
+                    </MainContent>
 
-            </MainContentWrapper>
-
+                </MainContentWrapper>
+            </DashboardTabResponsiveWrapper>
         );
     }
 }

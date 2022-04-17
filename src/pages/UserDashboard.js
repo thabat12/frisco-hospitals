@@ -39,6 +39,14 @@ const UserDashboardResponsiveWrapper = styled.div`
 
     .menu-icon {
         height: 30px;
+        transition: linear 0.2s;
+        transform: scale(1.0);
+    }
+
+    .menu-icon:active {
+        height: 30px;
+
+        transform: scale(1.1);
     }
 
     @keyframes expand-mobile-header {
@@ -78,17 +86,28 @@ const UserDashboardResponsiveWrapper = styled.div`
         color: white;
 
         .mobile-header-contents {
+            width: 100vw;
+            height: 80px;
+            position: absolute;
+
             display: flex;
             flex-direction: row;
-            justify-content: center;
-            width: 100vw;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            height: 80px;
-        }
+            align-items: center;
 
-        h3 {
-            justify-self: center;
+            h3 {
+                position: absolute;
+                width: 100vw;
+                height: 80px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .menu-icon {
+                position: relative;
+                justify-self: center;
+                margin-left: 20px;
+            }
         }
 
         .mobile-expand-body {
@@ -99,6 +118,8 @@ const UserDashboardResponsiveWrapper = styled.div`
             align-items: center;
             text-align: center;
 
+            margin-top: 30vh;
+
             .divider {
                 width: 200px;
                 height: 1px;
@@ -106,12 +127,23 @@ const UserDashboardResponsiveWrapper = styled.div`
             }
 
             .mobile-expand-contents {
-                margin-top: 30px;
                 margin-bottom: 25px;
 
                 h3 {
                     margin-top: 15px;
                     margin-bottom: 15px;
+
+                    cursor: pointer;
+
+                    transition: linear 0.2s;
+                    transform: scale(1.0);
+                }
+
+                h3:active {
+                    margin-top: 15px;
+                    margin-bottom: 15px;
+                    transform: scale(1.1);
+
                 }
             }
         }
@@ -597,8 +629,8 @@ class UserDashboard extends React.Component {
 
                     <MobileNavHeader className="mobile-header" ref={this.mobileHeaderRef}>
                         <div className="mobile-header-contents">
-                            <img src={menuIcon} className='menu-icon' onClick={this.handleMobileHeader}/>
                             <h3>FHN</h3>
+                            <img src={menuIcon} className='menu-icon' onClick={this.handleMobileHeader}/>
                         </div>
 
                         <div className="mobile-expand-body">
