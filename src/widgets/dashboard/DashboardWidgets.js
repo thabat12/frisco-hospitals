@@ -9,6 +9,7 @@ import {writeUserCommitmentData, readSuggestedData, writeNewDocument, readDocume
 
 const BaseTile = styled.div`
 
+    cursor: pointer;
     position: relative;
     display: flex;
     border-radius: 5px;

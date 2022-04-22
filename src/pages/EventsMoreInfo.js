@@ -15,6 +15,10 @@ const GalleryPageResponsiveWrapper = styled.div`
         margin: 0;
     }
 
+    body {
+        overflow-y: hidden;
+    }
+
     h1 {
         font-size: 7.3vw;
         font-weight: bold;

@@ -2,9 +2,11 @@ import React, {useEffect, useState} from "react";
 import styled from 'styled-components';
 import { readVolunteeringOpportunities } from "../../firebase/FireBaseInstance";
 
+import emailIcon from '../../icons/email.svg';
 
 const BaseTile = styled.div`
 
+    cursor: pointer;
     position: relative;
     display: flex;
     border-radius: 5px;
@@ -43,15 +45,16 @@ const BaseTileVariantTwoWrapper = styled.div`
     flex-direction: column;
     width: 90%;
     padding: 15px;
+    cursor: pointer;
 `;
 
 const BaseTileSubTile = styled(BaseTile)`
-
+    cursor: pointer;
 `;
 
 
 const VolunteerTile = styled(BaseTile)`
-
+    cursor: pointer;
 `;
 
 
@@ -112,7 +115,7 @@ export function CurrentOpportunitiesTileReplacement() {
 
     return (
         <BaseTileVariantTwoWrapper>
-            <h2>Current Opportunitites</h2>
+            <h2 id='current-opportunities'>Current Opportunitites</h2>
             {/* generate list of items here, will not be too large (hopefully for now) */}
             {data}
         </BaseTileVariantTwoWrapper>
@@ -123,8 +126,9 @@ export function MoreUpdatesTileReplacement() {
     return (
         <VolunteerTile>
             <h2 id="tile-title">Subscribe to more updates!</h2>
-            <div className="align-center">
-                <a>[tell them they can place email in some pop-up and thats good]</a>
+            <div className="align-center subscribe-items">
+                <img className="image-icon" src={emailIcon}></img>
+                <a className="volunteering-opportunities">Click here for email notifications</a>
             </div>
         </VolunteerTile> 
     );

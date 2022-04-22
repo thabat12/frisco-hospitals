@@ -2,6 +2,83 @@ import React from "react";
 import styled from "styled-components";
 import { GalleryTile, GalleryTileItem, GalleryTileReplacement, LocalCommunityUpdatesReplacement, ReadStoriesReplacement, WriteALetterReplacement } from "../widgets/dashboard/CommunityWidgets";
 import { writeNewDocument } from "../firebase/FireBaseInstance";
+import { AspectConstants, ResponsiveConstants } from "../global/ResponsiveConstants";
+
+const CommunityTabResponsiveWrapper = styled.div`
+
+    .greetings-cookie {
+        margin-top: 15px;
+        left: 0%;
+        display: flex;
+        justify-content: column;
+        align-items: center;
+    }
+
+    #dashboard-welcome {
+        font-size: 25px;
+    }
+
+    .subtitle {
+        font-size: 17px;
+        text-align: center;
+    }
+
+    .tile-title {
+
+    }
+
+    .align-center {
+
+    }
+
+    .text-inside-aligns {
+        width: 45%;
+    }
+
+    .div-inside-aligns {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .gallery-icon {
+        height: 40px;
+        width: 40px;
+    }
+
+    @media ${AspectConstants.ultrawide} {
+
+    }
+
+    @media ${AspectConstants.ultrawide} {
+        
+    }
+
+    @media ${AspectConstants.desktopL} {
+        
+    }
+
+    @media ${AspectConstants.desktopS} {
+        
+    }
+
+    @media ${AspectConstants.tabletL} {
+        
+    }
+
+    @media ${AspectConstants.tabletS} {
+        
+    }
+
+    @media ${AspectConstants.mobileL} {
+        
+    }
+
+    @media ${AspectConstants.mobileS} {
+        
+    }
+`;
 
 const MainContentWrapper = styled.div`
     display: relative;
@@ -44,15 +121,11 @@ const GreetingsCookie = styled.div`
     margin-bottom: 20px;
     
     #dashboard-welcome {
-        padding-left: 5%;
-        padding-top: 2%;
-        font-size: 2.5vw;
+
     }
     .subtitle {
         font-weight: bold;
-        padding-left: 5%;
-        width: 70%;
-        font-size: 17px;
+        width: 80%;
     }
 `;
 
@@ -86,26 +159,29 @@ class CommunityTab extends React.Component {
 
     render() {
         return (
-            <MainContentWrapper>
-                <DashboardContainer className="dashboard-container">
+            <CommunityTabResponsiveWrapper>
 
-                    <GreetingsCookie>
-                        <h3 id="dashboard-welcome">Community</h3>
-                        <p className="subtitle">Use this page to find different ways to get involved with the community. Here is a list of our current ongoing community projects that you can contribute to today!</p>
-                    </GreetingsCookie>
+            
+                <MainContentWrapper>
+                    <DashboardContainer className="dashboard-container">
 
-                    <DashboardContainerContents>
-                        <GalleryTileReplacement/>
-                        <WriteALetterReplacement/>
-                    </DashboardContainerContents>
+                        <GreetingsCookie className="greetings-cookie">
+                            <h3 id="dashboard-welcome">Community</h3>
+                            <p className="subtitle">Use this page to find different ways to get involved with the community. Here is a list of our current ongoing community projects that you can contribute to today!</p>
+                        </GreetingsCookie>
 
-                    <DashboardContainerContents>
-                        <LocalCommunityUpdatesReplacement/>
-                    </DashboardContainerContents>
+                        <DashboardContainerContents>
+                            <GalleryTileReplacement/>
+                            <WriteALetterReplacement/>
+                        </DashboardContainerContents>
 
-                </DashboardContainer>
-            </MainContentWrapper>
+                        <DashboardContainerContents>
+                            <LocalCommunityUpdatesReplacement/>
+                        </DashboardContainerContents>
 
+                    </DashboardContainer>
+                </MainContentWrapper>
+            </CommunityTabResponsiveWrapper>
         );
     }
 }
