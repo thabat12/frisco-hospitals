@@ -8,6 +8,9 @@ import GalleryScroll from "./landing_page/GalleryScroll.js";
 // why? because these projects are going to manage their own state and will make the 
 // LandingPage.js file cluttered if we were to handle all of this stuff in that page
 
+import volunteerBackground from '../images/volunteer.png';
+import galleryBackground from '../images/gallery.png';
+
 
 /*
     for reference, here is the overall container's css layout
@@ -50,6 +53,12 @@ import GalleryScroll from "./landing_page/GalleryScroll.js";
 
 
 const ProjectSectionComponent = styled.div`
+
+    .image-background {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
 
     .wrap-project-tile-and-description {
         display: flex;
@@ -139,8 +148,19 @@ class ProjectSection extends React.Component {
 
     // TODO: have to make these separate for each type of widget
     render() {
+
+        let imageRef = undefined;
+
+        if (this.template === LandingPageTextConstants.volunteer) {
+            imageRef = volunteerBackground;
+        } else if (this.template === LandingPageTextConstants.gallery) {
+            imageRef = galleryBackground;
+        }
+
+
         return (
             <ProjectSectionComponent className="project-section">
+                <img className='image-background' src={imageRef}></img>
                 <div className="wrap-project-tile-and-description">
                     <div className="project-section-side-box">
                         <div className="project-section-side-box-main-text">
