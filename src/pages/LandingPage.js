@@ -368,6 +368,10 @@ const LandingPageResponsiveWrapper = styled.div`
     h3 {
         font-size: 25px;
     }
+
+    .image-background {
+        filter: blur(6px);
+    }
     
     /* going from larger to smaller values*/
     @media ${AspectConstants.ultrawide} {
@@ -556,6 +560,7 @@ const LandingPageResponsiveWrapper = styled.div`
             margin-top: 0px;
             top: 0px;
             margin-bottom: 20px;
+            height: auto;
 
             .project-section-side-box {
                 position: relative;
@@ -595,6 +600,7 @@ const LandingPageResponsiveWrapper = styled.div`
                 position: relative;
                 padding-left: 10px;
                 padding-right: 10px;
+                margin-bottom: 15px;
 
                 h3 {
                     margin-bottom: 0px;
@@ -639,6 +645,18 @@ const LandingPageResponsiveWrapper = styled.div`
             a {
                 font-size: 2.5vw;
             }
+        }
+
+        .image-background {
+            position: absolute;
+            display: inline-block;
+            height: 100%;
+            width: auto;
+
+            overflow: hidden;
+
+            vertical-align: middle;
+  
         }
 
         #landing-page-main-text {
@@ -697,6 +715,7 @@ const LandingPageResponsiveWrapper = styled.div`
             height: auto;
 
             .project-section-side-box {
+                margin-top: 15px;
                 position: relative;
                 height: 25vh;
                 width: 80vw;
@@ -747,6 +766,8 @@ const LandingPageResponsiveWrapper = styled.div`
                 h5 {
                     font-size: 3.5vw;
                 }
+
+                margin-bottom: 15px;
             }
 
             .current-project-box-description {

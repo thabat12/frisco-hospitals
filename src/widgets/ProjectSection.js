@@ -54,10 +54,27 @@ import galleryBackground from '../images/gallery.png';
 
 const ProjectSectionComponent = styled.div`
 
+    .img-wrapper {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+
+        vertical-align: middle;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     .image-background {
         position: absolute;
+        display: inline-block;
         width: 100%;
-        height: 100%;
+
+        overflow: hidden;
+
+        vertical-align: middle;        
     }
 
     .wrap-project-tile-and-description {
@@ -89,7 +106,7 @@ const ProjectSectionComponent = styled.div`
 
         h4 {
             font-weight: normal;
-            padding-left: 5px:
+            padding-left: 5px;
             padding-right: 5px;
             text-align: center;
         }
@@ -108,10 +125,17 @@ const ProjectSectionComponent = styled.div`
 
     .project-section {
         margin-bottom: 0px;
-    }
 
-    
-    
+        .project-section-side-box {
+            transition: 0.2s linear;
+            transform: scale(1.0);
+            cursor: pointer;
+        }
+
+        .project-section-side-box:hover {
+            transform: scale(1.05);
+        }
+    }
 `;
 
 const ProjectSectionTile = styled.div`
@@ -160,7 +184,9 @@ class ProjectSection extends React.Component {
 
         return (
             <ProjectSectionComponent className="project-section">
-                <img className='image-background' src={imageRef}></img>
+                <div className="img-wrapper">
+                    <img className='image-background' src={imageRef}></img>
+                </div>
                 <div className="wrap-project-tile-and-description">
                     <div className="project-section-side-box">
                         <div className="project-section-side-box-main-text">
