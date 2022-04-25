@@ -202,6 +202,7 @@ const AllProjectsLandingPagePortion = styled.div`
     #take-a-look-h2 {
         margin-top: 10vh;
         text-align: center;
+        margin-bottom: 55px;
     }
 
     .project-section {
