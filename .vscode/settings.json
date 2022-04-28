@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/af646ba6-7434-45d6-b75b-c759f2ac83de/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/friscohospitalhospital",
+    "appService.deploySubpath": "."
+}

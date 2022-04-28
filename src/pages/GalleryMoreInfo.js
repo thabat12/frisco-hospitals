@@ -9,6 +9,9 @@ import threeIcon from '../icons/numbers/three.svg';
 import fourIcon from '../icons/numbers/four.svg';
 import { useNavigate } from 'react-router-dom';
 
+import galleryBackground from '../images/gallery.png';
+import ThemeConstants from '../global/ThemeConstants';
+
 const GalleryPageResponsiveWrapper = styled.div`
 
     * {
@@ -57,6 +60,12 @@ const GalleryPageResponsiveWrapper = styled.div`
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
+
+
+            .gallery-background {
+                position: absolute;
+                height: 100%;
+            }
         }
     }
 
@@ -90,6 +99,8 @@ const GalleryPageResponsiveWrapper = styled.div`
     .whole-page {
         overflow-y: auto;
         padding-bottom: 50px;
+
+        background-color: ${ThemeConstants.secondaryBackgroundColorDarkerBlue};
     }
 
     .nav-tile {
@@ -116,25 +127,25 @@ const GalleryPageResponsiveWrapper = styled.div`
     /* going from larger to smaller values*/
     @media ${AspectConstants.ultrawide} {
         .whole-page {
-            background-color: black;
+            /* background-color: black; */
         }
     }
 
     @media ${AspectConstants.desktopL} {
         .whole-page {
-            background-color: cadetblue;
+            /* background-color: cadetblue; */
         }
     }
 
     @media ${AspectConstants.desktopS} {
         .whole-page {
-            background-color: brown;
+            /* background-color: brown; */
         }
     }
 
     @media ${AspectConstants.tabletS} {
         .whole-page {
-            background-color: green;
+            /* background-color: green; */
         }
 
         .step-tile {
@@ -144,19 +155,19 @@ const GalleryPageResponsiveWrapper = styled.div`
 
     @media ${AspectConstants.tabletL} {
         .whole-page {
-            background-color: purple;
+            /* background-color: purple; */
         }
     }
 
     @media ${AspectConstants.mobileS} {
         .whole-page {
-            background-color: blue;
+            /* background-color: blue; */
         }
     }
 
     @media ${AspectConstants.mobileL} {
         .whole-page {
-            background-color: yellow;
+            /* background-color: yellow; */
         }
     }
 `;
@@ -232,10 +243,12 @@ export default function GalleryMoreInfoPage() {
             <GalleryMoreInfoWidget className='whole-page'>
                 
                 <div className='page-type'>
+                    
                     <div className='inside-page-type'>
                         <h3>The Community Gallery</h3>
                         <div className='nav-tile' onClick={goBack}>Go Back</div>
                     </div>
+                    
                 </div> 
 
                 <div className='whole-page-contents'>

@@ -10,6 +10,7 @@ import GalleryScroll from "./landing_page/GalleryScroll.js";
 
 import volunteerBackground from '../images/volunteer.png';
 import galleryBackground from '../images/gallery.png';
+import donateBackground from '../images/donate.png';
 
 
 /*
@@ -65,6 +66,10 @@ const ProjectSectionComponent = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
+
+        border-radius: 5px;
+
+        filter: drop-shadow(5 5 5 black);
     }
 
     .image-background {
@@ -179,6 +184,8 @@ class ProjectSection extends React.Component {
             imageRef = volunteerBackground;
         } else if (this.template === LandingPageTextConstants.gallery) {
             imageRef = galleryBackground;
+        } else {
+            imageRef = donateBackground;
         }
 
 

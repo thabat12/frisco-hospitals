@@ -82,10 +82,11 @@ const LandingWidgetFirstPortion = styled.div`
     display: flex;
     position: relative;
 
-    background-color: ${ThemeConstants.secondaryBackgroundColorDarkerBlue};
+    background-color: ${ThemeConstants.backgroundColorLightBlue};
 
     /* the 2 text chunks are absolute in the context of the relative front page bit */
     .landing-widget-first-portion-intro-text-block {
+
         position: absolute;
 
         width: 100vw;
@@ -370,13 +371,17 @@ const LandingPageResponsiveWrapper = styled.div`
     }
 
     .image-background {
-        filter: blur(6px);
+        filter: blur(10px);
+    }
+
+    .whole-page {
+        background-color: ${ThemeConstants.secondaryBackgroundColorDarkerBlue};
     }
     
     /* going from larger to smaller values*/
     @media ${AspectConstants.ultrawide} {
         .whole-page {
-            background-color: blue;
+            /* background-color: blue; */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -384,49 +389,89 @@ const LandingPageResponsiveWrapper = styled.div`
 
         #landing-widget-page-section {
             width: 100vw;
-            max-width: 1200px;
+            max-width: 1500px;
         }
 
         #all-projects-page-section {
             width: 100vw;
-            max-width: 1200px;
+            max-width: 1500px;
+        }
+
+        #landing-page-main-text {
+            font-size: 45px;
+        }
+
+        #landing-page-secondary-text {
+            font-size: 25px;
         }
 
         #explore-projects-container {
             #explore-projects {
-                font-size: 40px;
+                font-size: 30px;
             }
         }
 
         #our-mission-text-main {
-            font-size: 40px;
+            font-size: 30px;
         }
 
         #take-a-look-h2 {
-            font-size: 40px;
+            font-size: 30px;
         }
 
         .our-mission-tile-component {
-            width: 250px;
-            height: 250px;
+            width: 600px;
+            height: auto;
+            padding-bottom: 2vh;
+            margin-bottom: 2vh;
+
+            .header-wrapper {
+                margin-bottom: 0px;
+            }
+
+            h3 {
+                font-size: 25px;
+            }
+
+            h5 {
+                font-size: 15px;
+            }
         }
+
+        #our-mission-tiles-container {
+            flex-direction: column;
+        }
+
+        .wrap-project-tile-and-description {
+            align-items: center;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        
 
         .project-section {
             flex-direction: column;
-            padding-top: 50px;
+            margin-top: 0px;
             top: 0px;
             margin-bottom: 20px;
+            height: 500px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
             .project-section-side-box {
                 position: relative;
                 height: auto;
                 padding-bottom: 10px;
                 padding-top: 10px;
-                width: 600px;
+                width: 25vw;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
+
+                margin-right: 15px;
 
                 top: 0%;
                 left: 0%;
@@ -453,8 +498,9 @@ const LandingPageResponsiveWrapper = styled.div`
             .project-description-snippet {
 
                 position: relative;
-                padding-left: 50px;
-                padding-right: 50px;
+                padding-left: 10px;
+                padding-right: 10px;
+                margin-bottom: 15px;
 
                 h3 {
                     margin-bottom: 0px;
@@ -479,7 +525,7 @@ const LandingPageResponsiveWrapper = styled.div`
                 top: 0%;
                 left: 0%;
                 padding-top: 25px;
-                width: 70vw;
+                width: 20vw;
                 height: auto;
             }
         }
@@ -487,7 +533,7 @@ const LandingPageResponsiveWrapper = styled.div`
 
     @media ${AspectConstants.desktopL} {
         .whole-page {
-            background-color: cadetblue;
+            /* background-color: cadetblue; */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -633,7 +679,7 @@ const LandingPageResponsiveWrapper = styled.div`
 
     @media ${AspectConstants.desktopS} {
         .whole-page {
-            background-color: brown;
+            /* background-color: brown; */
         }
 
         .landing-widget-nav {
@@ -817,7 +863,7 @@ const LandingPageResponsiveWrapper = styled.div`
 
     @media ${AspectConstants.tabletS} {
         .whole-page {
-            background-color: green;
+            /* background-color: green; */
         }
 
         .landing-widget-nav {
@@ -888,7 +934,7 @@ const LandingPageResponsiveWrapper = styled.div`
 
             .project-section-side-box {
                 position: relative;
-                height: 25vh;
+                height: auto;
                 width: 80vw;
                 display: flex;
                 flex-direction: column;
@@ -927,7 +973,7 @@ const LandingPageResponsiveWrapper = styled.div`
                 }
 
                 h4 {
-                    font-weight: normal;
+                    font-weight: bold;
                     padding-left: 0px;
                     padding-right: 0px;
                     text-align: center;
@@ -936,6 +982,7 @@ const LandingPageResponsiveWrapper = styled.div`
 
                 h5 {
                     font-size: 3.5vw;
+                    font-weight: bold;
                 }
             }
 
@@ -987,13 +1034,13 @@ const LandingPageResponsiveWrapper = styled.div`
 
     @media ${AspectConstants.tabletL} {
         .whole-page {
-            background-color: purple;
+            /* background-color: purple; */
         }
     }
 
     @media ${AspectConstants.mobileS} {
         .whole-page {
-            background-color: blue;
+            /* background-color: blue; */
         }
 
         #our-mission-text-description {
@@ -1009,7 +1056,7 @@ const LandingPageResponsiveWrapper = styled.div`
 
     @media ${AspectConstants.mobileL} {
         .whole-page {
-            background-color: yellow;
+            /* background-color: yellow; */
         }
 
         .landing-widget-nav {
