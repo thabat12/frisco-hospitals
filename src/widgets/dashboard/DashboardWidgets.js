@@ -6,7 +6,8 @@ import styled from "styled-components";
     stuff that i am writing to the database
 */
 import {writeUserCommitmentData, readSuggestedData, writeNewDocument, readDocumentData, getUser, readCommitmentData, readActivityData} from '../../firebase/FireBaseInstance.js';
-import ActionPageComponent from "../ActionPageDashboard.js";
+
+import xIcon from '../../icons/x.svg';
 
 const BaseTile = styled.div`
 
@@ -103,6 +104,128 @@ const SuggestedTileItem = styled.div`
     border-radius: 5px;
 `;
 
+/*
+    ACTION PAGE COMPONENT SECTION
+
+*/
+
+const ActionPageWrapper = styled.div`
+
+    @keyframes enter-focus-keyframe {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes exit-focus-keyframe {
+        0% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
+        }
+    }
+
+    .enter-focus-animation {
+        animation: enter-focus-keyframe ease 0.4s;
+
+        opacity: 1;
+    }
+
+    .exit-focus-animation {
+        animation: exit-focus-keyframe ease 0.4s;
+
+        opacity: 0;
+    }
+
+`;
+
+
+const ActionPage = styled.div`
+    position: fixed;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+
+    left: 0%;
+    top: 0%;
+
+    background-color: red;
+
+    /* a very large z index to make sure it is at the front */
+    z-index: 100;
+
+    background: rgba( 100, 100, 100, 0.9 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+
+
+`;
+
+const FocusSection = styled.div`
+
+    display: flex;
+    position: relative;
+    flex-direction: column;
+
+    width: 90%;
+    height: 80%;
+    border-radius: 15px;
+
+    background-color: white;
+    box-shadow: 1px 2px 3px 4px rgba(12,12,12,0.2);
+
+    .focus-top-bar {
+        position: relative;
+        width: 100%;
+        height: 10%;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+        align-items: center;
+    }
+
+    .x-icon {
+        height: 65%;
+        margin-right: 15px;
+
+        transition: 0.2s linear;
+        transform: scale(1.0);
+    }
+
+    .x-icon:active {
+        height: 65%;
+        margin-right: 15px;
+
+        transform: scale(0.8);
+    }
+
+    .focus-middle-section {
+        width: 100%;
+        flex-grow: 1;
+        border-radius: 15;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+`;
+
+
+
+
 async function getSuggestedList() {
     const res = await readSuggestedData();
     return res;
@@ -112,6 +235,31 @@ async function getSuggestedList() {
 export function SuggestedTileReplacement() { 
 
     const [data, setData] = useState([]);
+    const [trigger, setTrigger] = useState({});
+    const [focusRenderState, setFocusRenderState] = useState('enter-focus-animation');
+
+    function openFocusActionPage(_, dictItem) {
+        console.log(dictItem);
+    }
+
+    function closeFocusActionPage() {
+        
+        setFocusRenderState('exit-focus-animation');
+
+        // TODO: after the focus screen will exit, have to delete the 
+        // component so user can still interact with the screen
+
+        const intervalID = setInterval(
+            () => {
+                setTrigger({});
+                // this seems to work becuase this is anonymous function
+                clearInterval(intervalID);
+            }, 400
+        );
+    }
+
+
+    console.log(trigger);
 
     const SuggestedItems = [];
 
@@ -124,8 +272,11 @@ export function SuggestedTileReplacement() {
                 result.forEach(
 
                     (dictItem) => {
+
+                        let item = dictItem;
+
                         something.push(
-                            <SuggestedTileItem className="suggested-tile-item" key={dictItem.title}>
+                            <SuggestedTileItem className="suggested-tile-item" key={dictItem.title} onClick={() => {setFocusRenderState('enter-focus-animation');setTrigger(dictItem)}}>
                                 <h2>{dictItem.title}</h2>
                                 <h5>{dictItem.tag} | {dictItem.date}</h5>
                                 <h3>{dictItem.description}</h3>
@@ -139,13 +290,40 @@ export function SuggestedTileReplacement() {
         );
     }
 
+    
+    let exist = Object.keys(trigger).length;
+    
+
     return (
         <SuggestedTile  className='back-tile'>
             <h2 className="tile-title">Suggested</h2>
             <div className="align-center">
                 {data}
             </div>
-            <ActionPageComponent optionList={['hi', 'bye']} actionList={[()=>{}]}/>
+            
+            {
+                (exist > 0) &&
+                <ActionPageWrapper>
+
+                
+                    <ActionPage className={'action-page-component' + ' ' + focusRenderState}>
+                
+                        <FocusSection>
+                            <div className='focus-top-bar'>
+                                <img src={xIcon} className='x-icon' onClick={closeFocusActionPage}></img>
+                            </div>
+
+                            <div className="focus-middle-section">
+                                <h3>{trigger.title}</h3>
+                                <h4>{trigger.description}</h4>
+                            </div>
+                        </FocusSection>
+                
+                    </ActionPage>
+
+                </ActionPageWrapper>
+            }
+
         </SuggestedTile>
     );
 }
