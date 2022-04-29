@@ -46,7 +46,7 @@ const FocusSection = styled.div`
 export default function ActionPageComponent(title, optionList, actionList, imageSrc) {
 
     // default action will do nothing
-    const defaultAction = () => {};
+    const defaultAction = () => {}; 
 
     let optionElements = [];
 
