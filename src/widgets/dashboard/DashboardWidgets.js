@@ -6,6 +6,7 @@ import styled from "styled-components";
     stuff that i am writing to the database
 */
 import {writeUserCommitmentData, readSuggestedData, writeNewDocument, readDocumentData, getUser, readCommitmentData, readActivityData} from '../../firebase/FireBaseInstance.js';
+import ActionPageComponent from "../ActionPageDashboard.js";
 
 const BaseTile = styled.div`
 
@@ -72,15 +73,6 @@ const BaseTile = styled.div`
 
 const SuggestedTile = styled(BaseTile)``;
 
-const MyCommitmentsTile = styled(SuggestedTile)`
-
-`;
-
-const ActivityTile = styled(BaseTile)`
-`;
-
-const ContactUsTile = styled(BaseTile)`
-`;  
 
 const SuggestedTileItem = styled.div`
     h2 {
@@ -153,6 +145,7 @@ export function SuggestedTileReplacement() {
             <div className="align-center">
                 {data}
             </div>
+            <ActionPageComponent optionList={['hi', 'bye']} actionList={[()=>{}]}/>
         </SuggestedTile>
     );
 }

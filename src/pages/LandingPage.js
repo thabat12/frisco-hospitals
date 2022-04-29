@@ -605,7 +605,7 @@ const LandingPageResponsiveWrapper = styled.div`
             flex-direction: column;
             margin-top: 0px;
             top: 0px;
-            margin-bottom: 20px;
+            margin-bottom: 100px;
             height: auto;
 
             .project-section-side-box {
@@ -654,7 +654,7 @@ const LandingPageResponsiveWrapper = styled.div`
                 }
 
                 h4 {
-                    font-weight: normal;
+                    font-weight: bold;
                     padding-left: 0px;
                     padding-right: 0px;
                     text-align: center;

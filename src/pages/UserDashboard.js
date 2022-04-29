@@ -24,6 +24,10 @@ const UserDashboardResponsiveWrapper = styled.div`
         margin: 0;
     }
 
+    .whole-page {
+        background-color: ${ThemeConstants.secondaryBackgroundColorDarkerBlue};
+    }
+
     h1 {
         font-size: 7.3vw;
         font-weight: bold;
@@ -154,7 +158,7 @@ const UserDashboardResponsiveWrapper = styled.div`
     /* going from larger to smaller values*/
     @media ${AspectConstants.ultrawide} {
         .whole-page {
-            background-color: white;
+            /* background-color: white; */
         }
 
         .mobile-header {
@@ -164,7 +168,7 @@ const UserDashboardResponsiveWrapper = styled.div`
 
     @media ${AspectConstants.desktopL} {
         .whole-page {
-            background-color: cadetblue;
+            /* background-color: cadetblue; */
         }
 
         .mobile-header {
@@ -174,25 +178,25 @@ const UserDashboardResponsiveWrapper = styled.div`
 
     @media ${AspectConstants.desktopS} {
         .whole-page {
-            background-color: brown;
+            /* background-color: brown; */
         }
     }
 
     @media ${AspectConstants.tabletS} {
         .whole-page {
-            background-color: green;
+            /* background-color: green; */
         }
     }
 
     @media ${AspectConstants.tabletL} {
         .whole-page {
-            background-color: purple;
+            /* background-color: purple; */
         }
     }
 
     @media ${AspectConstants.mobileS} {
         .whole-page {
-            background-color: blue;
+            /* background-color: blue; */
         }
 
         .side-bar {
