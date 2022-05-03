@@ -7,7 +7,7 @@ const ProjectSectionTextConstants = {
         'projectbox_title' : 'Bringing Communities Together',
         'projectbox_description' : 'Art is a great way to share ideas and bring communities together! It is also an easy way to get involved with the local community and culture. For this reason, we are hosting a community gallery so you can contribute to local artwork for a chance to display in hospitals and win prizes.',
         'projectbox_progress' : 'Community Gallery Progress',
-        'projectbox_progress_description' : 'lol'
+        'projectbox_progress_description' : 'Just started!'
     },
     'volunteer' : {
         'title' : 'Volunteering Events',
@@ -16,7 +16,7 @@ const ProjectSectionTextConstants = {
         'projectbox_title' : 'Opportunities Across Frisco',
         'projectbox_description' : 'There are many ways that you can help your local clinics and get involved with the community. We are launching an initiative to give Frisco clinics and organizations more access to volunteers that can build and strengthen the community.',
         'projectbox_progress' : 'Volunteering Opportunities',
-        'projectbox_progress_description' : 'None yet... This just started.'
+        'projectbox_progress_description' : '500 users showed interest for engaging with community'
     },
     'donate' : {
         'title' : 'Donate',
@@ -25,7 +25,7 @@ const ProjectSectionTextConstants = {
         'projectbox_title' : 'Contribute and Give',
         'projectbox_description' : 'Donation drives are open to anyone willing to help bring more resources to local clinics. You can donate anything that is a part of our list of accepted donation items after signing up with us.',
         'projectbox_progress' : 'Counting Our Donation Progress',
-        'projectbox_progress_description' : 'lol'
+        'projectbox_progress_description' : '100+ items donated, 5+ clinics'
     }
 }
 
