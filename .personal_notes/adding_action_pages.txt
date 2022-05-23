@@ -1,0 +1,169 @@
+things i have to add to make the action screen work: 
+
+first, load this svg thing:
+
+import xIcon from '../../icons/x.svg';
+
+1. copy and paste this to the top of the file
+
+const ActionPageWrapper = styled.div`
+
+    @keyframes enter-focus-keyframe {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes exit-focus-keyframe {
+        0% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
+        }
+    }
+
+    .enter-focus-animation {
+        animation: enter-focus-keyframe ease 0.4s;
+
+        opacity: 1;
+    }
+
+    .ex`it-focus-animation {
+        animation: exit-focus-keyframe ease 0.4s;
+
+        opacity: 0;
+    }
+
+`;
+
+
+const ActionPage = styled.div`
+    position: fixed;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+
+    left: 0%;
+    top: 0%;
+
+    background-color: red;
+
+    /* a very large z index to make sure it is at the front */
+    z-index: 100;
+
+    background: rgba( 100, 100, 100, 0.9 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+
+
+`;
+
+const FocusSection = styled.div`
+
+    display: flex;
+    position: relative;
+    flex-direction: column;
+
+    width: 90%;
+    height: 80%;
+    border-radius: 15px;
+
+    background-color: white;
+    box-shadow: 1px 2px 3px 4px rgba(12,12,12,0.2);
+
+    .focus-top-bar {
+        position: relative;
+        width: 100%;
+        height: 10%;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+        align-items: center;
+    }
+
+    .x-icon {
+        height: 65%;
+        margin-right: 15px;
+
+        transition: 0.2s linear;
+        transform: scale(1.0);
+    }
+
+    .x-icon:active {
+        height: 65%;
+        margin-right: 15px;
+
+        transform: scale(0.8);
+    }
+
+    .focus-middle-section {
+        width: 100%;
+        flex-grow: 1;
+        border-radius: 15;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+`;
+
+
+2. add these two function states at the top of the component for opening/ closing animation
+
+const [trigger, setTrigger] = useState(false);
+const [focusRenderState, setFocusRenderState] = useState('enter-focus-animation');
+
+3. add this function for specifically closing animation
+
+function closeFocusActionPage() {
+        
+        setFocusRenderState('exit-focus-animation');
+
+        // TODO: after the focus screen will exit, have to delete the 
+        // component so user can still interact with the screen
+
+        const intervalID = setInterval(
+            () => {
+                setTrigger(false);
+                // this seems to work becuase this is anonymous function
+                clearInterval(intervalID);
+            }, 400
+        );
+    }
+
+4. add this to the onClick method of the component that will trigger action open:
+
+onClick={() => { setTrigger(true); setFocusRenderState('enter-focus-animation'); }}
+
+
+5. insert this code to your render function wherever it seems proper to add:
+
+{
+                (trigger === true) && 
+                    <ActionPageWrapper>
+                        <ActionPage className={'action-page-component' + ' ' + focusRenderState}>
+                            <FocusSection>
+                                <div className='focus-top-bar'>
+                                        <img src={xIcon} className='x-icon' onClick={closeFocusActionPage}></img>
+                                </div>
+                            </FocusSection>
+                        </ActionPage>
+                    </ActionPageWrapper>
+            }
+
+
+
+yeah... that should be it 

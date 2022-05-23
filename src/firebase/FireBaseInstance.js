@@ -335,3 +335,11 @@ export async function overwriteDocumentData(path, data) {
         return null;
     }
 }
+
+export async function writeDocumentDataFromUserPath(path, data) {
+    let something = auth.currentUser.uid;
+    
+    await setDoc(doc(db, `users/${something}/${path}`), data);
+
+    console.log('did it')
+}

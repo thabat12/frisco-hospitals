@@ -6,6 +6,7 @@ import { getRedirectResult, getAuth, onAuthStateChanged } from "firebase/auth";
 import { giveMeAuth, isUserLoggedIn, handleGuestSignIn } from "../firebase/FireBaseInstance";
 
 import { AspectConstants } from "../global/ResponsiveConstants";
+import ThemeConstants from  '../global/ThemeConstants';
 
 import handleUserSignIn, { getUser } from "../firebase/FireBaseInstance";
 import { useNavigate } from "react-router-dom";
@@ -39,7 +40,7 @@ const SignInPageResponsiveWrapper = styled.div`
     }
 
     .whole-page {
-
+        background-color: ${ThemeConstants.primaryAccentRed}};
     }
 
     .welcome-banner {
@@ -84,7 +85,7 @@ const SignInPageResponsiveWrapper = styled.div`
     /* going from larger to smaller values*/
     @media ${AspectConstants.ultrawide} {
         .whole-page {
-            background-color: black;
+            /* background-color: black; */
 
             flex-direction: row;
         }
@@ -126,7 +127,7 @@ const SignInPageResponsiveWrapper = styled.div`
 
     @media ${AspectConstants.desktopL} {
         .whole-page {
-            background-color: cadetblue;
+            /* background-color: cadetblue; */
         }
 
         .welcome-banner {
@@ -165,7 +166,7 @@ const SignInPageResponsiveWrapper = styled.div`
 
     @media ${AspectConstants.desktopS} {
         .whole-page {
-            background-color: brown;
+            /* background-color: brown; */
         }
 
         .welcome-banner {
@@ -191,7 +192,7 @@ const SignInPageResponsiveWrapper = styled.div`
 
     @media ${AspectConstants.tabletS} {
         .whole-page {
-            background-color: green; 
+            /* background-color: green;  */
         }
 
         .sign-in-tile {
@@ -200,7 +201,7 @@ const SignInPageResponsiveWrapper = styled.div`
 
     @media ${AspectConstants.tabletL} {
         .whole-page {
-            background-color: purple;
+            /* background-color: purple; */
         }
 
         .welcome-banner {
@@ -230,7 +231,7 @@ const SignInPageResponsiveWrapper = styled.div`
 
     @media ${AspectConstants.mobileS} {
         .whole-page {
-            background-color: blue;
+            /* background-color: blue; */
         }
 
         .welcome-banner {
@@ -255,7 +256,7 @@ const SignInPageResponsiveWrapper = styled.div`
 
     @media ${AspectConstants.mobileL} {
         .whole-page {
-            background-color: yellow;
+            /* background-color: yellow; */
         }
 
         h4 {
@@ -268,8 +269,7 @@ const SignInPageResponsiveWrapper = styled.div`
             }
 
             h3 {
-                font-size: 10px;
-                width: 80%;
+                font-size: 25px;
             }
 
             a {
