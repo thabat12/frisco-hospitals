@@ -6,6 +6,11 @@ import ThemeConstants from '../global/ThemeConstants.js';
 
 const GiveTabResponsiveWrapper = styled.div`
 
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+
     .greetings-cookie {
         margin-top: 15px;
         left: 0%;

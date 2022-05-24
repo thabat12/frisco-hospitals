@@ -7,6 +7,11 @@ import ThemeConstants from "../global/ThemeConstants";
 
 const VolunteerTabResponsiveWrapper = styled.div`
 
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+
     .greetings-cookie {
         margin-top: 15px;
         left: 0%;

@@ -11,6 +11,10 @@ import {getAuth} from 'firebase/auth';
 
 const DashboardTabResponsiveWrapper = styled.div`
 
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+
     .greetings-cookie {
         margin-top: 15px;
         left: 0%;

@@ -6,6 +6,10 @@ import { AspectConstants, ResponsiveConstants } from "../global/ResponsiveConsta
 
 const CommunityTabResponsiveWrapper = styled.div`
 
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+
     .greetings-cookie {
         margin-top: 15px;
         left: 0%;
