@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
+import { useDropzone } from 'react-dropzone';
 import styled from 'styled-components';
 
 import circleIcon from '../../../icons/circle.svg';
@@ -22,7 +23,7 @@ const ActionPageWrapper = styled.div`
     .header {
         display: flex;
         flex-direction: column;
-        flex-grow: 2;
+        height: 150px;
 
         justify-content: center;
         align-items: center;
@@ -41,6 +42,7 @@ const ActionPageWrapper = styled.div`
         display: flex;
         flex-direction: column;
         flex-grow: 10;
+        background-color: yellow;
 
         justify-content: center;
         align-items: center;
@@ -288,11 +290,261 @@ const SectionSliderWrapper = styled.div`
 
 `;
 
+const GalleryActionPageContent = styled.div`
+
+    :root {
+        --delay-one: 2s;
+        --delay-two: 0.5s;
+        --delay-three: 0.7s;
+    }
+
+    .overlay-all {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    @keyframes float-anim {
+        0% {
+            transform: translate(0px, 0px);
+        }
+
+        50% {
+            transform: translate(0px, -10px);
+        }
+
+        100% {
+            transform: translate(0px, 0px);
+        }
+    }
+
+    .image-icon {
+        animation-name: float-anim;
+        animation-duration: 3s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+        box-shadow: 10px 10px 100px 100px rgba(0,0,0,1);
+        
+        position: absolute;
+    }
+
+    #first-one {
+        animation-delay: 0.2s;
+    }
+
+    #second-one {
+        animation-delay: 0.5s;
+    }
+
+    #third-one {
+        animation-delay: 0.8s;
+    }
+
+    p {
+        margin-top: -50px;
+        font-weight: bold;
+        font-size: 20px;
+    }
+    
+
+`;
+
+function GalleryActionPageFirstSection(props) {
+
+    return (
+        <GalleryActionPageContent>
+            <div className='overlay-all'>
+
+                <svg className='gallery-viewing' width="465" height="465" viewBox="0 0 465 347" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="76" width="125" height="125" rx="5" fill="#FF6161" className='image-icon' id='first-one'/>
+                    <rect x="340" width="125" height="125" rx="5" fill="#FF61EF" className='image-icon' id='third-one'/>
+                    <rect x="208" width="125" height="125" rx="5" fill="#61A0FF" className='image-icon' id='second-one'/>
+                    <circle id='person-1' cx="54" cy="163" r="50" fill="#7D7D7D"/>
+                    <path id='person-2' d="M49.783 181.417C51.3495 176.961 57.6505 176.961 59.217 181.417L99.3575 295.592C100.501 298.844 98.0877 302.25 94.6405 302.25H14.3595C10.9123 302.25 8.49917 298.844 9.6425 295.592L49.783 181.417Z" fill="#7D7D7D"/>
+                </svg> 
+
+                <p>
+                    Help build this website etc...
+                </p>
+                
+            </div>
+               
+        </GalleryActionPageContent>
+        
+    );
+}
+
+function GalleryActionPageSecondSection() {
+    return (
+        <div>
+            <form>
+
+                {/* section 1 */}
+
+                <h5>
+                    Your Submission Type
+                </h5>
+
+                <input type='checkbox'/>
+                <label>
+                    Artwork
+                </label>
+
+                <input type='checkbox'/>
+                <label>
+                    Photography
+                </label>
+
+                <input type='checkbox'/>
+                <label>
+                    Video / Animation
+                </label>
+
+                <input type='checkbox'/>
+                <label>
+                    Other
+                </label>
+
+                {/* section 2 */}
+
+                <h5>
+                    I allow FHN to...
+                </h5>
+
+                <input type='checkbox'/>
+                <label>
+                    Share my submission to different hospital locations
+                </label>
+
+                <input type='checkbox'/>
+                <label>
+                    Feature my work on the FHN website
+                </label>
+
+                {/* section 3 */}
+
+                <h5>
+                    Terms
+                </h5>
+
+                <input type='checkbox' required/>
+                <label>
+                    I understand that FHN will have access to my submission after uploading. I also understand that my work may be rejected if it contains inappropriate content.
+                </label>
+
+                <button type='proceed'>
+                    Save Section
+                </button>
+
+
+            </form>
+        </div>
+    );
+}
+
+const DropzoneWrapper = styled.div`
+
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    #test-this {
+        height: 100px;
+    }
+    
+
+    #container {
+        position: relative;
+
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 20px;
+        border-width: 2px;
+        border-radius: 10px;
+        border-color: rgba(100,100,50,1.0);
+        border-style: dashed;
+        background-color: #fafafa;
+        color: #bdbdbd;
+        outline: none;
+        transition: .24s ease-in-out;
+    }
+
+    #container:hover {
+        transform: scale(1.04);
+    }
+
+`;
+
+function DragDropFileSection(props) {
+
+    const onDrop = useCallback((acceptedFiles) => {
+        acceptedFiles.forEach((file) => {
+            const reader = new FileReader();
+
+            reader.onabort = () => console.log('file reading was aborted');
+            reader.onerror = () => console.log('file reading has failed');
+            reader.onload = () => {
+            // Do whatever you want with the file contents
+                const binaryStr = reader.result;
+
+                var blob = new Blob([binaryStr], {type: 'image/jpeg'});
+                var urlCreator = window.URL || window.webkitURL;
+                var imageUrl = urlCreator.createObjectURL(blob);
+
+
+
+                const output = document.getElementById('test-this');
+                output.src = imageUrl;
+                console.log(binaryStr);
+            }
+            reader.readAsArrayBuffer(file)
+        })
+    })
+
+    const {acceptedFiles, getRootProps, getInputProps} = useDropzone({onDrop});
+
+    const files = acceptedFiles.map(file => (
+        <li key={file.path}>
+          {file.path} - {file.size} bytes
+        </li>
+      ));
+
+    
+    return (
+        <DropzoneWrapper>
+            <img id='test-this'>
+            </img>
+        
+            <div id='container'>
+                <div {...getRootProps({className: 'dropzone'})}>
+                    <input {...getInputProps()} />
+                    <p>Drag and drop some files here, or click to select files</p>
+
+                    <aside>
+                        <h4>Files</h4>
+                        <ul>
+                            {files}
+                        </ul>
+                    </aside>
+                </div>
+            </div>
+
+        </DropzoneWrapper>
+    );
+}
+
 const galleryActionPageConstants = {
     pageCount: 3,
     pagerTextSequence: ['Begin', 'Next', 'Next', 'Finish'],
     activeCircleOffsets: [150, 50, -50, -150],
-    activeContentSequence: [GalleryActionPageFirstSection],
+    activeContentSequence: [GalleryActionPageFirstSection, GalleryActionPageSecondSection, DragDropFileSection],
     headerContentSequence: [
         {
             title: 'Submit To the FHN Gallery!', 
@@ -302,13 +554,26 @@ const galleryActionPageConstants = {
             description: 'Please fill out the following information before submitting your work. This information will help us better understand your submission.'
         }, 
         {
-
+            title: 'Submit To the FHN Gallery!', 
+            description: 'In this section, please upload an image / images of your work. '
         }, 
         {
-
+            title: 'Submission Description and Finish',
+            description: 'Finally, provide a short description of your work and once finished, save your submission with the "Finish" button.'
         }
     ]
 };
+
+function SubmissionDescriptionFinishSection(props) {
+
+    return (
+        <div>
+            <textarea name='para_text' cols='50' rows='10'>
+
+            </textarea>
+        </div>
+    );
+}
 
 export default function GalleryActionPage(props) {
 
@@ -333,76 +598,25 @@ export default function GalleryActionPage(props) {
 
             <div className='content'>
                 <ContentSectionWrapper>
+                    
                     {
-                      (state.curPage === 0) &&
-                      <GalleryActionPageFirstSection/>      
+                        (state.curPage === 0) &&
+                        <GalleryActionPageFirstSection/>
                     }
 
                     {
-                        (state.curPage === 1) && 
-                        <div>
-                           <form>
+                        (state.curPage === 1) &&
+                        <GalleryActionPageSecondSection/>
+                    }
 
-                                {/* section 1 */}
+                    {
+                        (state.curPage === 2) &&
+                        <DragDropFileSection/>
+                    }
 
-                                <h5>
-                                    Your Submission Type
-                                </h5>
-
-                                <input type='checkbox'/>
-                                <label>
-                                    Artwork
-                                </label>
-
-                                <input type='checkbox'/>
-                                <label>
-                                    Photography
-                                </label>
-
-                                <input type='checkbox'/>
-                                <label>
-                                    Video / Animation
-                                </label>
-
-                                <input type='checkbox'/>
-                                <label>
-                                    Other
-                                </label>
-
-                                {/* section 2 */}
-
-                                <h5>
-                                    I allow FHN to...
-                                </h5>
-
-                                <input type='checkbox'/>
-                                <label>
-                                    Share my submission to different hospital locations
-                                </label>
-
-                                <input type='checkbox'/>
-                                <label>
-                                    Feature my work on the FHN website
-                                </label>
-
-                                {/* section 3 */}
-
-                                <h5>
-                                    Terms
-                                </h5>
-
-                                <input type='checkbox' required/>
-                                <label>
-                                    I understand that FHN will have access to my submission after uploading. I also understand that my work may be rejected if it contains inappropriate content.
-                                </label>
-
-                                <button type='proceed'>
-                                    Save Section
-                                </button>
-
-
-                           </form>
-                        </div>
+                    {
+                        (state.curPage === 3) &&
+                        <SubmissionDescriptionFinishSection/>
                     }
                     
                 </ContentSectionWrapper>
@@ -481,100 +695,4 @@ function SliderCircles(props) {
 
         </div>
         );
-}
-
-
-// For the content sections, i'm going to just make an array of pages that are supposed to be paged through
-/*
-    Goal:
-        - components that can be stored in as an array 
-        - fade in and out animations are a must!
-        - text box elements are going to have to be accessible 
-
-
-
-*/
-
-const GalleryActionPageContent = styled.div`
-
-    :root {
-        --delay-one: 2s;
-        --delay-two: 0.5s;
-        --delay-three: 0.7s;
-    }
-
-    .overlay-all {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    @keyframes float-anim {
-        0% {
-            transform: translate(0px, 0px);
-        }
-
-        50% {
-            transform: translate(0px, -10px);
-        }
-
-        100% {
-            transform: translate(0px, 0px);
-        }
-    }
-
-    .image-icon {
-        animation-name: float-anim;
-        animation-duration: 3s;
-        animation-timing-function: ease-in-out;
-        animation-iteration-count: infinite;
-        box-shadow: 10px 10px 100px 100px rgba(0,0,0,1);
-        
-        position: absolute;
-    }
-
-    #first-one {
-        animation-delay: 0.2s;
-    }
-
-    #second-one {
-        animation-delay: 0.5s;
-    }
-
-    #third-one {
-        animation-delay: 0.8s;
-    }
-
-    p {
-        margin-top: -50px;
-        font-weight: bold;
-        font-size: 20px;
-    }
-    
-
-`;
-
-function GalleryActionPageFirstSection() {
-
-    return (
-        <GalleryActionPageContent>
-            <div className='overlay-all'>
-
-                <svg className='gallery-viewing' width="465" height="465" viewBox="0 0 465 347" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="76" width="125" height="125" rx="5" fill="#FF6161" className='image-icon' id='first-one'/>
-                    <rect x="340" width="125" height="125" rx="5" fill="#FF61EF" className='image-icon' id='third-one'/>
-                    <rect x="208" width="125" height="125" rx="5" fill="#61A0FF" className='image-icon' id='second-one'/>
-                    <circle id='person-1' cx="54" cy="163" r="50" fill="#7D7D7D"/>
-                    <path id='person-2' d="M49.783 181.417C51.3495 176.961 57.6505 176.961 59.217 181.417L99.3575 295.592C100.501 298.844 98.0877 302.25 94.6405 302.25H14.3595C10.9123 302.25 8.49917 298.844 9.6425 295.592L49.783 181.417Z" fill="#7D7D7D"/>
-                </svg> 
-
-                <p>
-                    Help build this website etc...
-                </p>
-                
-            </div>
-               
-        </GalleryActionPageContent>
-        
-    );
 }
