@@ -42,7 +42,6 @@ const ActionPageWrapper = styled.div`
         display: flex;
         flex-direction: column;
         flex-grow: 10;
-        background-color: yellow;
 
         justify-content: center;
         align-items: center;
@@ -68,6 +67,50 @@ const ActionPageWrapper = styled.div`
     @keyframes fade-out-anim {
         from {opacity: 1;}
         to {opacity: 0;}
+    }
+
+    @keyframes fadein-sr-anim {
+        from {
+            opacity: 0;
+            transform: translate(-100px);
+        }
+        to {
+            opacity: 1;
+            transform: translate(0px);
+        }
+    }
+
+    @keyframes fadeout-sr-anim {
+        from {
+            opacity: 1;
+            transform: translate(0px);
+        }
+        to {
+            opacity: 0;
+            transform: translate(100px);
+        }
+    }
+
+    @keyframes fadein-sl-anim {
+        from {
+            opacity: 0;
+            transform: translate(100px);
+        }
+        to {
+            opacity: 1;
+            transform: translate(0px);
+        }
+    }
+
+    @keyframes fadeout-sl-anim {
+        from {
+            opacity: 0;
+            transform: translate(-100px);
+        }
+        to {
+            opacity: 1;
+            transform: translate(0px);
+        }
     }
 
 
@@ -220,6 +263,12 @@ const ActionPageWrapper = styled.div`
         opacity: 0;
     }
 
+    .fade-in {
+        animation-name: fade-in-anim;
+        animation-duration: 0.5s;
+        opacity: 1;
+    }
+
     .stay {
         opacity: 1;
     }
@@ -239,6 +288,26 @@ const ActionPageWrapper = styled.div`
 
         margin-right: 100px;
         margin-bottom: 5px;
+    }
+
+    .fadein-sr {
+        animation-name: fadein-sr-anim;
+        animation-duration: 0.1s;
+    }
+
+    .fadein-sl {
+        animation-name: fadein-sl-anim;
+        animation-duration: 0.1s;
+    }
+
+    .fadeout-sr {
+        animation-name: fadeout-sr-anim;
+        animation-duration: 0.1s;
+    }
+
+    .fadeout-sl {
+        animation-name: fadeout-sl-anim;
+        animation-duration: 0.1s;
     }
     
 
@@ -575,20 +644,86 @@ function SubmissionDescriptionFinishSection(props) {
     );
 }
 
+/*
+
+    the beefy-est function for something so simple, i still need to add these things! :: 
+
+        - firebase memory of past submissions
+            - set a cap of 1 submission per week or something by checking account and such
+
+        - transition animations
+
+        - submission success screen
+
+
+*/
+
 export default function GalleryActionPage(props) {
 
     const [state, setState] = useState({
         curPage : 0
     });
 
+    const [buttonState, setButtonState] = useState({
+        leftButton : '',
+        rightButton : '', 
+        header: '',
+        content: ''
+    });
 
+    // unfortunately, this function is for a very special case, so have to make more general
+    function giveTimeForAnimationLeaving(pageBack) {
+
+        setButtonState({leftButton: 'fade-out', header: 'fade-out', content: 'fade-out'});
+
+        let myInterval = setInterval(
+            () => {
+                console.log('ending the button thing');
+                setButtonState({
+                    leftButton : '',
+                    rightButton : '', 
+                    header: 'fade-in',
+                    content: 'fade-in'
+                });
+                pageBack && setState({curPage: state.curPage - 1});
+                
+                clearInterval(myInterval);
+            }, 100
+        );
+    }
+
+    function handlePageForwardBackwardTransitions(pageForward, pageBackward) {
+
+        setButtonState({leftButton: '', header: 'fade-out', content: 'fade-out'});
+
+        let myInterval = setInterval(
+            () => {
+
+                setButtonState({
+                    leftButton : '',
+                    rightButton : '', 
+                    header: 'fade-in',
+                    content: 'fade-in'
+                });
+
+                clearInterval(myInterval);
+
+                pageForward && setState({curPage: state.curPage + 1});
+                pageBackward && setState({curPage: state.curPage - 1});
+
+
+
+            }, 100
+        );
+    }
 
     return (
         <ActionPageWrapper>
-            <div className='header'>
+            <div className={'header ' + buttonState.header}>
 
                 <h2 className='header-title'>
                     {galleryActionPageConstants.headerContentSequence[state.curPage]?.title}
+                    {state.curPage}
                 </h2>
 
                 <h4 className='header-description'>
@@ -596,7 +731,7 @@ export default function GalleryActionPage(props) {
                 </h4> 
             </div>
 
-            <div className='content'>
+            <div className={'content ' + buttonState.content}>
                 <ContentSectionWrapper>
                     
                     {
@@ -629,9 +764,9 @@ export default function GalleryActionPage(props) {
                 </svg>
 
                 {
-                    (state.curPage <= galleryActionPageConstants.pageCount) &&
+                    (state.curPage <= galleryActionPageConstants.pageCount && state.curPage !== 4) &&
 
-                    <button className='button-pager' onClick={ () => {setState({curPage : state.curPage + 1})} }>
+                    <button className='button-pager' onClick={ () => {handlePageForwardBackwardTransitions(true, false);} }>
                         <h2>
                             {galleryActionPageConstants.pagerTextSequence[state.curPage]}
                         </h2>
@@ -646,8 +781,17 @@ export default function GalleryActionPage(props) {
 
 
                 {
-                    (state.curPage !== 0) && 
-                    <button className={'button-pager-left '} id='pager-left' onClick={() => setState({curPage : state.curPage - 1})}>
+                    (state.curPage !== 0 && state.curPage !== 4) && 
+                    <button className={'button-pager-left ' + buttonState.leftButton} id='pager-left' onClick={
+                            () => {
+
+                                if (state.curPage === 1) {
+                                    giveTimeForAnimationLeaving(true);
+                                } else {
+                                    handlePageForwardBackwardTransitions(false, true);
+                                }
+                            }
+                        }>
                         
                         <svg className='arrow' width="109" height="194" viewBox="0 0 109 194" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5.60923 6.37433L102.951 96.2728C103.38 96.6687 103.38 97.3461 102.951 97.7421L5.60923 187.641" stroke="white" strokeWidth="20" strokeLinecap="round"/>
