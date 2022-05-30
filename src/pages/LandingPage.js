@@ -19,6 +19,7 @@ import GalleryScroll from "../widgets/landing_page/GalleryScroll";
 
 import instaLogo from '../icons/instagram.svg';
 import facebookLogo from '../icons/facebook.svg';
+import CommunityLanding from "../widgets/landing_page/CommunityLanding";
 
 /*
     LandingPage.js File Contents:
@@ -1240,6 +1241,8 @@ class LandingPageMain extends React.Component {
                             
                             <ProjectSection name="volunteer"/>
                             <ProjectSection name="donate"/>
+
+                            <CommunityLanding/>
                         </AllProjectsLandingPagePortion>
 
                         {/* Footer Section */}
