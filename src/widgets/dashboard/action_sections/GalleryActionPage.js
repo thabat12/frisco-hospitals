@@ -29,7 +29,9 @@ const ActionPageWrapper = styled.div`
         align-items: center;
     }
 
-    .header-title {}
+    .header-title {
+        font-size: 30px;
+    }
 
     .header-description {
         text-align: center;
@@ -443,71 +445,152 @@ function GalleryActionPageFirstSection(props) {
     );
 }
 
+const FormSectionWrapper = styled.div`
+
+    form {
+        padding-left: 20px;
+        padding-right: 20px;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+
+    }
+
+    button {
+        background-color: ${ThemeConstants.primaryAccentRed};
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+
+        transition: 0.1s linear;
+    }
+
+    button:hover {
+        transform: scale(1.05);
+    }
+
+    button:active {
+        transform: scale(0.95);
+    }
+
+    .input-label-box {
+    }
+
+`;
+
 function GalleryActionPageSecondSection() {
+
+    const [btnState, setBtnState] = useState('');
+
+    function handleBtnState(e) {
+        e.preventDefault();
+        if (btnState === '') {
+            setBtnState('checked');
+        }
+    }
+
     return (
-        <div>
-            <form>
+        <FormSectionWrapper>
+            <div>
+                <form>
 
-                {/* section 1 */}
+                    {/* section 1 */}
 
-                <h5>
-                    Your Submission Type
-                </h5>
+                    <div className='form-section'>
 
-                <input type='checkbox'/>
-                <label>
-                    Artwork
-                </label>
+                        <h5 className='action-section-title'>
+                            Your Submission Type
+                        </h5>
 
-                <input type='checkbox'/>
-                <label>
-                    Photography
-                </label>
+                        <div>
+                            <input type='checkbox'/>
+                            <label>
+                                Artwork
+                            </label>
+                        </div>
+                    
+                        <div>
+                            <input type='checkbox'/>
+                            <label>
+                                Photography
+                            </label>
+                        </div>
+                        
 
-                <input type='checkbox'/>
-                <label>
-                    Video / Animation
-                </label>
+                        <div>
+                            <input type='checkbox'/>
+                            <label>
+                                Video / Animation
+                            </label>
+                        </div>
+                        
 
-                <input type='checkbox'/>
-                <label>
-                    Other
-                </label>
+                        <div>
+                            <input type='checkbox'/>
+                            <label>
+                                Other
+                            </label>
+                        </div>
 
-                {/* section 2 */}
+                    </div>
+                    
 
-                <h5>
-                    I allow FHN to...
-                </h5>
+                    {/* section 2 */}
 
-                <input type='checkbox'/>
-                <label>
-                    Share my submission to different hospital locations
-                </label>
+                    <div className='form-section'>
 
-                <input type='checkbox'/>
-                <label>
-                    Feature my work on the FHN website
-                </label>
+                        <h5>
+                            I allow FHN to...
+                        </h5>
 
-                {/* section 3 */}
+                        <div>
+                            <input type='checkbox'/>
+                            <label>
+                                Share my submission to different hospital locations
+                            </label>
+                        </div>
+                        
+                        <div>
+                            <input type='checkbox'/>
+                            <label>
+                                Feature my work on the FHN website
+                            </label>
+                        </div>
 
-                <h5>
-                    Terms
-                </h5>
+                    </div>
 
-                <input type='checkbox' required/>
-                <label>
-                    I understand that FHN will have access to my submission after uploading. I also understand that my work may be rejected if it contains inappropriate content.
-                </label>
+                    {/* section 3 */}
 
-                <button type='proceed'>
-                    Save Section
-                </button>
+                    <div className='form-section'>
+
+                        <h5>
+                            Terms
+                        </h5>
+
+                        <div className='input-label-box'>
+                            <input type='checkbox' required/>
+                            <label>
+                                I understand that FHN will have access to my submission after uploading. I also understand that my work may be rejected if it contains inappropriate content.
+                            </label>
+                        </div>
+                        
+
+                        <button type='proceed' onClick={(e) => {
+                            handleBtnState(e);
+                        }}>
+                            Save Section
+                        </button>
+
+                    </div>
 
 
-            </form>
-        </div>
+                </form>
+            </div>
+        </FormSectionWrapper>
     );
 }
 
@@ -723,7 +806,6 @@ export default function GalleryActionPage(props) {
 
                 <h2 className='header-title'>
                     {galleryActionPageConstants.headerContentSequence[state.curPage]?.title}
-                    {state.curPage}
                 </h2>
 
                 <h4 className='header-description'>
