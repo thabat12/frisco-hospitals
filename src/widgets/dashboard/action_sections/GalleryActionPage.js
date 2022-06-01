@@ -1,10 +1,29 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import { useDropzone } from 'react-dropzone';
 import styled from 'styled-components';
+import lottie from 'lottie-web';
 
 import circleIcon from '../../../icons/circle.svg';
 import ThemeConstants from '../../../global/ThemeConstants';
 import galleryActionPageGroup from '../../../icons/galleryactionpage-first.svg';
+import congratsLottie from '../../../icons/lottie/congrats.json';
+
+// challenge: remember states throughout, which will be accomplished by this variable here
+let sectionStates = {
+    second: {
+        submissionType: '',
+        allowFHN: [],
+        terms: false,
+        saveSection: false
+    },
+    third: {
+        fileNames: [],
+        fileUrls: []
+    },
+    fourth: {
+        text: ''
+    }
+}
 
 const ActionPageWrapper = styled.div`
 
@@ -416,6 +435,12 @@ const GalleryActionPageContent = styled.div`
         font-weight: bold;
         font-size: 20px;
     }
+
+    #para-desc {
+        padding-left: 20px;
+        padding-right: 20px;
+        text-align: center;
+    }
     
 
 `;
@@ -434,8 +459,8 @@ function GalleryActionPageFirstSection(props) {
                     <path id='person-2' d="M49.783 181.417C51.3495 176.961 57.6505 176.961 59.217 181.417L99.3575 295.592C100.501 298.844 98.0877 302.25 94.6405 302.25H14.3595C10.9123 302.25 8.49917 298.844 9.6425 295.592L49.783 181.417Z" fill="#7D7D7D"/>
                 </svg> 
 
-                <p>
-                    Help build this website etc...
+                <p id='para-desc'>
+                    Your work may be displayed in a hospital near you or featured on this website!
                 </p>
                 
             </div>
@@ -448,15 +473,25 @@ function GalleryActionPageFirstSection(props) {
 const FormSectionWrapper = styled.div`
 
     form {
-        padding-left: 20px;
-        padding-right: 20px;
+        padding-left: 60px;
+        padding-right: 60px;
 
         display: flex;
         flex-direction: column;
     }
 
-    label {
+    h5 {
+        margin-bottom: 6px;
+        margin-top: 6px;
+        font-size: 20px;
+    }
 
+    input {
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+
+    label {
     }
 
     button {
@@ -465,6 +500,7 @@ const FormSectionWrapper = styled.div`
         border: none;
         border-radius: 5px;
         padding: 10px;
+        margin-top: 15px;
 
         transition: 0.1s linear;
     }
@@ -484,13 +520,44 @@ const FormSectionWrapper = styled.div`
 
 function GalleryActionPageSecondSection() {
 
-    const [btnState, setBtnState] = useState('');
+    const [selected, setSelected] = useState(sectionStates.second.submissionType);
+    const [checked, setChecked] = useState(sectionStates.second.terms);
+
 
     function handleBtnState(e) {
         e.preventDefault();
-        if (btnState === '') {
-            setBtnState('checked');
+
+        // check if we have selected the terms to be true
+        const requiredField = document.querySelector('#required-field');
+        if (!requiredField.checked) {
+            alert('Please check on the terms and conditions to continue');
+            return;
         }
+
+        sectionStates.second.terms = true;
+        
+        const elems = document.getElementsByName('submission-type');
+        const labels = document.getElementsByTagName('label');
+        
+
+        for (let i = 0; i < elems.length; i++) {
+            if (elems[i].checked) {
+                sectionStates.second.submissionType = labels[i].innerHTML;
+            }
+        }
+
+        const firstAllow = document.querySelector('#allow0');
+        const secondAllow = document.querySelector('#allow1');
+
+
+        sectionStates.second.allowFHN = [+ firstAllow.checked, + secondAllow.checked];
+
+
+        sectionStates.second.saveSection = true;
+    }
+
+    function handleChange(e) {
+        setSelected(e.target.value);
     }
 
     return (
@@ -507,14 +574,14 @@ function GalleryActionPageSecondSection() {
                         </h5>
 
                         <div>
-                            <input type='checkbox'/>
+                            <input type='radio' name='submission-type' value='Artwork' onChange={handleChange} checked={selected === 'Artwork'}/>
                             <label>
                                 Artwork
                             </label>
                         </div>
                     
                         <div>
-                            <input type='checkbox'/>
+                            <input type='radio' name='submission-type' value='Photography' onChange={handleChange} checked={selected === 'Photography'}/>
                             <label>
                                 Photography
                             </label>
@@ -522,7 +589,7 @@ function GalleryActionPageSecondSection() {
                         
 
                         <div>
-                            <input type='checkbox'/>
+                            <input type='radio' name='submission-type' value='Video / Animation' onChange={handleChange} checked={selected === 'Video / Animation'}/>
                             <label>
                                 Video / Animation
                             </label>
@@ -530,7 +597,7 @@ function GalleryActionPageSecondSection() {
                         
 
                         <div>
-                            <input type='checkbox'/>
+                            <input type='radio' name='submission-type' value='Other' onChange={handleChange} checked={selected === 'Other'}/>
                             <label>
                                 Other
                             </label>
@@ -548,14 +615,14 @@ function GalleryActionPageSecondSection() {
                         </h5>
 
                         <div>
-                            <input type='checkbox'/>
+                            <input type='checkbox' id='allow0' checked={sectionStates.second.allowFHN[0]} readOnly='true'/>
                             <label>
                                 Share my submission to different hospital locations
                             </label>
                         </div>
                         
                         <div>
-                            <input type='checkbox'/>
+                            <input type='checkbox' id='allow1' checked={sectionStates.second.allowFHN[1]} readOnly='true'/>
                             <label>
                                 Feature my work on the FHN website
                             </label>
@@ -572,7 +639,7 @@ function GalleryActionPageSecondSection() {
                         </h5>
 
                         <div className='input-label-box'>
-                            <input type='checkbox' required/>
+                            <input type='checkbox' id='required-field' checked={checked} onClick={() => {setChecked(!checked)}} readOnly='true' required/>
                             <label>
                                 I understand that FHN will have access to my submission after uploading. I also understand that my work may be rejected if it contains inappropriate content.
                             </label>
@@ -603,6 +670,18 @@ const DropzoneWrapper = styled.div`
     justify-content: center;
     align-items: center;
 
+    .dropzone {
+        position: relative;
+        max-width: 80%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: auto;
+
+        color: black;
+    }
+
     #test-this {
         height: 100px;
     }
@@ -632,35 +711,60 @@ const DropzoneWrapper = styled.div`
         transform: scale(1.04);
     }
 
+    #test-this {
+        margin-bottom: 100px;
+    }
+
+    p {
+        margin-bottom: 10px;
+    }
+
 `;
 
 function DragDropFileSection(props) {
 
+    const [prevLoad, setLoad] = useState(true);
+
+    const acceptedFileTypes = [
+        'image/jpeg', 'image/png', 'image/gif'
+    ]
+
+    let savedStateFileNames = [];
+    let savedStateFileUrls = [];
+
+
     const onDrop = useCallback((acceptedFiles) => {
+        setLoad(false);
+
+        savedStateFileNames = [];
+        savedStateFileUrls = [];
+
         acceptedFiles.forEach((file) => {
             const reader = new FileReader();
 
-            reader.onabort = () => console.log('file reading was aborted');
-            reader.onerror = () => console.log('file reading has failed');
             reader.onload = () => {
             // Do whatever you want with the file contents
                 const binaryStr = reader.result;
 
-                var blob = new Blob([binaryStr], {type: 'image/jpeg'});
+                var blob = new Blob([binaryStr], {type: 'image/jpg'});
                 var urlCreator = window.URL || window.webkitURL;
                 var imageUrl = urlCreator.createObjectURL(blob);
 
-
-
                 const output = document.getElementById('test-this');
                 output.src = imageUrl;
-                console.log(binaryStr);
+
+
+                savedStateFileNames.push(`${file.path} - ${file.size} bytes`);
+                savedStateFileUrls.push(binaryStr);
             }
             reader.readAsArrayBuffer(file)
-        })
+        });
+
+        sectionStates.third.fileNames = savedStateFileNames;
+        sectionStates.third.fileUrls = savedStateFileUrls;
     })
 
-    const {acceptedFiles, getRootProps, getInputProps} = useDropzone({onDrop});
+    const {acceptedFiles, getRootProps, getInputProps} = useDropzone({onDrop, maxFiles:5});
 
     const files = acceptedFiles.map(file => (
         <li key={file.path}>
@@ -671,19 +775,19 @@ function DragDropFileSection(props) {
     
     return (
         <DropzoneWrapper>
-            <img id='test-this'>
-            </img>
+            <img id='test-this'/>
         
             <div id='container'>
                 <div {...getRootProps({className: 'dropzone'})}>
                     <input {...getInputProps()} />
-                    <p>Drag and drop some files here, or click to select files</p>
+                    <p>Drag and drop some files here, or click to select files (Max 5 files)</p>
 
                     <aside>
-                        <h4>Files</h4>
-                        <ul>
-                            {files}
-                        </ul>
+                        <h4>Uploaded Files:</h4>
+                        <ol>
+                            {!prevLoad && files}
+                            {prevLoad && sectionStates.third.fileNames.map(file => <li>{file}</li>)}
+                        </ol>
                     </aside>
                 </div>
             </div>
@@ -695,7 +799,7 @@ function DragDropFileSection(props) {
 const galleryActionPageConstants = {
     pageCount: 3,
     pagerTextSequence: ['Begin', 'Next', 'Next', 'Finish'],
-    activeCircleOffsets: [150, 50, -50, -150],
+    activeCircleOffsets: [150, 50, -50, -150, -150],
     activeContentSequence: [GalleryActionPageFirstSection, GalleryActionPageSecondSection, DragDropFileSection],
     headerContentSequence: [
         {
@@ -707,23 +811,114 @@ const galleryActionPageConstants = {
         }, 
         {
             title: 'Submit To the FHN Gallery!', 
-            description: 'In this section, please upload an image / images of your work. '
+            description: 'In this section, please upload an image / images of your work.'
         }, 
         {
             title: 'Submission Description and Finish',
             description: 'Finally, provide a short description of your work and once finished, save your submission with the "Finish" button.'
+        }, 
+        {
+            title: 'Congratulations!',
+            description: 'We have received your submission, here are the following details:'
         }
     ]
 };
 
+const SubmissionDescriptionWrapper = styled.div`
+    
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 100%;
+
+    justify-content: center;
+    align-items: center;
+
+    textarea {
+        position: relative;
+        max-width: 80%;
+        max-height: 80%;
+    }
+
+    #congrats-anim {
+        position: relative;
+        height: 100%;
+        width: 100%;
+    }
+`;
+
 function SubmissionDescriptionFinishSection(props) {
 
+    function handleTextAreaChange(e) {
+        sectionStates.fourth.text = e.target.value;
+    }
+
     return (
-        <div>
-            <textarea name='para_text' cols='50' rows='10'>
+        <SubmissionDescriptionWrapper>
+            <textarea name='para_text' cols='50' rows='10' onChange={(e) => {handleTextAreaChange(e)}} defaultValue={sectionStates.fourth.text}>
 
             </textarea>
-        </div>
+        </SubmissionDescriptionWrapper>
+    );
+}
+
+const CongratsSectionWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
+    #congrats-anim {
+        height: 100%;
+    }
+
+    #congrats-overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        
+    }
+`;
+
+function CongratsSection(props) {
+    console.log(props);
+    useEffect(
+        () => {
+            lottie.loadAnimation(
+                {
+                    container: document.querySelector('#congrats-anim'),
+                    animationData: congratsLottie,
+                    loop: false
+                }
+            )
+        }, []
+    )
+
+    return (
+        <ContentSectionWrapper>
+            <div id='congrats-anim'/>
+            <div id='congrats-overlay'>
+                <h5>
+                    Submission Type: Artwork
+                </h5>
+
+                <h5>
+                    Submission Files:
+                    {props.sectionState.third.fileNames}
+                </h5>
+
+                <h5>
+                    Text Description:
+                    {props.sectionState.fourth.text}
+                </h5>
+            </div>
+        </ContentSectionWrapper>
     );
 }
 
@@ -761,7 +956,6 @@ export default function GalleryActionPage(props) {
 
         let myInterval = setInterval(
             () => {
-                console.log('ending the button thing');
                 setButtonState({
                     leftButton : '',
                     rightButton : '', 
@@ -834,6 +1028,11 @@ export default function GalleryActionPage(props) {
                     {
                         (state.curPage === 3) &&
                         <SubmissionDescriptionFinishSection/>
+                    }
+
+                    {
+                        (state.curPage === 4) && 
+                        <CongratsSection sectionState={sectionStates} />
                     }
                     
                 </ContentSectionWrapper>
