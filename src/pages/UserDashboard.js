@@ -214,7 +214,10 @@ const UserDashboardResponsiveWrapper = styled.div`
 
     @media ${AspectConstants.mobileL} {
         .whole-page {
-            background-color: yellow;
+
+            h2 {
+                font-size: 20px;
+            }
         }
     }
 `;
@@ -386,6 +389,10 @@ const MobileNavHeader = styled.div`
     background-color: ${ThemeConstants.primaryAccentRed};
 
     color: white;
+
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
 `;
 
 

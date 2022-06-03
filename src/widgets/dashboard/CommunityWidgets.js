@@ -8,6 +8,7 @@ import verifyIcon from '../../icons/verify.svg';
 import emailIcon from '../../icons/email.svg';
 import xIcon from '../../icons/x.svg';
 import GalleryActionPage from './action_sections/GalleryActionPage';
+import WriteALetterActionPage from './action_sections/WriteALetterActionPage';
 
 const BaseTile = styled.div`
 
@@ -405,6 +406,9 @@ export function WriteALetterReplacement() {
                                 <div className='focus-top-bar'>
                                         <img src={xIcon} className='x-icon' onClick={closeFocusActionPage}></img>
                                 </div>
+                                <div className='focus-middle-section'>
+                                    <WriteALetterActionPage/>
+                                </div>
                             </FocusSection>
                         </ActionPage>
                     </ActionPageWrapper>
@@ -453,6 +457,7 @@ export function LocalCommunityUpdatesReplacement() {
                                 <div className='focus-top-bar'>
                                         <img src={xIcon} className='x-icon' onClick={closeFocusActionPage}></img>
                                 </div>
+                                
                             </FocusSection>
                         </ActionPage>
                     </ActionPageWrapper>
